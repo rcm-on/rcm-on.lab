@@ -243,6 +243,48 @@
     backdrop-filter: blur(3px);
 }
 
+.hero-cta {
+    position: absolute;
+    top: 126px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.hero-cta-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--emerald-base);
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(16, 185, 129, 0.55);
+    background: rgba(16, 185, 129, 0.1);
+    transition: all 0.25s ease;
+}
+
+.hero-cta-link:hover {
+    color: #eafff7;
+    border-color: rgba(16, 185, 129, 0.85);
+    background: rgba(16, 185, 129, 0.2);
+    transform: translateY(-1px);
+}
+
+.hero-cta-link.secondary {
+    color: var(--orange-base);
+    border-color: rgba(249, 115, 22, 0.58);
+    background: rgba(249, 115, 22, 0.1);
+}
+
+.hero-cta-link.secondary:hover {
+    color: #fff3e8;
+    border-color: rgba(249, 115, 22, 0.85);
+    background: rgba(249, 115, 22, 0.22);
+}
+
 .hero-phase {
     position: absolute;
     top: 20px;
@@ -690,6 +732,10 @@
         font-size: 0.68rem;
     }
 
+    .hero-cta {
+        top: 156px;
+    }
+
     .hero-process-caption {
         font-size: 0.64rem;
         bottom: 12px;
@@ -705,9 +751,9 @@
     }
 
     .process-canvas {
-        inset: 166px 12px 64px;
+        inset: 198px 12px 64px;
         width: calc(100% - 24px);
-        height: calc(100% - 230px);
+        height: calc(100% - 262px);
     }
 
     .graph-layer.phase-approach .human-cluster,
@@ -768,6 +814,20 @@
         padding: 6px 8px;
     }
 
+    .hero-cta {
+        top: 118px;
+        left: 12px;
+        right: 12px;
+        transform: none;
+        justify-content: flex-start;
+        gap: 8px;
+    }
+
+    .hero-cta-link {
+        font-size: 0.64rem;
+        padding: 6px 9px;
+    }
+
     .hero-process-caption {
         left: 12px;
         right: 12px;
@@ -777,9 +837,9 @@
     }
 
     .process-canvas {
-        inset: 150px 8px 74px;
+        inset: 182px 8px 74px;
         width: calc(100% - 16px);
-        height: calc(100% - 224px);
+        height: calc(100% - 256px);
     }
 
     .processes-section::before {
