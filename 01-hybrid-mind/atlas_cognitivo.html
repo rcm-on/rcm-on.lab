@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognitive Atlas | RCM-ON</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #030305; color: #ffffff; overflow-x: hidden; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .glass-panel { background: rgba(20, 20, 25, 0.4); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .node-active { border-color: #6366f1 !important; background: rgba(99, 102, 241, 0.1); box-shadow: 0 0 30px rgba(99, 102, 241, 0.2); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[radial-gradient(circle_at_0%_50%,_rgba(99,102,241,0.08)_0%,_#030305_100%)]">
+    <div id="root" class="flex-1 flex flex-col"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const App = () => {
+            const [activePhase, setActivePhase] = useState(0);
+
+            useEffect(() => { lucide.createIcons(); }, [activePhase]);
+
+            const phases = [
+                {
+                    title: "La Chispa (Input Sensorial)",
+                    desc: "El cerebro escanea el entorno buscando patrones sistémicos. Un acorde o una línea de código desencadena un proceso de hiper-asociación.",
+                    mechanism: "Sobreexcitación Cognitiva",
+                    icon: "zap"
+                },
+                {
+                    title: "Pensamiento Arborescente",
+                    desc: "La idea inicial no se procesa linealmente. Se ramifica en múltiples dimensiones: arquitectura, acústica, diseño y lógica estructural, todo procesado en paralelo.",
+                    mechanism: "Conectividad Global Masiva",
+                    icon: "network"
+                },
+                {
+                    title: "Túnel de Hiperfoco",
+                    desc: "El tiempo cronológico desaparece. La atención sostenida colapsa horas de desarrollo en minutos de ejecución pura de alta intensidad.",
+                    mechanism: "Kairos Time State",
+                    icon: "focus"
+                },
+                {
+                    title: "Síntesis de Complejidad",
+                    desc: "Las ramas convergen en un sistema unificado y escalable. La abstracción se convierte en un producto de ingeniería digital de alta fidelidad.",
+                    mechanism: "Ejecución Estructural",
+                    icon: "box"
+                }
+            ];
+
+            return (
+                <div className="flex-1 flex flex-col">
+                    {/* NavBar */}
+                    <nav className="p-6 flex justify-between items-center glass-panel border-t-0 border-x-0 z-50">
+                        <div className="flex items-center gap-4">
+                            <a href="../index.html" className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center hover:bg-indigo-500/20 transition-colors text-stone-400 hover:text-indigo-400">
+                                <i data-lucide="arrow-left" className="w-5 h-5"></i>
+                            </a>
+                            <div>
+                                <h1 className="text-xl font-bold italic uppercase tracking-tighter">Cognitive <span className="text-indigo-500">Atlas</span></h1>
+                                <p className="mono text-[9px] text-stone-500 tracking-[0.3em] uppercase">RCM-ON Logic Module</p>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <main className="flex-1 max-w-6xl mx-auto w-full px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        {/* Interactive Nodes */}
+                        <div className="relative space-y-4">
+                            {phases.map((phase, index) => (
+                                <div 
+                                    key={index}
+                                    onClick={() => setActivePhase(index)}
+                                    className={`glass-panel p-6 rounded-3xl cursor-pointer transition-all duration-500 ${activePhase === index ? 'node-active scale-[1.02]' : 'opacity-50 hover:opacity-100'}`}
+                                >
+                                    <div className="flex items-center gap-6">
+                                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${activePhase === index ? 'bg-indigo-500 text-white' : 'bg-white/5 text-stone-400'}`}>
+                                            <i data-lucide={phase.icon} className="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <h3 className="mono text-[9px] uppercase tracking-widest text-indigo-400 mb-1">Fase 0{index + 1}</h3>
+                                            <h4 className="text-xl font-bold">{phase.title}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Description Panel */}
+                        <div className="glass-panel p-12 rounded-[3rem] relative overflow-hidden">
+                            <div className="absolute -top-10 -right-10 w-40 h-40 bg-indigo-500/20 blur-3xl rounded-full"></div>
+                            
+                            <div className="mb-8">
+                                <span className="mono px-4 py-1.5 rounded-full bg-indigo-500/20 text-indigo-400 text-[9px] font-black uppercase tracking-[0.3em]">
+                                    {phases[activePhase].mechanism}
+                                </span>
+                            </div>
+                            <h2 className="text-4xl font-black mb-6 leading-tight italic uppercase">{phases[activePhase].title}</h2>
+                            <p className="text-lg text-stone-400 leading-relaxed font-light mb-8">
+                                {phases[activePhase].desc}
+                            </p>
+                            
+                            <div className="p-6 bg-white/5 rounded-2xl border border-white/5 border-l-4 border-l-indigo-500">
+                                <p className="mono text-[10px] uppercase tracking-widest text-stone-500 mb-2">Protocolo de Arquitectura</p>
+                                <p className="text-sm text-stone-300">La clave del proceso RCM-ON no es evitar el caos de ideas, sino proporcionar una infraestructura lo suficientemente robusta para soportarlo y canalizarlo.</p>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

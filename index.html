@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramón Campos Martin | RCM-ON Software Architecture</title>
+    <!-- Core Libraries -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- ASTRA CLOUD ENGINE (Firebase) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        try {
+            const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+            if (firebaseConfig) {
+                const app = initializeApp(firebaseConfig);
+                const auth = getAuth(app);
+                const db = getFirestore(app);
+                
+                window.Astra = { auth, db };
+
+                const initAuth = async () => {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                };
+                initAuth();
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        window.dispatchEvent(new CustomEvent('astra-connected', { detail: user.uid }));
+                    }
+                });
+            }
+        } catch (error) {
+            console.warn("Astra Engine: Running in local/offline mode.", error);
+        }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        :root {
+            --bg-color: #030305;
+            --accent-emerald: #10b981;
+            --accent-indigo: #6366f1;
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-color); 
+            color: #ffffff; 
+            overflow-x: hidden;
+        }
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        .hero-mesh { 
+            background-color: #030305;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+            background-position: 0 0, 0 0, center center, center center;
+        }
+
+        .glass-panel { 
+            background: rgba(20, 20, 25, 0.4); 
+            backdrop-filter: blur(24px); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .project-card:hover {
+            background: rgba(16, 185, 129, 0.03);
+            border-color: rgba(16, 185, 129, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.15);
+        }
+
+        .status-pulse { animation: pulse-opacity 2s infinite; }
+        @keyframes pulse-opacity { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+        
+        .brand-on { 
+            color: var(--accent-emerald); 
+            text-shadow: 0 0 12px rgba(16, 185, 129, 0.6); 
+            letter-spacing: 0.05em;
+        }
+
+        .text-glow-emerald {
+            text-shadow: 0 0 40px rgba(16, 185, 129, 0.4);
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 10px; }
+    </style>
+</head>
+<body class="hero-mesh min-h-screen">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const AstraBadge = ({ astraId }) => (
+            <div className="flex items-center gap-4 bg-white/5 border border-white/10 px-6 py-3 rounded-sm shadow-xl backdrop-blur-md">
+                <div className={`w-1.5 h-1.5 rounded-full ${astraId ? 'bg-emerald-500 status-pulse shadow-[0_0_10px_#10b981]' : 'bg-stone-600'}`}></div>
+                <div className="flex flex-col">
+                    <span className={`mono text-[9px] font-bold uppercase tracking-[0.2em] ${astraId ? 'text-emerald-500' : 'text-stone-500'}`}>
+                        {astraId ? 'Astra Core Active' : 'Offline Mode'}
+                    </span>
+                    {astraId && <span className="mono text-[7px] text-stone-500 tracking-widest uppercase">ID: {astraId.substring(0, 8)}...</span>}
+                </div>
+            </div>
+        );
+
+        const ModuleCard = ({ title, desc, icon, link, tag, status, astraId }) => (
+            <a href={link} className="project-card glass-panel p-10 group flex flex-col justify-between h-full border-t border-white/5 rounded-3xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-emerald-500/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                <div className="relative z-10">
+                    <div className="flex justify-between items-start mb-8">
+                        <div className="w-12 h-12 bg-white/5 rounded flex items-center justify-center border border-white/10 group-hover:border-emerald-500/50 transition-colors shadow-inner">
+                            <i data-lucide={icon} className="w-5 h-5 text-stone-400 group-hover:text-emerald-400 transition-colors"></i>
+                        </div>
+                        <div className="flex flex-col items-end gap-1">
+                            <span className="mono text-[9px] uppercase tracking-[0.3em] text-stone-500">{tag}</span>
+                            <div className="flex items-center gap-1.5">
+                                {astraId && <i data-lucide="cloud" className="w-3 h-3 text-emerald-500 opacity-70"></i>}
+                                <span className="text-[7px] text-emerald-500 font-bold tracking-widest">{status}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 className="text-xl font-bold tracking-tight mb-4 group-hover:text-emerald-400 transition-colors uppercase italic">{title}</h3>
+                    <p className="text-sm text-stone-400 leading-relaxed font-light">{desc}</p>
+                </div>
+                <div className="mt-12 flex items-center justify-between relative z-10 pt-6 border-t border-white/5">
+                    <span className="mono text-[8px] uppercase tracking-widest text-stone-600 group-hover:text-white transition-colors italic">Invocación de Módulo</span>
+                    <i data-lucide="arrow-right" className="w-4 h-4 text-stone-700 group-hover:text-emerald-500 transform group-hover:translate-x-2 transition-all duration-300"></i>
+                </div>
+            </a>
+        );
+
+        const App = () => {
+            const [astraId, setAstraId] = useState(null);
+
+            useEffect(() => {
+                const handleAstra = (e) => setAstraId(e.detail);
+                window.addEventListener('astra-connected', handleAstra);
+                lucide.createIcons();
+                return () => window.removeEventListener('astra-connected', handleAstra);
+            }, []);
+
+            // --- BASE DE DATOS DE PROYECTOS APUNTANDO A LA SUBCARPETA ---
+            const projects = [
+                {
+                    title: "Spectral Audio Engine",
+                    desc: "Arquitectura de síntesis aditiva con modelado de inarmonía física para piano Steinway. Procesamiento DSP en tiempo real.",
+                    icon: "waves",
+                    link: "01-hybrid-mind/piano_pro_studio.html",
+                    tag: "SISTEMAS / DSP",
+                    status: "ONLINE"
+                },
+                {
+                    title: "Cognitive Atlas",
+                    desc: "Visualización interactiva de flujos de pensamiento arborescente y la arquitectura del hiperfoco cognitivo.",
+                    icon: "brain",
+                    link: "01-hybrid-mind/atlas_cognitivo.html",
+                    tag: "LÓGICA / ESTRUCTURA",
+                    status: "ONLINE"
+                },
+                {
+                    title: "Strategic DNA",
+                    desc: "Manifiesto de ingeniería aplicada: La neurodiversidad como vector de innovación estratégica en el diseño de software.",
+                    icon: "fingerprint",
+                    link: "01-hybrid-mind/index_marca.html",
+                    tag: "BRAND / ADN",
+                    status: "ONLINE"
+                }
+            ];
+
+            return (
+                <div className="max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-24">
+                    <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-24 gap-8">
+                        <div className="space-y-2">
+                            <h1 className="text-2xl font-extrabold tracking-tighter uppercase italic drop-shadow-md">Ramón Campos Martin</h1>
+                            <div className="flex items-center gap-4">
+                                <span className="mono text-[10px] text-stone-500 tracking-[0.4em] uppercase">Software Architect</span>
+                                <div className="w-1 h-1 bg-stone-700 rounded-full"></div>
+                                <div className="mono text-[12px] font-bold tracking-widest">
+                                    <span className="text-white">RCM</span>
+                                    <span className="brand-on">-ON</span>
+                                </div>
+                            </div>
+                        </div>
+                        <AstraBadge astraId={astraId} />
+                    </header>
+
+                    <main className="mb-32 md:mb-48 relative">
+                        <div className="absolute -left-10 top-0 w-1 h-full bg-gradient-to-b from-indigo-500/50 via-emerald-500/50 to-transparent rounded-full hidden md:block"></div>
+                        <div className="max-w-4xl relative z-10">
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-indigo-400 text-[9px] font-black uppercase tracking-[0.4em] mb-8">
+                                <i data-lucide="cpu" className="w-3 h-3"></i> Protocolo de Alto Rendimiento
+                            </div>
+                            <h2 className="text-5xl md:text-[5.5rem] font-light tracking-tighter leading-[0.95] mb-12">
+                                La Simbiosis <br/>
+                                <span className="font-extrabold italic text-emerald-500 text-glow-emerald">Perfecta.</span>
+                            </h2>
+                            <p className="text-lg md:text-xl text-stone-400 font-light leading-relaxed max-w-2xl border-l-2 border-emerald-500/40 pl-6 md:pl-8 italic bg-gradient-to-r from-emerald-500/5 to-transparent py-4 rounded-r-2xl">
+                                El <strong>pensamiento complejo arborescente</strong> es mi motor lógico; la <strong>Inteligencia Artificial</strong> es mi compilador. Juntos, esculpimos arquitecturas de software de alta fidelidad desafiando las métricas de tiempo convencionales.
+                            </p>
+                        </div>
+                    </main>
+
+                    <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                        {projects.map((p, i) => (
+                            <ModuleCard key={i} {...p} astraId={astraId} />
+                        ))}
+                        
+                        <div className="glass-panel rounded-3xl p-10 flex flex-col items-center justify-center border-t border-white/5 opacity-40 border-dashed hover:opacity-80 transition-opacity cursor-help">
+                             <div className="w-12 h-12 rounded-full border-2 border-dashed border-stone-600 flex items-center justify-center mb-4">
+                                <i data-lucide="plus" className="w-5 h-5 text-stone-500"></i>
+                             </div>
+                             <span className="mono text-[9px] uppercase tracking-[0.4em] text-stone-500 text-center">Incubando<br/>Proyecto 02</span>
+                        </div>
+                    </section>
+
+                    <footer className="mt-32 md:mt-48 pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
+                        <div className="mono text-[9px] text-stone-500 tracking-[0.3em] uppercase flex items-center gap-3">
+                            © 2026 R. Campos Martin 
+                            <span className="w-1 h-1 bg-stone-700 rounded-full hidden md:block"></span> 
+                            <span className="hidden md:inline">RCM<span className="text-emerald-500 font-bold">-ON</span> Systems Architecture</span>
+                        </div>
+                        <div className="flex gap-8">
+                            <a href="https://github.com/rcm-on" target="_blank" className="flex items-center gap-2 mono text-[9px] uppercase tracking-widest text-stone-400 hover:text-emerald-400 transition-colors">
+                                <i data-lucide="github" className="w-3 h-3"></i> @rcm-on
+                            </a>
+                        </div>
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

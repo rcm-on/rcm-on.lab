@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spectral Audio Engine | RCM-ON</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #030305; color: #ffffff; overflow-x: hidden; user-select: none; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .glass-panel { background: rgba(20, 20, 25, 0.4); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .piano-scroll::-webkit-scrollbar { height: 8px; }
+        .piano-scroll::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 10px; }
+        .key-active { transform: translateY(8px) scaleY(1.02); z-index: 10; border-bottom: 20px solid #10b981 !important; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4); background: #ecfdf5; }
+        .key-active-black { transform: translateY(4px); box-shadow: 0 0 15px #10b981; background: #10b981 !important; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <div id="root" class="flex flex-col h-screen"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef, useCallback } = React;
+
+        const App = () => {
+            const [volume, setVolume] = useState(0.7);
+            const [keyWidth, setKeyWidth] = useState(60);
+            const [activeNotes, setActiveNotes] = useState({});
+            
+            const audioCtx = useRef(null);
+            const masterGain = useRef(null);
+
+            const initAudio = () => {
+                if (!audioCtx.current) {
+                    audioCtx.current = new (window.AudioContext || window.webkitAudioContext)();
+                    masterGain.current = audioCtx.current.createGain();
+                    masterGain.current.gain.setValueAtTime(volume, audioCtx.current.currentTime);
+                    const compressor = audioCtx.current.createDynamicsCompressor();
+                    compressor.threshold.setValueAtTime(-15, audioCtx.current.currentTime);
+                    masterGain.current.connect(compressor);
+                    compressor.connect(audioCtx.current.destination);
+                }
+                if (audioCtx.current.state === 'suspended') audioCtx.current.resume();
+            };
+
+            const triggerNote = useCallback((note) => {
+                initAudio();
+                const now = audioCtx.current.currentTime;
+                const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+                const oct = parseInt(note.slice(-1));
+                const name = note.slice(0, -1);
+                const f0 = 440 * Math.pow(2, (noteNames.indexOf(name) - 9 + (oct - 4) * 12) / 12);
+                
+                // Síntesis Aditiva
+                for (let n = 1; n <= 12; n++) {
+                    const freq = n * f0 * Math.sqrt(1 + 0.00015 * n * n);
+                    const osc = audioCtx.current.createOscillator();
+                    const g = audioCtx.current.createGain();
+                    osc.type = n === 1 ? 'triangle' : 'sine';
+                    osc.frequency.setValueAtTime(freq, now);
+                    
+                    let amp = (1 / (n * n)) * 0.8;
+                    const decay = 6.0 / (n * 0.3 + 0.7);
+
+                    g.gain.setValueAtTime(0, now);
+                    g.gain.linearRampToValueAtTime(amp * volume * 0.3, now + 0.02);
+                    g.gain.exponentialRampToValueAtTime(0.0001, now + decay);
+
+                    osc.connect(g);
+                    g.connect(masterGain.current);
+                    osc.start(now);
+                    osc.stop(now + decay);
+                }
+
+                setActiveNotes(prev => ({ ...prev, [note]: true }));
+                setTimeout(() => {
+                    setActiveNotes(prev => { const n = {...prev}; delete n[note]; return n; });
+                }, 3000);
+            }, [volume]);
+
+            const pianoKeys = [];
+            const notesRef = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'];
+            let o = 0, i = 0;
+            for (let k = 0; k < 88; k++) {
+                const nName = notesRef[i];
+                pianoKeys.push({ id: k, note: `${nName}${o}`, isBlack: nName.includes('#') });
+                i++; if (i === 12) { i = 0; o++; }
+            }
+
+            const scrollRef = useRef(null);
+            useEffect(() => { 
+                lucide.createIcons();
+                if (scrollRef.current) scrollRef.current.scrollLeft = 400; 
+            }, []);
+
+            return (
+                <div className="flex-1 flex flex-col bg-[radial-gradient(circle_at_50%_0%,_rgba(16,185,129,0.05)_0%,_#030305_100%)]">
+                    {/* NavBar */}
+                    <nav className="p-6 flex justify-between items-center glass-panel border-t-0 border-x-0 z-50">
+                        <div className="flex items-center gap-4">
+                            <a href="../index.html" className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center hover:bg-emerald-500/20 transition-colors text-stone-400 hover:text-emerald-400">
+                                <i data-lucide="arrow-left" className="w-5 h-5"></i>
+                            </a>
+                            <div>
+                                <h1 className="text-xl font-bold italic uppercase tracking-tighter">Spectral <span className="text-emerald-500">Engine</span></h1>
+                                <p className="mono text-[9px] text-stone-500 tracking-[0.3em] uppercase">RCM-ON Audio Module</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-6">
+                            <div className="flex items-center gap-3">
+                                <i data-lucide="search" className="w-4 h-4 text-stone-500"></i>
+                                <input type="range" min="40" max="100" value={keyWidth} onChange={e => setKeyWidth(parseInt(e.target.value))} className="w-24 accent-emerald-500 h-1 bg-white/10 rounded-full appearance-none" />
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <i data-lucide="volume-2" className="w-4 h-4 text-stone-500"></i>
+                                <input type="range" min="0" max="1" step="0.1" value={volume} onChange={e => setVolume(parseFloat(e.target.value))} className="w-24 accent-emerald-500 h-1 bg-white/10 rounded-full appearance-none" />
+                            </div>
+                        </div>
+                    </nav>
+
+                    <div className="flex-1 flex flex-col justify-center items-center px-6">
+                         <div className="text-center mb-12">
+                             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-[0.4em] mb-6">
+                                DSP Activo
+                             </div>
+                             <h2 className="text-4xl font-light text-stone-300">Interactúa con la estructura.</h2>
+                         </div>
+                    </div>
+
+                    {/* Piano */}
+                    <div className="relative flex-none pb-12 overflow-hidden">
+                        <div ref={scrollRef} className="w-full overflow-x-auto piano-scroll px-12 pb-4">
+                            <div className="inline-flex relative h-64 md:h-[400px] items-end px-12">
+                                {pianoKeys.map((key) => {
+                                    const active = activeNotes[key.note];
+                                    const bWidth = keyWidth * 0.7;
+                                    if (key.isBlack) {
+                                        const whiteBefore = pianoKeys.filter((k, idx) => idx < key.id && !k.isBlack).length;
+                                        const left = (whiteBefore * keyWidth) - (bWidth / 2);
+                                        return (
+                                            <div key={key.id} onPointerDown={() => triggerNote(key.note)}
+                                                className={`absolute top-0 z-20 rounded-b-xl border-x border-b border-black cursor-pointer transition-all duration-100 ${active ? 'key-active-black' : 'bg-stone-900'}`}
+                                                style={{ left: `${left}px`, width: `${bWidth}px`, height: '62%' }}>
+                                            </div>
+                                        );
+                                    }
+                                    return (
+                                        <div key={key.id} onPointerDown={() => triggerNote(key.note)}
+                                            className={`relative border-r border-white/5 rounded-b-[2rem] flex flex-col justify-end items-center pb-8 cursor-pointer transition-all duration-200 ${active ? 'key-active' : 'bg-white/5 hover:bg-white/10'}`}
+                                            style={{ minWidth: `${keyWidth}px`, height: '100%' }}>
+                                            <span className={`text-[9px] font-black ${active ? 'text-emerald-600' : 'text-stone-600'}`}>{key.note}</span>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
