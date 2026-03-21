@@ -10,17 +10,47 @@
         .metaphor-box { background: var(--surface-2); border-left: 4px solid var(--orange-base); padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 25px; font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
         .metaphor-box strong { color: var(--text-main); }
         .controls-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .controls-right { display: flex; align-items: center; gap: 10px; }
         select { background: #000; color: var(--emerald-base); border: 1px solid var(--emerald-base); border-radius: 4px; padding: 8px 12px; font-family: 'JetBrains Mono', monospace; cursor: pointer; outline: none; }
+        .motor-toggle-btn { background: rgba(16,185,129,0.1); color: var(--emerald-base); border: 1px solid var(--emerald-base); border-radius: 6px; padding: 8px 12px; font-family: 'JetBrains Mono', monospace; cursor: pointer; min-width: 320px; text-align: left; }
+        .motor-toggle-btn.roland { background: rgba(249,115,22,0.1); color: var(--orange-base); border-color: var(--orange-base); }
+        .play-demo-btn { background: var(--emerald-surface); color: var(--emerald-base); border: 1px solid var(--emerald-base); border-radius: 6px; padding: 8px 12px; font-family: 'JetBrains Mono', monospace; cursor: pointer; }
+        .play-demo-btn.active { background: rgba(249,115,22,0.12); color: var(--orange-base); border-color: var(--orange-base); }
         .toggles-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 30px; }
         .h-toggle { background: #000; border: 1px solid #333; color: #555; padding: 10px; text-align: center; border-radius: 6px; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; transition: all 0.2s; user-select: none; }
         .h-toggle.active { background: var(--emerald-surface); border-color: var(--emerald-base); color: var(--emerald-base); box-shadow: 0 0 10px var(--emerald-glow); }
-        .keyboard { display: flex; position: relative; height: 180px; justify-content: center; margin-top: 20px; }
+        .instrument-stage { margin-top: 20px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+        .keyboard-zone { border: 1px solid var(--border-main); border-radius: 12px; padding: 18px 14px 16px; background: linear-gradient(160deg, rgba(6, 7, 12, 0.92), rgba(9, 10, 15, 0.72)); min-height: 270px; overflow-x: auto; overflow-y: hidden; }
+        .keyboard-scale { width: max-content; margin: 0; transform: scale(1); transform-origin: top left; }
+        .keyboard { display: flex; position: relative; height: 180px; justify-content: flex-start; margin-top: 12px; }
         .key { position: relative; cursor: pointer; user-select: none; transition: background 0.1s; }
         .key.white { width: 55px; height: 180px; background: linear-gradient(to bottom, #cbd5e1, #94a3b8); border: 1px solid #030305; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; z-index: 1; box-shadow: inset 0 -4px 8px rgba(0,0,0,0.3); }
         .key.white:hover { background: #e2e8f0; }
         .key.white.active { background: #f8fafc; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 0 12px var(--emerald-glow); border-bottom: 2px solid var(--emerald-base); }
         .key.black { width: 35px; height: 110px; background: linear-gradient(to bottom, #1e1e24, #000); border: 1px solid #333; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; position: absolute; z-index: 2; margin-left: -17.5px; box-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
         .key.black.active { background: #111; box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), 0 0 8px var(--emerald-glow); border-bottom: 2px solid var(--emerald-base); }
+        .osc-panel { margin-top: 0; border: 1px solid var(--border-main); border-radius: 12px; padding: 18px; background: linear-gradient(160deg, rgba(5, 6, 10, 0.92), rgba(10, 12, 18, 0.7)); }
+        .osc-head { display: flex; justify-content: space-between; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px; }
+        .osc-canvas { width: 100%; height: 220px; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; background: rgba(2,3,6,0.8); box-shadow: inset 0 0 24px rgba(0,0,0,0.45); }
+        .osc-legend { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 14px; font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; color: var(--text-muted); }
+        .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+        .dot-base { background: #94a3b8; }
+        .dot-live { background: var(--emerald-base); }
+        .osc-readout { margin-top: 10px; font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; color: var(--text-main); border: 1px solid rgba(16,185,129,0.3); border-radius: 8px; padding: 10px; background: rgba(16,185,129,0.08); }
+        .flow-map { margin-top: 18px; border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 14px; background: linear-gradient(150deg, rgba(10,12,16,0.85), rgba(8,9,12,0.72)); }
+        .flow-title { margin: 0 0 10px; color: var(--text-main); font-size: 0.95rem; font-family: 'JetBrains Mono', monospace; }
+        .flow-steps { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+        .flow-step { border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 8px; background: rgba(255,255,255,0.02); }
+        .flow-step b { display: block; color: var(--emerald-base); font-size: 0.68rem; font-family: 'JetBrains Mono', monospace; margin-bottom: 4px; }
+        .flow-step span { color: var(--text-muted); font-size: 0.74rem; }
+        .compose-row { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+        .compose-row label { color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
+        .compose-row select { min-width: 160px; }
+        .compose-btn { background: rgba(16,185,129,0.12); color: var(--emerald-base); border: 1px solid var(--emerald-base); border-radius: 6px; padding: 8px 10px; font-family: 'JetBrains Mono', monospace; cursor: pointer; }
+        @media (max-width: 1100px) { .instrument-stage { grid-template-columns: 1fr; } .keyboard-zone { min-height: 246px; } .keyboard-scale { transform: scale(0.92); } }
+        @media (max-width: 820px) { .toggles-grid { grid-template-columns: repeat(4, 1fr); } .controls-header { flex-direction: column; align-items: flex-start; gap: 8px; } .controls-right { width: 100%; flex-wrap: wrap; } }
+        @media (max-width: 920px) { .flow-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+        @media (max-width: 560px) { .toggles-grid { grid-template-columns: repeat(3, 1fr); } .osc-head { flex-direction: column; align-items: flex-start; } .flow-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } .keyboard-zone { min-height: 220px; } .keyboard-scale { transform: scale(0.78); } }
     </style>
 </head>
 <body>
@@ -31,35 +61,189 @@
             <div class="metaphor-box">
                 <strong>EL SONIDO ES LUZ (COLOR):</strong> En acústica, el <em>Timbre</em> es una mezcla de colores. Al igual que sumas píxeles RGB para crear blanco, en DSP sumamos ondas senoidales puras (Armónicos) para crear texturas.<br>
                 Fórmula de Síntesis: f_n = f_0 &times; n <br>
-                <em>Prueba esto:</em> Selecciona el motor "Max Richter". Toca una nota. Ahora <strong>apaga los armónicos H2, H3 y H4</strong> y vuelve a tocar. Escucharás cómo el sonido "pierde su color".
+                Motor de creación Bottom-Up: nace en la nota, toma color y expresión, entra al motor, se organiza en escala/acorde y se despliega como sistema sonoro completo.
             </div>
             <div class="controls-header">
                 <span style="font-family: 'JetBrains Mono'; color: var(--text-muted);">MATRIZ DE ARMÓNICOS [H1 - H12]</span>
-                <select id="motor-select">
-                    <option value="piano">Motor: Max Richter Piano (Decay Suave)</option>
-                    <option value="spectral">Motor: Spectral Harmonizer (Complejo)</option>
-                    <option value="synthesis">Motor: Waveform Synth (Brillante)</option>
-                </select>
+                <div class="controls-right">
+                    <button id="motorToggleBtn" class="motor-toggle-btn" type="button">Motor activo: Kawaii (Forma Patrón)</button>
+                    <button id="playDemoBtn" class="play-demo-btn" type="button">Play acordes (demo)</button>
+                </div>
             </div>
             <div class="toggles-grid" id="harmonic-toggles"></div>
-            <div class="keyboard">
-                <div class="key white" data-note="261.63"></div> <div class="key black" data-note="277.18" style="left: 55px;"></div> <div class="key white" data-note="293.66"></div> <div class="key black" data-note="311.13" style="left: 110px;"></div> <div class="key white" data-note="329.63"></div> <div class="key white" data-note="349.23"></div> <div class="key black" data-note="369.99" style="left: 220px;"></div> <div class="key white" data-note="392.00"></div> <div class="key black" data-note="415.30" style="left: 275px;"></div> <div class="key white" data-note="440.00"></div> <div class="key black" data-note="466.16" style="left: 330px;"></div> <div class="key white" data-note="493.88"></div> <div class="key white" data-note="523.25"></div>
+            <div class="instrument-stage">
+                <div class="keyboard-zone">
+                    <div class="keyboard-scale">
+                        <div class="keyboard">
+                            <div class="key white" data-note="130.81" data-label="C3"></div>
+                            <div class="key black" data-note="138.59" data-label="C#3" style="left: 55px;"></div>
+                            <div class="key white" data-note="146.83" data-label="D3"></div>
+                            <div class="key black" data-note="155.56" data-label="D#3" style="left: 110px;"></div>
+                            <div class="key white" data-note="164.81" data-label="E3"></div>
+                            <div class="key white" data-note="174.61" data-label="F3"></div>
+                            <div class="key black" data-note="185.00" data-label="F#3" style="left: 220px;"></div>
+                            <div class="key white" data-note="196.00" data-label="G3"></div>
+                            <div class="key black" data-note="207.65" data-label="G#3" style="left: 275px;"></div>
+                            <div class="key white" data-note="220.00" data-label="A3"></div>
+                            <div class="key black" data-note="233.08" data-label="A#3" style="left: 330px;"></div>
+                            <div class="key white" data-note="246.94" data-label="B3"></div>
+                            <div class="key white" data-note="261.63" data-label="C4"></div>
+                            <div class="key black" data-note="277.18" data-label="C#4" style="left: 440px;"></div>
+                            <div class="key white" data-note="293.66" data-label="D4"></div>
+                            <div class="key black" data-note="311.13" data-label="D#4" style="left: 495px;"></div>
+                            <div class="key white" data-note="329.63" data-label="E4"></div>
+                            <div class="key white" data-note="349.23" data-label="F4"></div>
+                            <div class="key black" data-note="369.99" data-label="F#4" style="left: 605px;"></div>
+                            <div class="key white" data-note="392.00" data-label="G4"></div>
+                            <div class="key black" data-note="415.30" data-label="G#4" style="left: 660px;"></div>
+                            <div class="key white" data-note="440.00" data-label="A4"></div>
+                            <div class="key black" data-note="466.16" data-label="A#4" style="left: 715px;"></div>
+                            <div class="key white" data-note="493.88" data-label="B4"></div>
+                            <div class="key white" data-note="523.25" data-label="C5"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="osc-panel">
+                    <div class="osc-head">
+                        <span>OSCILOSCOPIO / DSP ENGINE</span>
+                        <span id="oscStatus">IDLE</span>
+                    </div>
+                    <canvas id="oscCanvas" class="osc-canvas" width="1100" height="220" aria-label="Osciloscopio en vivo"></canvas>
+                    <div class="osc-legend">
+                        <span><i class="dot dot-base"></i> Señal de referencia</span>
+                        <span><i class="dot dot-live"></i> Señal en vivo (motor + armónicos)</span>
+                    </div>
+                    <div class="osc-readout" id="oscReadout">Nota: -- | Motor: Kawaii (Forma Patrón) | Armónicos activos: 12</div>
+                </div>
+            </div>
+
+            <div class="flow-map">
+                <h3 class="flow-title">Flujo de Creación (Conceptualización → Despliegue)</h3>
+                <div class="flow-steps">
+                    <div class="flow-step"><b>NOTA</b><span id="flowNote">--</span></div>
+                    <div class="flow-step"><b>COLOR</b><span id="flowColor">Neutro</span></div>
+                    <div class="flow-step"><b>EXPRESIÓN</b><span id="flowExpression">Sin ataque</span></div>
+                    <div class="flow-step"><b>MOTOR</b><span id="flowEngine">Kawaii (Forma Patrón)</span></div>
+                    <div class="flow-step"><b>ESCALA</b><span id="flowScale">C Minor</span></div>
+                    <div class="flow-step"><b>ACORDE</b><span id="flowChord">Triad</span></div>
+                </div>
+                <div class="compose-row">
+                    <label for="scaleSelect">Escala</label>
+                    <select id="scaleSelect">
+                        <option value="minor" selected>Minor</option>
+                        <option value="major">Major</option>
+                        <option value="dorian">Dorian</option>
+                        <option value="lydian">Lydian</option>
+                    </select>
+                    <label for="chordSelect">Acorde</label>
+                    <select id="chordSelect">
+                        <option value="triad" selected>Triad</option>
+                        <option value="sus2">Sus2</option>
+                        <option value="sus4">Sus4</option>
+                        <option value="seventh">Seventh</option>
+                    </select>
+                    <button id="buildChordBtn" class="compose-btn" type="button">Construir acorde</button>
+                </div>
             </div>
         </div>
     </div>
     <script>
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const masterGain = audioCtx.createGain(); masterGain.gain.value = 0.2; masterGain.connect(audioCtx.destination);
+        const masterGain = audioCtx.createGain();
+        masterGain.gain.value = 0.2;
+        const analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 2048;
+        analyser.smoothingTimeConstant = 0.83;
+        masterGain.connect(analyser);
+        analyser.connect(audioCtx.destination);
+
+        const oscCanvas = document.getElementById('oscCanvas');
+        const oscStatus = document.getElementById('oscStatus');
+        const oscReadout = document.getElementById('oscReadout');
+        const oscCtx = oscCanvas.getContext('2d');
+        const waveBuffer = new Uint8Array(analyser.fftSize);
+
         let activeNotes = {}; let harmonicState = [true, true, true, true, true, true, true, true, true, true, true, true];
-        const motors = { piano: { decay: 1.5, multiplier: (i) => 1 / (i * i) }, spectral: { decay: 3.0, multiplier: (i) => i % 2 === 0 ? 0.3/i : 0.8/i }, synthesis: { decay: 0.8, multiplier: (i) => i === 2 || i === 3 ? 1 : 1/(i*i) } };
-        const motorSelect = document.getElementById('motor-select'); const togglesContainer = document.getElementById('harmonic-toggles');
+        const motors = {
+            kawaii: { decay: 1.8, multiplier: (i) => i === 1 ? 1 : (i <= 5 ? 0.95 / Math.pow(i, 1.08) : 0.42 / Math.pow(i, 1.45)) },
+            roland: { decay: 1.1, multiplier: (i) => i === 1 ? 0.95 : (i % 2 === 0 ? 0.55 / Math.pow(i, 0.95) : 0.8 / Math.pow(i, 1.2)) }
+        };
+        const motorLabels = { kawaii: 'Kawaii (Forma Patrón)', roland: 'Roland (Construcción Diferente)' };
+        let currentMotorKey = 'kawaii';
+        const motorToggleBtn = document.getElementById('motorToggleBtn'); const togglesContainer = document.getElementById('harmonic-toggles');
+        const playDemoBtn = document.getElementById('playDemoBtn');
+        const scaleSelect = document.getElementById('scaleSelect');
+        const chordSelect = document.getElementById('chordSelect');
+        const buildChordBtn = document.getElementById('buildChordBtn');
+        const flowNote = document.getElementById('flowNote');
+        const flowColor = document.getElementById('flowColor');
+        const flowExpression = document.getElementById('flowExpression');
+        const flowEngine = document.getElementById('flowEngine');
+        const flowScale = document.getElementById('flowScale');
+        const flowChord = document.getElementById('flowChord');
+        const keyElements = Array.from(document.querySelectorAll('.key'));
+        const keyboardFrequencies = keyElements.map(key => parseFloat(key.dataset.note)).filter(freq => !Number.isNaN(freq));
+        const keyboardMinFreq = Math.min(...keyboardFrequencies);
+        const keyboardMaxFreq = Math.max(...keyboardFrequencies);
+        let currentNoteLabel = '--';
+        let currentFreq = 261.63;
+        let demoTimers = [];
+        let demoPlaying = false;
+
         for(let i=0; i<12; i++) {
             const btn = document.createElement('div'); btn.className = 'h-toggle active'; btn.innerText = i === 0 ? 'H1 (Fund.)' : `H${i+1}`;
-            btn.onclick = () => { harmonicState[i] = !harmonicState[i]; btn.classList.toggle('active'); }; togglesContainer.appendChild(btn);
+            btn.onclick = () => {
+                harmonicState[i] = !harmonicState[i];
+                btn.classList.toggle('active');
+                updateReadout();
+            };
+            togglesContainer.appendChild(btn);
         }
+
+        function getActiveHarmonicsCount() {
+            return harmonicState.filter(Boolean).length;
+        }
+
+        function updateReadout() {
+            oscReadout.textContent = `Nota: ${currentNoteLabel} | Motor: ${motorLabels[currentMotorKey]} | Armónicos activos: ${getActiveHarmonicsCount()}`;
+            flowEngine.textContent = motorLabels[currentMotorKey];
+            flowScale.textContent = 'C ' + scaleSelect.value.charAt(0).toUpperCase() + scaleSelect.value.slice(1);
+            flowChord.textContent = chordSelect.value.charAt(0).toUpperCase() + chordSelect.value.slice(1);
+        }
+
+        function updateMotorToggleUI() {
+            motorToggleBtn.textContent = `Motor activo: ${motorLabels[currentMotorKey]}`;
+            motorToggleBtn.classList.toggle('roland', currentMotorKey === 'roland');
+        }
+
+        motorToggleBtn.addEventListener('click', () => {
+            currentMotorKey = currentMotorKey === 'kawaii' ? 'roland' : 'kawaii';
+            updateMotorToggleUI();
+            updateReadout();
+        });
+
+        function normalizeFrequencyForKeyboard(freq) {
+            let value = freq;
+            while (value < keyboardMinFreq) value *= 2;
+            while (value > keyboardMaxFreq) value /= 2;
+            return value;
+        }
+
+        function resolveKeyElement(freq) {
+            if (!keyElements.length) return null;
+            const normalized = normalizeFrequencyForKeyboard(freq);
+            return keyElements.reduce((closest, key) => {
+                const keyFreq = parseFloat(key.dataset.note);
+                if (Number.isNaN(keyFreq)) return closest;
+                if (!closest) return key;
+                const closestFreq = parseFloat(closest.dataset.note);
+                return Math.abs(keyFreq - normalized) < Math.abs(closestFreq - normalized) ? key : closest;
+            }, null);
+        }
+
         function playTone(freq, keyElement) {
             if (audioCtx.state === 'suspended') audioCtx.resume();
-            const currentMotor = motors[motorSelect.value];
+            const currentMotor = motors[currentMotorKey];
             if(activeNotes[freq]) stopTone(freq, keyElement);
             let noteOscillators = [];
             for(let i=0; i<12; i++) {
@@ -71,20 +255,180 @@
                     osc.connect(gainNode); gainNode.connect(masterGain); osc.start(); noteOscillators.push({osc, gainNode});
                 }
             }
-            activeNotes[freq] = noteOscillators; keyElement.classList.add('active');
+            const resolvedKeyElement = keyElement || resolveKeyElement(freq);
+            activeNotes[freq] = { oscillators: noteOscillators, keyElement: resolvedKeyElement };
+            if (resolvedKeyElement) resolvedKeyElement.classList.add('active');
+            currentNoteLabel = resolvedKeyElement?.dataset.label || freq.toFixed(2) + 'Hz';
+            currentFreq = freq;
+            oscStatus.textContent = 'LIVE';
+            flowNote.textContent = currentNoteLabel;
+            flowColor.textContent = getActiveHarmonicsCount() > 8 ? 'Brillante' : getActiveHarmonicsCount() > 4 ? 'Denso' : 'Suave';
+            flowExpression.textContent = motors[currentMotorKey].decay > 1.4 ? 'Largo / Atmosférico' : 'Corto / Percusivo';
+            updateReadout();
         }
         function stopTone(freq, keyElement) {
             if (activeNotes[freq]) {
-                activeNotes[freq].forEach(node => { node.gainNode.gain.cancelScheduledValues(audioCtx.currentTime); node.gainNode.gain.setValueAtTime(node.gainNode.gain.value, audioCtx.currentTime); node.gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1); node.osc.stop(audioCtx.currentTime + 0.15); });
+                activeNotes[freq].oscillators.forEach(node => { node.gainNode.gain.cancelScheduledValues(audioCtx.currentTime); node.gainNode.gain.setValueAtTime(node.gainNode.gain.value, audioCtx.currentTime); node.gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1); node.osc.stop(audioCtx.currentTime + 0.15); });
+                const playedKey = keyElement || activeNotes[freq].keyElement;
+                if (playedKey) playedKey.classList.remove('active');
                 delete activeNotes[freq];
             }
-            keyElement.classList.remove('active');
+            if (Object.keys(activeNotes).length === 0) {
+                currentNoteLabel = '--';
+                oscStatus.textContent = 'IDLE';
+                flowNote.textContent = '--';
+                updateReadout();
+            }
         }
         document.querySelectorAll('.key').forEach(key => {
             const freq = parseFloat(key.dataset.note);
             key.addEventListener('mousedown', () => playTone(freq, key)); key.addEventListener('mouseup', () => stopTone(freq, key)); key.addEventListener('mouseleave', () => stopTone(freq, key));
             key.addEventListener('touchstart', (e) => { e.preventDefault(); playTone(freq, key); }); key.addEventListener('touchend', (e) => { e.preventDefault(); stopTone(freq, key); });
         });
+
+        function clearDemoTimers() {
+            demoTimers.forEach(id => clearTimeout(id));
+            demoTimers = [];
+        }
+
+        function stopAllNotes() {
+            Object.keys(activeNotes).forEach(freq => stopTone(Number(freq)));
+        }
+
+        function stopChordDemo() {
+            demoPlaying = false;
+            clearDemoTimers();
+            stopAllNotes();
+            playDemoBtn.classList.remove('active');
+            playDemoBtn.textContent = 'Play acordes (demo)';
+        }
+
+        function playChordDemo() {
+            if (demoPlaying) {
+                stopChordDemo();
+                return;
+            }
+
+            demoPlaying = true;
+            currentMotorKey = 'roland';
+            updateMotorToggleUI();
+            updateReadout();
+            playDemoBtn.classList.add('active');
+            playDemoBtn.textContent = 'Stop demo';
+
+            const progression = [
+                [293.66, 369.99, 440.0],
+                [261.63, 349.23, 415.3],
+                [220.0, 329.63, 392.0],
+                [246.94, 329.63, 392.0]
+            ];
+
+            const stepMs = 1400;
+            progression.forEach((chord, index) => {
+                demoTimers.push(setTimeout(() => {
+                    if (!demoPlaying) return;
+                    stopAllNotes();
+                    chord.forEach(freq => playTone(freq));
+                }, index * stepMs));
+
+                demoTimers.push(setTimeout(() => {
+                    if (!demoPlaying) return;
+                    chord.forEach(freq => stopTone(freq));
+                }, index * stepMs + 1100));
+            });
+
+            demoTimers.push(setTimeout(() => stopChordDemo(), progression.length * stepMs + 120));
+        }
+
+        playDemoBtn.addEventListener('click', playChordDemo);
+
+        function chordOffsets(type) {
+            if (type === 'sus2') return [0, 2, 7];
+            if (type === 'sus4') return [0, 5, 7];
+            if (type === 'seventh') return [0, 4, 7, 10];
+            return [0, 4, 7];
+        }
+
+        function semitoneToRatio(semitone) {
+            return Math.pow(2, semitone / 12);
+        }
+
+        function playBuiltChord() {
+            stopAllNotes();
+            const offsets = chordOffsets(chordSelect.value);
+            offsets.forEach((semi, idx) => {
+                const freq = currentFreq * semitoneToRatio(semi);
+                setTimeout(() => playTone(freq), idx * 25);
+                setTimeout(() => stopTone(freq), 980 + idx * 20);
+            });
+            flowChord.textContent = chordSelect.value.charAt(0).toUpperCase() + chordSelect.value.slice(1);
+            flowScale.textContent = 'C ' + scaleSelect.value.charAt(0).toUpperCase() + scaleSelect.value.slice(1);
+        }
+
+        buildChordBtn.addEventListener('click', playBuiltChord);
+        scaleSelect.addEventListener('change', updateReadout);
+        chordSelect.addEventListener('change', updateReadout);
+
+        function resizeOscCanvas() {
+            if (!oscCtx) return;
+            const ratio = Math.max(window.devicePixelRatio || 1, 1);
+            const width = oscCanvas.clientWidth;
+            const height = oscCanvas.clientHeight;
+            oscCanvas.width = Math.floor(width * ratio);
+            oscCanvas.height = Math.floor(height * ratio);
+            oscCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
+        }
+
+        function drawOscilloscope() {
+            if (!oscCtx) return;
+            const width = oscCanvas.clientWidth;
+            const height = oscCanvas.clientHeight;
+            analyser.getByteTimeDomainData(waveBuffer);
+
+            oscCtx.clearRect(0, 0, width, height);
+            oscCtx.fillStyle = 'rgba(3, 3, 7, 0.78)';
+            oscCtx.fillRect(0, 0, width, height);
+
+            oscCtx.strokeStyle = 'rgba(148, 163, 184, 0.18)';
+            oscCtx.lineWidth = 1;
+            for (let i = 1; i < 8; i++) {
+                const x = (width / 8) * i;
+                oscCtx.beginPath();
+                oscCtx.moveTo(x, 0);
+                oscCtx.lineTo(x, height);
+                oscCtx.stroke();
+            }
+            oscCtx.beginPath();
+            oscCtx.moveTo(0, height / 2);
+            oscCtx.lineTo(width, height / 2);
+            oscCtx.stroke();
+
+            oscCtx.strokeStyle = 'rgba(148, 163, 184, 0.72)';
+            oscCtx.lineWidth = 1.2;
+            oscCtx.beginPath();
+            oscCtx.moveTo(0, height / 2);
+            oscCtx.lineTo(width, height / 2);
+            oscCtx.stroke();
+
+            oscCtx.strokeStyle = 'rgba(16, 185, 129, 0.95)';
+            oscCtx.lineWidth = 2;
+            oscCtx.beginPath();
+            for (let i = 0; i < waveBuffer.length; i++) {
+                const x = (i / (waveBuffer.length - 1)) * width;
+                const y = (waveBuffer[i] / 255) * height;
+                if (i === 0) oscCtx.moveTo(x, y);
+                else oscCtx.lineTo(x, y);
+            }
+            oscCtx.stroke();
+
+            requestAnimationFrame(drawOscilloscope);
+        }
+
+        window.addEventListener('resize', resizeOscCanvas);
+        resizeOscCanvas();
+        updateMotorToggleUI();
+        updateReadout();
+        requestAnimationFrame(drawOscilloscope);
     </script>
 </body>
 </html>

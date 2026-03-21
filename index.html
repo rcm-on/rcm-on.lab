@@ -8,12 +8,27 @@
     <link rel="stylesheet" href="./css/rcm-theme.css">
     <link rel="stylesheet" href="./css/kinetic-engine.css">
 </head>
-<body>
+<body class="hub-index hub-cinematic">
 
     <div class="hero-graph">
-        <div style="position: absolute; top: 20px; left: 20px; font-family: 'JetBrains Mono'; color: var(--text-muted); z-index: 10;">
+        <div class="hero-atmosphere" aria-hidden="true"></div>
+        <div class="hero-glow hero-glow-orange" aria-hidden="true"></div>
+        <div class="hero-glow hero-glow-emerald" aria-hidden="true"></div>
+        <div class="hero-stars" aria-hidden="true"></div>
+        <div class="hero-comet" aria-hidden="true"></div>
+        <div class="hero-symbiosis-core" aria-hidden="true"></div>
+        <div class="hero-noise" aria-hidden="true"></div>
+        <div class="hero-status">
             [ SYSTEM: <span style="color:var(--emerald-base)">ONLINE</span> ] // LA SIMBIOSIS PERFECTA
         </div>
+        <div class="hero-manifesto">
+            <span>Alrededor de la IA orbitan ideas, creatividad, cognición y enfoque bottom-up para diseñar sistemas.</span>
+            <span>La utilización de agentes convierte esa cognición en realidades tangibles: servicios, APIs, infraestructura, DevOps, gobernanza y automatizaciones.</span>
+        </div>
+        <div class="hero-phase" id="heroPhase">FASE: INICIALIZANDO COSMOS</div>
+        <div class="hero-process-caption">IDEAS + CREATIVIDAD + COGNICIÓN → AGENTES → REALIDAD TANGIBLE</div>
+
+        <canvas id="processCanvas" class="process-canvas" aria-label="Proceso cognitivo en forma de flor"></canvas>
 
         <svg class="svg-layer">
             <path d="M 150 75 C 300 75, 400 150, 450 150" class="data-line" id="line1" />
@@ -24,8 +39,8 @@
             <path d="M 550 150 C 650 150, 750 260, 850 260" class="data-line" id="line6" />
         </svg>
 
-        <div class="graph-layer">
-            <div class="node-group">
+        <div class="graph-layer" id="graphLayer">
+            <div class="node-group human-cluster">
                 <div class="sys-node human-node" onmouseover="activateLine('line1', 'orange')" onmouseout="deactivateLine('line1')">
                     [1] ABSTRACCIÓN<br><span style="font-size: 0.7rem; color:var(--text-muted)">Pensamiento Arborescente</span>
                 </div>
@@ -34,58 +49,61 @@
                 </div>
             </div>
 
-            <div class="node-group">
+            <div class="node-group ai-cluster">
                 <div class="sys-node ai-node" onmouseover="activateAllDeploy()" onmouseout="deactivateAllDeploy()">
-                    <span style="color:#6366f1; font-weight:bold;">MOTORES IA</span>
+                    <span style="color:#6366f1; font-weight:bold;">NÚCLEO DE PROCESAMIENTO</span>
                     <span style="font-size: 0.7rem; color:var(--text-muted)">Orquestación y Despliegue</span>
                 </div>
             </div>
 
-            <div class="node-group" style="gap: 20px;">
+            <div class="node-group deploy-cluster">
                 <div class="sys-node deploy-node">[&gt;] SERVICIOS DSP</div>
                 <div class="sys-node deploy-node">[&gt;] DISEÑOS ESTRUCTURALES</div>
-                <div class="sys-node deploy-node">[&gt;] GOBERNANZA DE DATOS</div>
+                <div class="sys-node deploy-node">[&gt;] CONOCIMIENTO MULTIDISCIPLINAR</div>
                 <div class="sys-node deploy-node">[&gt;] VELOCIDAD (0ms)</div>
             </div>
         </div>
     </div>
 
-    <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
-        
-        <a href="01-hybrid-mind/index_marca.html" class="card-base card-hover-orange" style="border-top: 3px solid var(--orange-base);">
+    <div class="container processes-section" id="menu-procesos">
+        <div class="process-flow">
+        <a href="01-hybrid-mind/index_marca.html" class="card-base card-hover-orange process-card" style="border-top: 3px solid var(--orange-base);">
             <span class="tag tag-focus">PROCESO 01</span>
-            <h2 style="margin-top: 15px; font-size: 1.5rem;">Abstracción</h2>
-            <p style="color: var(--text-muted)">El procesamiento arborescente. Colapso de variables simultáneas y delegación en IA.</p>
+            <h2 class="process-title">Abstracción</h2>
+            <p class="process-description">Pensamiento arbóreo y abstracto: múltiples rutas mentales colapsan en hipótesis accionables para IA.</p>
+            <span class="process-arrow" aria-hidden="true">→</span>
         </a>
 
-        <a href="01-hybrid-mind/atlas_cognitivo.html" class="card-base card-hover-emerald" style="border-top: 3px solid var(--emerald-base);">
+        <a href="01-hybrid-mind/atlas_cognitivo.html" class="card-base card-hover-emerald process-card" style="border-top: 3px solid var(--emerald-base);">
             <span class="tag tag-online">PROCESO 02</span>
-            <h2 style="margin-top: 15px; font-size: 1.5rem;">Cognición</h2>
-            <p style="color: var(--text-muted)">Motor Bottom-Up. La base empírica que alimenta las decisiones estructurales.</p>
+            <h2 class="process-title">Cognición</h2>
+            <p class="process-description">Base cognitiva Bottom-Up: experiencia, observación y criterio para construir decisiones consistentes.</p>
+            <span class="process-arrow" aria-hidden="true">→</span>
         </a>
 
-        <a href="01-hybrid-mind/piano_pro_studio.html" class="card-base card-hover-emerald" style="border-top: 3px solid var(--emerald-base);">
+        <a href="01-hybrid-mind/piano_pro_studio.html" class="card-base card-hover-emerald process-card" style="border-top: 3px solid var(--emerald-base);">
             <span class="tag tag-online">PROCESO 03</span>
-            <h2 style="margin-top: 15px; font-size: 1.5rem;">Diseño</h2>
-            <p style="color: var(--text-muted)">Consolidación de la interfaz y la acústica (Motor DSP activo).</p>
+            <h2 class="process-title">Diseño</h2>
+            <p class="process-description">Imaginación aplicada: convertir conocimiento multidisciplinar en diseño, sonido y sistema utilizable por IA.</p>
+            <span class="process-arrow" aria-hidden="true">→</span>
         </a>
 
-        <a href="blog/01-procesamiento-paralelo.html" class="card-base card-hover-orange" style="border-top: 3px solid var(--orange-base);">
+        <a href="blog/01-procesamiento-paralelo.html" class="card-base card-hover-orange process-card" style="border-top: 3px solid var(--orange-base);">
             <span class="tag tag-focus">PROCESO 04</span>
-            <h2 style="margin-top: 15px; font-size: 1.5rem;">Arquitectura</h2>
-            <p style="color: var(--text-muted)">Despliegue estructural del ecosistema. De la idea a la orquestación a latencia cero.</p>
+            <h2 class="process-title">Arquitectura</h2>
+            <p class="process-description">Simbiosis final: la idea se despliega como arquitectura viva entre pensamiento humano y ejecución IA.</p>
         </a>
-
+        </div>
     </div>
 
-    <div class="container" style="margin-bottom: 40px;">
-        <div style="background: #000; border: 1px solid var(--border-main); border-left: 4px solid var(--emerald-base); border-radius: 8px; padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+    <div class="container log-section">
+        <div class="system-log">
             <div style="color: var(--text-muted);">> [ SYSTEM LOG_ ] // PRUEBA EMPÍRICA DE SIMBIOSIS</div>
-            <div style="color: var(--text-main); margin-top: 10px;">> Análisis de despliegue de este ecosistema:</div>
-            <div style="color: var(--emerald-base); margin-top: 5px;">> FASE 1: Abstracción de ideas puras a modelos consolidados.</div>
-            <div style="color: var(--emerald-base); margin-top: 5px;">> FASE 2: Integración de diseño, cognición y despliegue de UI/UX con Agentes IA.</div>
-            <div style="color: var(--orange-base); margin-top: 10px; font-weight: bold;">> METRICA CLAVE: Ecosistema consolidado y funcional en &lt; 4 HORAS.</div>
-            <div style="color: var(--text-dimmed); margin-top: 5px;">> (Semanas de procesamiento secuencial colapsadas mediante ejecución Kinetic).</div>
+            <div style="color: var(--text-main); margin-top: 10px;">> Propósito general: convertir conocimiento e imaginación en capacidades reales de producto.</div>
+            <div style="color: var(--emerald-base); margin-top: 5px;">> Ejemplo Fase 1: una idea nace y se abstrae en arquitectura cognitiva.</div>
+            <div style="color: var(--emerald-base); margin-top: 5px;">> Ejemplo Fase 2: IA + automatización integran disciplinas para construir servicios.</div>
+            <div style="color: var(--orange-base); margin-top: 10px; font-weight: bold;">> Ejemplo Resultado: idea transformada en realidad tangible, desplegable y escalable.</div>
+            <div style="color: var(--text-dimmed); margin-top: 5px;">> (Marco general de marca + demostración práctica de ejecución).</div>
         </div>
     </div>
 
@@ -94,6 +112,481 @@
         function deactivateLine(id) { document.getElementById(id).className.baseVal = 'data-line'; }
         function activateAllDeploy() { for(let i=3; i<=6; i++) document.getElementById('line'+i).classList.add('active-emerald'); }
         function deactivateAllDeploy() { for(let i=3; i<=6; i++) document.getElementById('line'+i).className.baseVal = 'data-line'; }
+
+        (function runSymbiosisCanvas() {
+            const canvas = document.getElementById('processCanvas');
+            const phase = document.getElementById('heroPhase');
+            if (!canvas || !phase) return;
+
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+
+            const phases = [
+                { label: 'FASE 01: IDEAS + CREATIVIDAD + COGNICIÓN' },
+                { label: 'FASE 02: AGENTES ORQUESTAN LA EJECUCIÓN' },
+                { label: 'FASE 03: EXPLOSIÓN DE SERVICIOS' }
+            ];
+
+            let phaseIndex = 0;
+            let centerX = 0;
+            let centerY = 0;
+            let radius = 0;
+            let phaseStartAt = performance.now();
+            let phaseSweepStart = performance.now();
+            const phaseDuration = 3200;
+            const phaseSweepDuration = 960;
+            const labels = [
+                { label: 'IDEAS', emblem: 'star' },
+                { label: 'EXPERIENCIA', emblem: 'neural' },
+                { label: 'ARQUITECTURA', emblem: 'grid' }
+            ];
+            const agentNodes = [
+                { label: 'ÓRDENES', icon: '➤' },
+                { label: 'AGENTES', icon: '◌' },
+                { label: 'EJECUCIÓN', icon: '◉' }
+            ];
+            const serviceNodes = [
+                { label: 'SERVICIOS', emblem: 'service', href: '#menu-procesos', tier: 'core' },
+                { label: 'APIs', emblem: 'api', href: '#menu-procesos', tier: 'core' },
+                { label: 'INFRAESTRUCTURA', emblem: 'infra', href: '#menu-procesos', tier: 'high' },
+                { label: 'DEVOPS', emblem: 'devops', href: '#menu-procesos', tier: 'high' },
+                { label: 'GOBERNANZA', emblem: 'governance', href: '#menu-procesos', tier: 'high' },
+                { label: 'AUTOMATIZACIONES', emblem: 'automation', href: '#menu-procesos', tier: 'high' }
+            ];
+            let hitTargets = [];
+            let hoveredTarget = -1;
+
+            function resizeCanvas() {
+                const ratio = Math.max(window.devicePixelRatio || 1, 1);
+                const rect = canvas.getBoundingClientRect();
+                canvas.width = Math.floor(rect.width * ratio);
+                canvas.height = Math.floor(rect.height * ratio);
+                ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+                centerX = rect.width / 2;
+                centerY = rect.height / 2;
+                radius = Math.min(rect.width, rect.height) * 0.23;
+            }
+
+            function drawConceptEmblem(x, y, emblem, color) {
+                ctx.save();
+                ctx.translate(x, y);
+
+                ctx.beginPath();
+                ctx.arc(0, 0, 22, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(0, 0, 18, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(15,23,42,0.62)';
+                ctx.fill();
+
+                ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(0, 0, 22, 0, Math.PI * 2);
+                ctx.stroke();
+
+                ctx.strokeStyle = 'rgba(241, 245, 249, 0.92)';
+                ctx.fillStyle = 'rgba(241, 245, 249, 0.92)';
+                ctx.lineWidth = 1.7;
+
+                if (emblem === 'star') {
+                    ctx.beginPath();
+                    for (let i = 0; i < 5; i++) {
+                        const outer = -Math.PI / 2 + i * (Math.PI * 2 / 5);
+                        const inner = outer + Math.PI / 5;
+                        const ox = Math.cos(outer) * 8;
+                        const oy = Math.sin(outer) * 8;
+                        const ix = Math.cos(inner) * 3.8;
+                        const iy = Math.sin(inner) * 3.8;
+                        if (i === 0) ctx.moveTo(ox, oy);
+                        else ctx.lineTo(ox, oy);
+                        ctx.lineTo(ix, iy);
+                    }
+                    ctx.closePath();
+                    ctx.fill();
+                } else if (emblem === 'spark') {
+                    ctx.beginPath();
+                    ctx.moveTo(-1, -9);
+                    ctx.lineTo(3, -2);
+                    ctx.lineTo(-1, -2);
+                    ctx.lineTo(2, 8);
+                    ctx.lineTo(-4, 0);
+                    ctx.lineTo(0, 0);
+                    ctx.closePath();
+                    ctx.fill();
+                } else if (emblem === 'neural') {
+                    const nodes = [[-7, -5], [6, -4], [-4, 7], [7, 6]];
+                    ctx.beginPath();
+                    ctx.moveTo(nodes[0][0], nodes[0][1]);
+                    ctx.lineTo(nodes[1][0], nodes[1][1]);
+                    ctx.lineTo(nodes[2][0], nodes[2][1]);
+                    ctx.lineTo(nodes[3][0], nodes[3][1]);
+                    ctx.stroke();
+                    nodes.forEach(([nx, ny]) => {
+                        ctx.beginPath();
+                        ctx.arc(nx, ny, 2, 0, Math.PI * 2);
+                        ctx.fill();
+                    });
+                } else if (emblem === 'layers') {
+                    ctx.strokeRect(-8, -6, 12, 8);
+                    ctx.strokeRect(-6, -2, 12, 8);
+                    ctx.strokeRect(-4, 2, 12, 8);
+                } else {
+                    ctx.beginPath();
+                    ctx.moveTo(-8, -8);
+                    ctx.lineTo(8, -8);
+                    ctx.lineTo(8, 8);
+                    ctx.lineTo(-8, 8);
+                    ctx.closePath();
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(-8, 0);
+                    ctx.lineTo(8, 0);
+                    ctx.moveTo(0, -8);
+                    ctx.lineTo(0, 8);
+                    ctx.stroke();
+                }
+
+                ctx.restore();
+            }
+
+            function drawOutcomeEmblem(x, y, emblem, emphasis) {
+                const outer = emphasis === 'core' ? 26 : 23;
+                const inner = outer - 4;
+                const color = emphasis === 'core' ? 'rgba(214,168,112,0.95)' : 'rgba(196,152,98,0.9)';
+
+                ctx.save();
+                ctx.translate(x, y);
+
+                ctx.beginPath();
+                ctx.arc(0, 0, outer, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(0, 0, inner, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(20, 14, 8, 0.7)';
+                ctx.fill();
+
+                ctx.strokeStyle = 'rgba(255, 240, 220, 0.26)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(0, 0, outer, 0, Math.PI * 2);
+                ctx.stroke();
+
+                ctx.strokeStyle = 'rgba(255, 245, 235, 0.95)';
+                ctx.fillStyle = 'rgba(255, 245, 235, 0.95)';
+                ctx.lineWidth = 1.7;
+
+                if (emblem === 'service') {
+                    ctx.beginPath();
+                    ctx.moveTo(-8, -5);
+                    ctx.lineTo(8, -5);
+                    ctx.lineTo(8, 5);
+                    ctx.lineTo(-8, 5);
+                    ctx.closePath();
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(-6, -1);
+                    ctx.lineTo(6, -1);
+                    ctx.moveTo(-6, 2);
+                    ctx.lineTo(6, 2);
+                    ctx.stroke();
+                } else if (emblem === 'api') {
+                    ctx.beginPath();
+                    ctx.moveTo(-8, 0);
+                    ctx.lineTo(-2, -6);
+                    ctx.lineTo(4, -6);
+                    ctx.lineTo(8, 0);
+                    ctx.lineTo(4, 6);
+                    ctx.lineTo(-2, 6);
+                    ctx.closePath();
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(-3, 0);
+                    ctx.lineTo(3, 0);
+                    ctx.stroke();
+                } else if (emblem === 'infra') {
+                    ctx.strokeRect(-8, -8, 16, 5);
+                    ctx.strokeRect(-8, -1, 16, 5);
+                    ctx.strokeRect(-8, 6, 16, 5);
+                } else if (emblem === 'devops') {
+                    ctx.beginPath();
+                    ctx.arc(-4, 0, 3, 0, Math.PI * 2);
+                    ctx.arc(4, 0, 3, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.moveTo(-1, -6);
+                    ctx.lineTo(1, -6);
+                    ctx.lineTo(1, 6);
+                    ctx.lineTo(-1, 6);
+                    ctx.closePath();
+                    ctx.fill();
+                } else if (emblem === 'governance') {
+                    ctx.beginPath();
+                    ctx.moveTo(-8, 5);
+                    ctx.lineTo(8, 5);
+                    ctx.moveTo(0, -7);
+                    ctx.lineTo(0, 5);
+                    ctx.moveTo(-6, -2);
+                    ctx.lineTo(6, -2);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.arc(-5, 0, 2, 0, Math.PI * 2);
+                    ctx.arc(5, 0, 2, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    ctx.beginPath();
+                    ctx.moveTo(-8, 0);
+                    ctx.lineTo(-2, 0);
+                    ctx.lineTo(0, -4);
+                    ctx.lineTo(4, 4);
+                    ctx.lineTo(8, -4);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.arc(-8, 0, 1.8, 0, Math.PI * 2);
+                    ctx.arc(0, -4, 1.8, 0, Math.PI * 2);
+                    ctx.arc(4, 4, 1.8, 0, Math.PI * 2);
+                    ctx.arc(8, -4, 1.8, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                ctx.restore();
+            }
+
+            function draw(time) {
+                const width = canvas.clientWidth;
+                const height = canvas.clientHeight;
+                const t = time * 0.001;
+                const phaseElapsed = (time - phaseStartAt) / phaseDuration;
+                const phaseProgress = Math.max(0, Math.min(1, phaseElapsed));
+                const sweepElapsed = (time - phaseSweepStart) / phaseSweepDuration;
+                const sweepProgress = Math.max(0, Math.min(1, sweepElapsed));
+
+                ctx.clearRect(0, 0, width, height);
+
+                const isFinalPhase = phaseIndex === 2;
+                const isAgentPhase = phaseIndex === 1;
+                const shock = isFinalPhase ? phaseProgress : 0;
+
+                const ringA = radius * (0.8 + Math.sin(t * 1.7) * 0.06);
+                const ringB = radius * (1.2 + Math.sin(t * 1.2 + 1.2) * 0.05);
+
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, ringA, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(16,185,129,0.22)';
+                ctx.lineWidth = 1.4;
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, ringB, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(126,136,212,0.2)';
+                ctx.lineWidth = 1.2;
+                ctx.stroke();
+
+                for (let i = 0; i < 10; i++) {
+                    const arcStart = t * 0.55 + i * 0.62;
+                    const arcEnd = arcStart + 0.26;
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius * (1.45 + i * 0.04), arcStart, arcEnd);
+                    ctx.strokeStyle = i % 2 === 0 ? 'rgba(249,115,22,0.18)' : 'rgba(16,185,129,0.15)';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius * (0.5 + shock * 0.14), 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(110, 186, 169, ${0.2 + shock * 0.14})`;
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius * 0.26, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255,255,255,${0.18 + shock * 0.2})`;
+                ctx.fill();
+
+                ctx.font = "700 11px 'JetBrains Mono', monospace";
+                ctx.textAlign = 'center';
+                ctx.fillStyle = 'rgba(226, 232, 240, 0.88)';
+                ctx.fillText('IA', centerX, centerY + 4);
+
+                const orbit = radius * 2.1;
+                ctx.strokeStyle = 'rgba(148, 163, 184, 0.28)';
+                ctx.setLineDash([5, 8]);
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, orbit, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                labels.forEach((item, index) => {
+                    const angle = (Math.PI * 2 / labels.length) * index - Math.PI / 2 + t * 0.24;
+                    const x = centerX + Math.cos(angle) * orbit;
+                    const y = centerY + Math.sin(angle) * orbit;
+
+                    ctx.beginPath();
+                    ctx.moveTo(centerX, centerY);
+                    ctx.lineTo(x, y);
+                    ctx.strokeStyle = 'rgba(148, 163, 184, 0.16)';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+
+                    const emblemColor = index % 2 === 0 ? 'rgba(249,115,22,0.9)' : 'rgba(16,185,129,0.9)';
+                    drawConceptEmblem(x, y, item.emblem, emblemColor);
+
+                    ctx.font = "600 10px 'JetBrains Mono', monospace";
+                    ctx.fillStyle = 'rgba(226, 232, 240, 0.86)';
+                    ctx.fillText(item.label, x, y - 30);
+                });
+
+                if (sweepProgress < 1) {
+                    const sweepAngle = -Math.PI / 2 + sweepProgress * Math.PI * 2;
+                    const sweepRadius = radius * 4.8;
+
+                    ctx.save();
+                    ctx.translate(centerX, centerY);
+                    ctx.rotate(sweepAngle);
+
+                    const beamGradient = ctx.createLinearGradient(0, 0, sweepRadius, 0);
+                    beamGradient.addColorStop(0, 'rgba(126,136,212,0.01)');
+                    beamGradient.addColorStop(0.34, 'rgba(16,185,129,0.12)');
+                    beamGradient.addColorStop(1, 'rgba(249,115,22,0)');
+
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.lineTo(sweepRadius, -radius * 0.18);
+                    ctx.lineTo(sweepRadius, radius * 0.18);
+                    ctx.closePath();
+                    ctx.fillStyle = beamGradient;
+                    ctx.fill();
+
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.lineTo(sweepRadius, 0);
+                    ctx.strokeStyle = 'rgba(16,185,129,0.34)';
+                    ctx.lineWidth = 1.2;
+                    ctx.stroke();
+
+                    ctx.restore();
+
+                    const pulseRadius = radius * (1 + sweepProgress * 3.2);
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, pulseRadius, 0, Math.PI * 2);
+                    ctx.strokeStyle = `rgba(110,186,169,${0.28 * (1 - sweepProgress)})`;
+                    ctx.lineWidth = 1.4;
+                    ctx.stroke();
+                }
+
+                if (isAgentPhase || isFinalPhase) {
+                    const agentRadius = radius * 2.45;
+                    agentNodes.forEach((agent, index) => {
+                        const angle = (Math.PI * 2 / agentNodes.length) * index - Math.PI / 2 + t * 0.11;
+                        const ax = centerX + Math.cos(angle) * agentRadius;
+                        const ay = centerY + Math.sin(angle) * agentRadius;
+
+                        ctx.beginPath();
+                        ctx.moveTo(centerX, centerY);
+                        ctx.lineTo(ax, ay);
+                        ctx.strokeStyle = 'rgba(126, 136, 212, 0.24)';
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+
+                        ctx.beginPath();
+                        ctx.arc(ax, ay, 10, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(126, 136, 212, 0.82)';
+                        ctx.fill();
+
+                        ctx.font = "700 10px 'JetBrains Mono', monospace";
+                        ctx.fillStyle = 'rgba(246, 248, 255, 0.96)';
+                        ctx.fillText(agent.icon, ax, ay + 3);
+
+                        ctx.font = "600 10px 'JetBrains Mono', monospace";
+                        ctx.fillStyle = 'rgba(226, 232, 240, 0.9)';
+                        ctx.fillText(agent.label, ax, ay - 14);
+                    });
+                }
+
+                hitTargets = [];
+
+                if (isFinalPhase) {
+                    const burstRadius = radius * (2.9 + phaseProgress * 1.9);
+
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius * (1.7 + shock * 2.7), 0, Math.PI * 2);
+                    ctx.strokeStyle = `rgba(196,152,98,${0.18 + shock * 0.32})`;
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+
+                    serviceNodes.forEach((service, index) => {
+                        const angle = (Math.PI * 2 / serviceNodes.length) * index - Math.PI / 2 - t * 0.07;
+                        const sx = centerX + Math.cos(angle) * burstRadius;
+                        const sy = centerY + Math.sin(angle) * burstRadius;
+
+                        ctx.beginPath();
+                        ctx.moveTo(centerX, centerY);
+                        ctx.lineTo(sx, sy);
+                        ctx.strokeStyle = `rgba(196, 152, 98, ${0.12 + phaseProgress * 0.42})`;
+                        ctx.lineWidth = 1.1;
+                        ctx.stroke();
+
+                        const isHover = hoveredTarget === index;
+                        drawOutcomeEmblem(sx, sy, service.emblem, service.tier);
+
+                        if (isHover) {
+                            ctx.beginPath();
+                            ctx.arc(sx, sy, 30, 0, Math.PI * 2);
+                            ctx.strokeStyle = 'rgba(255, 215, 170, 0.55)';
+                            ctx.lineWidth = 1.2;
+                            ctx.stroke();
+                        }
+
+                        ctx.font = "600 10px 'JetBrains Mono', monospace";
+                        ctx.fillStyle = 'rgba(226, 232, 240, 0.95)';
+                        ctx.fillText(service.label, sx, sy - 34);
+
+                        hitTargets.push({ x: sx, y: sy, r: 28, href: service.href, label: service.label });
+                    });
+                }
+
+                requestAnimationFrame(draw);
+            }
+
+            function rotatePhase() {
+                phaseIndex = (phaseIndex + 1) % phases.length;
+                phase.textContent = phases[phaseIndex].label;
+                phaseStartAt = performance.now();
+                phaseSweepStart = performance.now();
+            }
+
+            canvas.addEventListener('mousemove', (event) => {
+                const rect = canvas.getBoundingClientRect();
+                const mx = event.clientX - rect.left;
+                const my = event.clientY - rect.top;
+                hoveredTarget = hitTargets.findIndex(target => {
+                    const dx = mx - target.x;
+                    const dy = my - target.y;
+                    return Math.sqrt(dx * dx + dy * dy) <= target.r;
+                });
+                canvas.style.cursor = hoveredTarget >= 0 ? 'pointer' : 'default';
+            });
+
+            canvas.addEventListener('mouseleave', () => {
+                hoveredTarget = -1;
+                canvas.style.cursor = 'default';
+            });
+
+            canvas.addEventListener('click', () => {
+                if (hoveredTarget < 0) return;
+                const target = hitTargets[hoveredTarget];
+                if (target?.href) window.location.href = target.href;
+            });
+
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            phase.textContent = phases[0].label;
+            setInterval(rotatePhase, 3200);
+            requestAnimationFrame(draw);
+        })();
     </script>
 </body>
 </html>
