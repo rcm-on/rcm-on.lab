@@ -2,109 +2,58 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>RCM-ON | Nombre del Módulo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RCM-ON | Motor Bottom-Up</title>
     <link rel="stylesheet" href="../css/rcm-theme.css">
+    <style>
+        .node-tree { border-left: 2px solid var(--border-main); padding-left: 25px; margin-left: 15px; position: relative; }
+        .node-branch { position: relative; margin-bottom: 20px; }
+        .node-branch::before { content: ''; position: absolute; left: -25px; top: 15px; width: 20px; height: 2px; background: var(--border-main); }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="flex-between" style="margin-bottom: 30px;">
+            <a href="../index.html" class="btn-back" style="margin: 0;">&larr; Volver al Hub de Arquitectura</a>
+            <span class="tag tag-focus">INFRAESTRUCTURA ACTIVA</span>
+        </div>
 
-    <div class="header-container">
-        <a href="../index.html" class="btn-back">&larr; Volver al Hub</a>
-        <h2 style="font-family: 'JetBrains Mono'; color: var(--indigo); margin-top: 15px;">Grafo Cognitivo: Bottom-Up</h2>
+        <div class="alert-box alert-warning">
+            <strong>[ HIPERFOCO KINETIC ]</strong> Visualización del proceso de mapeo arborescente y delegación en Agentes IA.
+        </div>
+
+        <div class="grid-2">
+            <div class="card-base card-hover-orange">
+                <h2 style="color: var(--orange-base); border-bottom: 1px solid var(--border-main); padding-bottom: 15px;">Fase 1: Motor Bottom-Up</h2>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">La arquitectura no se diseña desde el tejado. Se escanean las variables base en paralelo hasta que colapsan.</p>
+                <div class="node-tree" style="margin-top: 30px;">
+                    <div class="node-branch">
+                        <strong style="color: var(--text-main);">Lógica Empírica</strong>
+                        <p style="margin: 5px 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Análisis de restricciones de hardware, DSP y bases de datos.</p>
+                    </div>
+                    <div class="node-branch">
+                        <strong style="color: var(--orange-base);">Pensamiento Arborescente</strong>
+                        <p style="margin: 5px 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Generación simultánea de topologías de red, UX y seguridad.</p>
+                    </div>
+                    <div class="node-branch" style="border-left: 2px solid var(--orange-base); margin-left: -2px; padding-left: 2px;">
+                        <strong style="color: var(--text-heading);">Colapso Estructural</strong>
+                        <p style="margin: 5px 0 0 0; font-size: 0.85rem; color: var(--emerald-base);">El Hiperfoco unifica las ramas en un diseño cohesivo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-base card-hover-emerald">
+                <h2 style="color: var(--emerald-base); border-bottom: 1px solid var(--border-main); padding-bottom: 15px;">Fase 2: Orquestación IA</h2>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">La arquitectura abstracta se compila a latencia cero delegando la sintaxis a los Agentes.</p>
+                <div style="background: #000; border: 1px solid var(--border-main); border-radius: 8px; padding: 20px; margin-top: 30px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">
+                    <div style="color: var(--text-dimmed);">> Inicializando Agentes Constructores...</div>
+                    <div style="color: var(--emerald-base); margin-top: 10px;">[AGENTE_UI] Renderizando Grid CSS... OK</div>
+                    <div style="color: var(--emerald-base); margin-top: 5px;">[AGENTE_DSP] Conectando WebAudio API... OK</div>
+                    <div style="color: var(--emerald-base); margin-top: 5px;">[AGENTE_SEC] Verificando Gobernanza... OK</div>
+                    <div style="color: var(--orange-base); margin-top: 15px;">> ECOSISTEMA DESPLEGADO. LATENCIA: 0ms.</div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="graph-container">
-        <svg id="connections"></svg>
-
-        <!-- Nivel 4: Cúspide -->
-        <div class="layer layer-4">
-            <div class="node" id="n-sym" data-info="SIMBIOSIS PERFECTA: El resultado final. El pensamiento arborescente estructurado a alta velocidad por la lógica de la IA.">Simbiosis Perfecta</div>
-        </div>
-
-        <!-- Nivel 3: Procesamiento -->
-        <div class="layer layer-3">
-            <div class="node" id="n-aacc" data-info="PROCESAMIENTO ARBORESCENTE: Mapeo mental de múltiples variables simultáneas. Identificación de patrones invisibles.">Pensamiento AACC</div>
-            <div class="node" id="n-foco" data-info="HIPERFOCO: Ejecución intensa y sin fricciones de una visión arquitectónica.">Hiperfoco Arquitectónico</div>
-        </div>
-
-        <!-- Nivel 2: Motores / IA -->
-        <div class="layer layer-2">
-            <div class="node" id="n-ai" data-info="IA COMPILERS: Modelos generativos (LLMs) que actúan como traductores de la abstracción mental a código y estructura real.">Motores IA</div>
-            <div class="node" id="n-astra" data-info="CAPA ASTRA / CLOUD: Persistencia de datos y conectividad en tiempo real (Firebase/APIs).">Capa Astra (Nube)</div>
-        </div>
-
-        <!-- Nivel 1: Base Empírica (Bottom) -->
-        <div class="layer layer-1">
-            <div class="node" id="n-music" data-info="ACÚSTICA & DSP: Entendimiento matemático del sonido, frecuencias, armónicos y procesamiento de señales.">Acústica & DSP</div>
-            <div class="node" id="n-code" data-info="LÓGICA DE PROGRAMACIÓN: Bases sólidas en algoritmos, estructuras de datos y desarrollo de software.">Lógica Estructural</div>
-            <div class="node" id="n-exp" data-info="EXPERIENCIA EMPÍRICA: Resolución de problemas reales y visión de producto tecnológico.">Experiencia Empírica</div>
-        </div>
-    </div>
-
-    <div class="info-panel" id="info-display">
-        > Inicializando Grafo... Selecciona un nodo para analizar el flujo.
-    </div>
-
-    <script>
-        // Lógica de interacción y dibujo de líneas del Grafo
-        const infoDisplay = document.getElementById('info-display');
-        const svg = document.getElementById('connections');
-        
-        document.querySelectorAll('.node').forEach(node => {
-            node.addEventListener('mouseover', (e) => {
-                infoDisplay.innerText = `> ${e.target.dataset.info}`;
-            });
-            node.addEventListener('mouseout', () => {
-                infoDisplay.innerText = "> Esperando input sensorial...";
-            });
-        });
-
-        // Dibuja líneas entre capas
-        function drawLine(id1, id2) {
-            const el1 = document.getElementById(id1);
-            const el2 = document.getElementById(id2);
-            if(!el1 || !el2) return;
-
-            const rect1 = el1.getBoundingClientRect();
-            const rect2 = el2.getBoundingClientRect();
-            const containerRect = svg.getBoundingClientRect();
-
-            const x1 = rect1.left + (rect1.width/2) - containerRect.left;
-            const y1 = rect1.top - containerRect.top; // Arriba del nodo inferior
-            
-            const x2 = rect2.left + (rect2.width/2) - containerRect.left;
-            const y2 = rect2.bottom - containerRect.top; // Abajo del nodo superior
-
-            const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            // Curva de bezier para hacerla más orgánica (estilo neuronal)
-            const d = `M ${x1} ${y1} C ${x1} ${(y1+y2)/2}, ${x2} ${(y1+y2)/2}, ${x2} ${y2}`;
-            
-            line.setAttribute('d', d);
-            line.setAttribute('stroke', 'rgba(99, 102, 241, 0.2)');
-            line.setAttribute('stroke-width', '2');
-            line.setAttribute('fill', 'none');
-            svg.appendChild(line);
-        }
-
-        // Conectar nodos (Bottom -> Up)
-        window.onload = () => {
-            // Capa 1 a 2
-            drawLine('n-music', 'n-ai'); drawLine('n-music', 'n-astra');
-            drawLine('n-code', 'n-ai'); drawLine('n-code', 'n-astra');
-            drawLine('n-exp', 'n-ai');
-            
-            // Capa 2 a 3
-            drawLine('n-ai', 'n-aacc'); drawLine('n-ai', 'n-foco');
-            drawLine('n-astra', 'n-foco');
-            
-            // Capa 3 a 4
-            drawLine('n-aacc', 'n-sym');
-            drawLine('n-foco', 'n-sym');
-        };
-
-        window.onresize = () => {
-            svg.innerHTML = '';
-            window.onload(); // Redibujar al cambiar tamaño
-        };
-    </script>
 </body>
 </html>

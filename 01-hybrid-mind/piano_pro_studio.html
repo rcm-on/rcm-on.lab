@@ -2,26 +2,37 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>RCM-ON | Nombre del Módulo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RCM-ON | DSP Engine</title>
     <link rel="stylesheet" href="../css/rcm-theme.css">
+    <style>
+        .synth-panel { background: var(--surface-1); border: 1px solid var(--border-main); border-radius: 12px; padding: 30px; margin-top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .metaphor-box { background: var(--surface-2); border-left: 4px solid var(--orange-base); padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 25px; font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+        .metaphor-box strong { color: var(--text-main); }
+        .controls-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        select { background: #000; color: var(--emerald-base); border: 1px solid var(--emerald-base); border-radius: 4px; padding: 8px 12px; font-family: 'JetBrains Mono', monospace; cursor: pointer; outline: none; }
+        .toggles-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 30px; }
+        .h-toggle { background: #000; border: 1px solid #333; color: #555; padding: 10px; text-align: center; border-radius: 6px; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; transition: all 0.2s; user-select: none; }
+        .h-toggle.active { background: var(--emerald-surface); border-color: var(--emerald-base); color: var(--emerald-base); box-shadow: 0 0 10px var(--emerald-glow); }
+        .keyboard { display: flex; position: relative; height: 180px; justify-content: center; margin-top: 20px; }
+        .key { position: relative; cursor: pointer; user-select: none; transition: background 0.1s; }
+        .key.white { width: 55px; height: 180px; background: linear-gradient(to bottom, #cbd5e1, #94a3b8); border: 1px solid #030305; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; z-index: 1; box-shadow: inset 0 -4px 8px rgba(0,0,0,0.3); }
+        .key.white:hover { background: #e2e8f0; }
+        .key.white.active { background: #f8fafc; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 0 12px var(--emerald-glow); border-bottom: 2px solid var(--emerald-base); }
+        .key.black { width: 35px; height: 110px; background: linear-gradient(to bottom, #1e1e24, #000); border: 1px solid #333; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; position: absolute; z-index: 2; margin-left: -17.5px; box-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .key.black.active { background: #111; box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), 0 0 8px var(--emerald-glow); border-bottom: 2px solid var(--emerald-base); }
+    </style>
 </head>
-
 <body>
-
     <div class="container">
         <a href="../index.html" class="btn-back">&larr; Volver al Motor Central</a>
-        
         <div class="synth-panel">
             <h1 style="color: var(--emerald-base); margin-bottom: 20px;">DSP Engine: Síntesis Aditiva</h1>
-            
             <div class="metaphor-box">
-                <strong>EL SONIDO ES LUZ (COLOR):</strong> En acústica, el <em>Timbre</em> (la diferencia entre un piano y una flauta) es simplemente una mezcla de colores. Al igual que sumas píxeles RGB para crear blanco, en DSP sumamos ondas senoidales puras (Armónicos) para crear texturas. 
-                <br><br>
-                <span class="math-formula">Fórmula de Síntesis: $f_n = f_0 \times n$</span>
-                <br>
-                <em>Prueba esto:</em> Selecciona el motor "Max Richter". Toca una nota. Ahora <strong>apaga los armónicos H2, H3 y H4</strong> haciendo clic en ellos y vuelve a tocar. Escucharás cómo el sonido "pierde su color" y se vuelve vacío y oscuro. Acabas de alterar el ADN del sonido en tiempo real.
+                <strong>EL SONIDO ES LUZ (COLOR):</strong> En acústica, el <em>Timbre</em> es una mezcla de colores. Al igual que sumas píxeles RGB para crear blanco, en DSP sumamos ondas senoidales puras (Armónicos) para crear texturas.<br>
+                Fórmula de Síntesis: f_n = f_0 &times; n <br>
+                <em>Prueba esto:</em> Selecciona el motor "Max Richter". Toca una nota. Ahora <strong>apaga los armónicos H2, H3 y H4</strong> y vuelve a tocar. Escucharás cómo el sonido "pierde su color".
             </div>
-
             <div class="controls-header">
                 <span style="font-family: 'JetBrains Mono'; color: var(--text-muted);">MATRIZ DE ARMÓNICOS [H1 - H12]</span>
                 <select id="motor-select">
@@ -30,112 +41,49 @@
                     <option value="synthesis">Motor: Waveform Synth (Brillante)</option>
                 </select>
             </div>
-
-            <!-- Matriz de Toggles de Armónicos -->
-            <div class="toggles-grid" id="harmonic-toggles">
-                <!-- Se inyectan por JS -->
-            </div>
-
+            <div class="toggles-grid" id="harmonic-toggles"></div>
             <div class="keyboard">
                 <div class="key white" data-note="261.63"></div> <div class="key black" data-note="277.18" style="left: 55px;"></div> <div class="key white" data-note="293.66"></div> <div class="key black" data-note="311.13" style="left: 110px;"></div> <div class="key white" data-note="329.63"></div> <div class="key white" data-note="349.23"></div> <div class="key black" data-note="369.99" style="left: 220px;"></div> <div class="key white" data-note="392.00"></div> <div class="key black" data-note="415.30" style="left: 275px;"></div> <div class="key white" data-note="440.00"></div> <div class="key black" data-note="466.16" style="left: 330px;"></div> <div class="key white" data-note="493.88"></div> <div class="key white" data-note="523.25"></div>
             </div>
         </div>
     </div>
-
     <script>
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const masterGain = audioCtx.createGain();
-        masterGain.gain.value = 0.2; // Control de volumen general
-        masterGain.connect(audioCtx.destination);
-
-        let activeNotes = {}; // Almacena los osciladores activos por nota
-        
-        // Estado de los armónicos (Todos encendidos por defecto)
-        let harmonicState = [true, true, true, true, true, true, true, true, true, true, true, true];
-        
-        // Motores de Envolvente y Amplitud
-        const motors = {
-            piano: { decay: 1.5, multiplier: (i) => 1 / (i * i) }, // Cae rápido, suave
-            spectral: { decay: 3.0, multiplier: (i) => i % 2 === 0 ? 0.3/i : 0.8/i }, // Salta pares
-            synthesis: { decay: 0.8, multiplier: (i) => i === 2 || i === 3 ? 1 : 1/(i*i) } // Fuerte en H2 y H3
-        };
-
-        const motorSelect = document.getElementById('motor-select');
-        const togglesContainer = document.getElementById('harmonic-toggles');
-
-        // Generar botones de Armónicos
+        const masterGain = audioCtx.createGain(); masterGain.gain.value = 0.2; masterGain.connect(audioCtx.destination);
+        let activeNotes = {}; let harmonicState = [true, true, true, true, true, true, true, true, true, true, true, true];
+        const motors = { piano: { decay: 1.5, multiplier: (i) => 1 / (i * i) }, spectral: { decay: 3.0, multiplier: (i) => i % 2 === 0 ? 0.3/i : 0.8/i }, synthesis: { decay: 0.8, multiplier: (i) => i === 2 || i === 3 ? 1 : 1/(i*i) } };
+        const motorSelect = document.getElementById('motor-select'); const togglesContainer = document.getElementById('harmonic-toggles');
         for(let i=0; i<12; i++) {
-            const btn = document.createElement('div');
-            btn.className = 'h-toggle active';
-            btn.innerText = i === 0 ? 'H1 (Fund.)' : `H${i+1}`;
-            btn.onclick = () => {
-                harmonicState[i] = !harmonicState[i];
-                btn.classList.toggle('active');
-            };
-            togglesContainer.appendChild(btn);
+            const btn = document.createElement('div'); btn.className = 'h-toggle active'; btn.innerText = i === 0 ? 'H1 (Fund.)' : `H${i+1}`;
+            btn.onclick = () => { harmonicState[i] = !harmonicState[i]; btn.classList.toggle('active'); }; togglesContainer.appendChild(btn);
         }
-
         function playTone(freq, keyElement) {
             if (audioCtx.state === 'suspended') audioCtx.resume();
             const currentMotor = motors[motorSelect.value];
-            
-            // Si la nota ya está sonando, la detenemos primero (evita clics dobles)
             if(activeNotes[freq]) stopTone(freq, keyElement);
-            
-            let noteOscillators = []; // Array de osciladores para esta nota
-
-            // Bucle que lee nuestra Matriz de Armónicos
+            let noteOscillators = [];
             for(let i=0; i<12; i++) {
-                // Solo creamos el sonido si el interruptor está ACTIVO
                 if(harmonicState[i]) {
-                    const partialFreq = freq * (i + 1); // f_n = f_0 * n
-                    const osc = audioCtx.createOscillator();
-                    const gainNode = audioCtx.createGain();
-                    
-                    osc.type = 'sine'; // Onda pura (El "color" primario)
-                    osc.frequency.setValueAtTime(partialFreq, audioCtx.currentTime);
-                    
-                    // Aplicar la envolvente del Motor seleccionado
+                    const partialFreq = freq * (i + 1); const osc = audioCtx.createOscillator(); const gainNode = audioCtx.createGain();
+                    osc.type = 'sine'; osc.frequency.setValueAtTime(partialFreq, audioCtx.currentTime);
                     const intensity = currentMotor.multiplier(i + 1);
-                    gainNode.gain.setValueAtTime(intensity, audioCtx.currentTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + currentMotor.decay);
-                    
-                    osc.connect(gainNode);
-                    gainNode.connect(masterGain);
-                    osc.start();
-                    
-                    noteOscillators.push({osc, gainNode});
+                    gainNode.gain.setValueAtTime(intensity, audioCtx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + currentMotor.decay);
+                    osc.connect(gainNode); gainNode.connect(masterGain); osc.start(); noteOscillators.push({osc, gainNode});
                 }
             }
-            
-            activeNotes[freq] = noteOscillators;
-            keyElement.classList.add('active');
+            activeNotes[freq] = noteOscillators; keyElement.classList.add('active');
         }
-
         function stopTone(freq, keyElement) {
             if (activeNotes[freq]) {
-                activeNotes[freq].forEach(node => {
-                    // Release suave para evitar cortes abruptos
-                    node.gainNode.gain.cancelScheduledValues(audioCtx.currentTime);
-                    node.gainNode.gain.setValueAtTime(node.gainNode.gain.value, audioCtx.currentTime);
-                    node.gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
-                    node.osc.stop(audioCtx.currentTime + 0.15);
-                });
+                activeNotes[freq].forEach(node => { node.gainNode.gain.cancelScheduledValues(audioCtx.currentTime); node.gainNode.gain.setValueAtTime(node.gainNode.gain.value, audioCtx.currentTime); node.gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1); node.osc.stop(audioCtx.currentTime + 0.15); });
                 delete activeNotes[freq];
             }
             keyElement.classList.remove('active');
         }
-
-        // Asignar eventos al teclado
         document.querySelectorAll('.key').forEach(key => {
             const freq = parseFloat(key.dataset.note);
-            key.addEventListener('mousedown', () => playTone(freq, key));
-            key.addEventListener('mouseup', () => stopTone(freq, key));
-            key.addEventListener('mouseleave', () => stopTone(freq, key));
-            
-            // Soporte Táctil (Móviles/Tablets)
-            key.addEventListener('touchstart', (e) => { e.preventDefault(); playTone(freq, key); });
-            key.addEventListener('touchend', (e) => { e.preventDefault(); stopTone(freq, key); });
+            key.addEventListener('mousedown', () => playTone(freq, key)); key.addEventListener('mouseup', () => stopTone(freq, key)); key.addEventListener('mouseleave', () => stopTone(freq, key));
+            key.addEventListener('touchstart', (e) => { e.preventDefault(); playTone(freq, key); }); key.addEventListener('touchend', (e) => { e.preventDefault(); stopTone(freq, key); });
         });
     </script>
 </body>

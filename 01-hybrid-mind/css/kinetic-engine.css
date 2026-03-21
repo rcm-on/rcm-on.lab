@@ -1,8 +1,4 @@
-/* Animaciones de flujo de datos (Latencia 0) */
-@keyframes dataFlow {
-    to { stroke-dashoffset: -40; }
-}
-
+@keyframes dataFlow { to { stroke-dashoffset: -40; } }
 @keyframes pulseNode {
     0% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4); }
     70% { box-shadow: 0 0 0 15px rgba(249, 115, 22, 0); }
@@ -25,24 +21,15 @@
     color: var(--text-main); text-align: center; position: relative; cursor: crosshair; transition: all 0.3s;
 }
 
-/* Nodos Humanos (Naranja) */
 .human-node { border-color: var(--orange-base); }
 .human-node:hover { background: var(--orange-surface); animation: pulseNode 1.5s infinite; }
 
-/* Nodo IA (Indigo/Cian) */
 .ai-node { border-color: #6366f1; background: rgba(99, 102, 241, 0.1); padding: 30px; border-radius: 50%; display: flex; flex-direction: column; }
 .ai-node:hover { box-shadow: 0 0 30px rgba(99, 102, 241, 0.5); }
 
-/* Nodos Despliegue (Esmeralda) */
 .deploy-node { border-color: var(--emerald-base); }
 .deploy-node:hover { background: var(--emerald-surface); box-shadow: 0 0 20px var(--emerald-glow); }
 
-/* Líneas de datos SVG */
-.data-line {
-    fill: none; stroke: var(--border-main); stroke-width: 2;
-    transition: all 0.3s ease;
-}
-
-/* Hover effects en el SVG (Se activan con JS ligero en el HTML) */
+.data-line { fill: none; stroke: var(--border-main); stroke-width: 2; transition: all 0.3s ease; }
 .data-line.active-orange { stroke: var(--orange-base); stroke-dasharray: 8 8; animation: dataFlow 1s linear infinite; }
 .data-line.active-emerald { stroke: var(--emerald-base); stroke-dasharray: 8 8; animation: dataFlow 1s linear infinite; }
