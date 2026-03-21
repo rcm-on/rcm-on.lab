@@ -3,138 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RCM-ON | Manifiesto Core</title>
+    <title>RCM-ON | Manifiesto de Simbiosis y Procesos</title>
+    <link rel="stylesheet" href="../css/rcm-theme.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap');
+        /* Layout específico para el panel dividido del Manifiesto */
+        main {
+            width: 100%;
+            max-width: 1100px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .manifesto-panel {
+            background: var(--surface-1);
+            border: 1px solid var(--border-main);
+            border-radius: 12px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
+        }
+
+        /* Iluminación por Motor */
+        .panel-rcm { border-color: var(--emerald-base); box-shadow: inset 0 0 60px rgba(16, 185, 129, 0.05); }
+        .panel-on { border-color: var(--orange-base); box-shadow: inset 0 0 60px rgba(249, 115, 22, 0.05); }
+
+        .accent-line-emerald { position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--emerald-base); }
+        .accent-line-orange { position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--orange-base); }
+
+        /* Render del Logotipo Geométrico */
+        .logo-placeholder {
+            width: 100px; height: 100px; background: #000; border-radius: 50%;
+            border: 2px solid; display: flex; justify-content: center; align-items: center;
+            font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; margin-bottom: 20px; position: relative;
+        }
+        .logo-placeholder::before { content: ''; position: absolute; width: 110%; height: 110%; border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; }
         
-        :root {
-            --bg-color: #030305;
-            --surface: #111116;
-            --text-main: #e2e8f0;
-            --text-muted: #94a3b8;
-            --emerald: #10B981;
-            --emerald-glow: rgba(16, 185, 129, 0.4);
-            --indigo: #6366F1;
-        }
+        .logo-rcm { border-color: var(--emerald-base); color: var(--emerald-base); box-shadow: 0 0 20px var(--emerald-glow); }
+        .logo-on { border-color: var(--orange-base); color: var(--orange-base); box-shadow: 0 0 20px var(--orange-glow); }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 40px 20px;
-            line-height: 1.6;
-            background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 30px 30px;
-        }
+        .h3-rcm { color: var(--emerald-base); }
+        .h3-on { color: var(--orange-base); }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .btn-back {
-            display: inline-block;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            margin-bottom: 30px;
-            transition: color 0.3s ease;
-        }
-
-        .btn-back:hover {
-            color: var(--emerald);
-        }
-
-        header {
-            margin-bottom: 50px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 20px;
-        }
-
-        h1 {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 3rem;
-            margin: 0;
-            letter-spacing: -1px;
-        }
-
-        .status-on {
-            color: var(--emerald);
-            text-shadow: 0 0 15px var(--emerald-glow);
-        }
-
-        h2 {
-            color: var(--text-muted);
-            font-weight: 300;
-            font-size: 1.2rem;
-            margin-top: 10px;
-        }
-
-        .manifesto-section {
-            background: var(--surface);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 8px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-        }
-
-        .manifesto-section h3 {
-            color: var(--indigo);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.1rem;
-            margin-top: 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .manifesto-section p {
-            font-size: 1.05rem;
-            color: #cbd5e1;
-            margin-bottom: 0;
-        }
-
-        .highlight {
-            color: var(--emerald);
-            font-weight: 600;
+        /* Citas de Axiomas */
+        .manifesto-block { border-left: 3px solid; padding-left: 20px; margin-top: 10px; }
+        .block-rcm { border-color: var(--emerald-base); }
+        .block-on { border-color: var(--orange-base); }
+        
+        /* Ajuste responsive para móviles */
+        @media (max-width: 768px) {
+            main { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <a href="../index.html" class="btn-back">&larr; Volver a Central Hub</a>
+    <div class="container" style="max-width: 1200px; display: flex; flex-direction: column; align-items: center;">
         
-        <header>
-            <h1>RCM<span class="status-on">-ON</span></h1>
-            <h2>Manifiesto de Arquitectura y Simbiosis Cognitiva</h2>
-        </header>
+        <div style="width: 100%; max-width: 1100px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <a href="../index.html" class="btn-back">&larr; Volver al Motor Central</a>
+            <span style="font-family: 'JetBrains Mono'; color: var(--text-dimmed); font-size: 0.8rem;">
+                RCM-ON // Brand Manifesto // v4.0 // Procesos Kinetic
+            </span>
+        </div>
 
         <main>
-            <div class="manifesto-section">
-                <h3>01. El Axioma</h3>
-                <p>La arquitectura de software no trata de escribir código, trata de estructurar el caos. En un ecosistema digital saturado de soluciones genéricas, <span class="highlight">RCM-ON</span> nace como una declaración de principios: construir sistemas de alta frecuencia que sean tan resilientes como escalables.</p>
+            <div class="manifesto-panel panel-rcm">
+                <div class="accent-line-emerald"></div>
+                <div class="logo-placeholder logo-rcm">RCM<span style="color:#64748b">/ON</span></div>
+                <div>
+                    <h2 style="font-size: 2.5rem; letter-spacing: -1px; margin-bottom: 5px;">El Motor</h2>
+                    <h3 class="h3-rcm" style="font-size: 0.9rem; letter-spacing: 2px;">Abstracción y Cognición</h3>
+                </div>
+                <p style="color: var(--text-muted); line-height: 1.7;">
+                    El despliegue de ecosistemas de élite no empieza picando código genérico; empieza estructurando el caos. Una mente arborescente necesita una infraestructura de alta frecuencia para aterrizar sus múltiples ramas de innovación de forma simultánea.
+                </p>
+                <div class="manifesto-block block-rcm">
+                    <p style="font-size: 0.95rem; color: var(--text-main);">
+                        <strong>Axioma RCM:</strong> El proceso nace del <em>Pensamiento Arborescente</em> y la <em>Base Empírica</em>. Esta capacidad de abstracción profunda permite mapear mentalmente estructuras, enrutamientos y lógicas en paralelo antes de materializar un solo nodo.
+                    </p>
+                </div>
             </div>
 
-            <div class="manifesto-section">
-                <h3>02. El Motor: Procesamiento Arborescente</h3>
-                <p>Lo que la convención llama distracción, en RCM-ON es <span class="highlight">procesamiento en paralelo</span>. El pensamiento arborescente (AACC) no es una peculiaridad, es nuestro motor principal. Nos permite visualizar la arquitectura completa de un sistema antes de escribir la primera línea, detectando cuellos de botella y vectores de ataque en un mapa mental de múltiples dimensiones.</p>
-            </div>
-
-            <div class="manifesto-section">
-                <h3>03. La Simbiosis Perfecta</h3>
-                <p>El cerebro humano traza la visión a 200 km/h; la Inteligencia Artificial pavimenta la carretera. <span class="highlight">RCM-ON no compite con la IA, se fusiona con ella.</span> Utilizamos la IA como el compilador definitivo de nuestras ideas complejas, logrando un ciclo de desarrollo ágil, preciso y sin fricción. Pensamiento complejo dirigido, ejecución automatizada.</p>
-            </div>
-
-            <div class="manifesto-section">
-                <h3>04. Hacia el Colectivo</h3>
-                <p>El Arquitecto de Visión necesita Ingenieros de Estabilidad. El siguiente paso de RCM-ON es la expansión hacia un equipo que comparta esta filosofía: metodologías claras para mentes rápidas. Buscamos talento capaz de aterrizar la innovación y mantener la latencia cero.</p>
+            <div class="manifesto-panel panel-on">
+                <div class="accent-line-orange"></div>
+                <div class="logo-placeholder logo-on">RCM<span style="color:var(--orange-base)">/ON</span></div>
+                <div>
+                    <h2 style="font-size: 2.5rem; letter-spacing: -1px; margin-bottom: 5px;">El Despliegue</h2>
+                    <h3 class="h3-on" style="font-size: 0.9rem; letter-spacing: 2px;">Diseño y Arquitectura de Sistemas</h3>
+                </div>
+                <p style="color: var(--text-muted); line-height: 1.7;">
+                    La Inteligencia Artificial no es un fin, es un enjambre de <strong>Agentes de Implementación</strong>. La IA asume el trabajo pesado, pavimentando la carretera para que la ejecución del diseño y la topología alcance la velocidad del pensamiento humano.
+                </p>
+                <div class="manifesto-block block-on">
+                    <p style="font-size: 0.95rem; color: var(--text-main);">
+                        <strong>Axioma ON:</strong> La <em>Simbiosis Perfecta</em>. El colapso de la abstracción se materializa a través del Hiperfoco Kinetic. El proceso define el diseño y los servicios; la IA orquesta la arquitectura de sistemas y compila a <strong>latencia cero</strong>.
+                    </p>
+                </div>
             </div>
         </main>
-    </div>
 
+        <div style="width: 100%; max-width: 1100px; margin-top: 30px; background: var(--surface-2); border: 1px solid var(--border-main); border-radius: 12px; padding: 30px; text-align: center;">
+            <h3 style="color: var(--text-heading); font-size: 1.2rem; margin-bottom: 10px;">[ SÍNTESIS Y RESULTADO EMPÍRICO ]</h3>
+            <p style="color: var(--emerald-base); font-family: 'JetBrains Mono', monospace; font-size: 1rem; margin: 0 0 15px 0;">
+                Abstracción + Cognición + Diseño + Arquitectura de Sistemas
+            </p>
+            <div style="display: inline-block; background: #000; border: 1px solid var(--orange-base); padding: 15px 25px; border-radius: 8px; text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;">
+                <span style="color: var(--text-muted);">> CASO DE USO ACTUAL:</span><br>
+                <span style="color: var(--text-main);">Consolidación de ideas abstractas a infraestructura funcional orquestada con IA.</span><br>
+                <span style="color: var(--orange-base);">> Tiempo de ejecución: Horas (vs. Semanas en modelo tradicional secuencial).</span><br>
+                <span style="color: var(--emerald-base);">> Estado: 100% Operativo a Latencia 0.</span>
+            </div>
+        </div>
+
+    </div>
 </body>
 </html>

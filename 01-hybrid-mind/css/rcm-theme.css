@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+    --bg-base: #030305;
+    --surface-1: #0f0f13;
+    --surface-2: #1a1a20;
+    --border-subtle: rgba(255, 255, 255, 0.05);
+    --border-main: rgba(255, 255, 255, 0.12);
+    --text-heading: #ffffff;
+    --text-main: #e2e8f0;
+    --text-muted: #94a3b8;
+    --emerald-base: #10B981;
+    --emerald-glow: rgba(16, 185, 129, 0.4);
+    --emerald-surface: rgba(16, 185, 129, 0.1);
+    --orange-base: #F97316;
+    --orange-glow: rgba(249, 115, 22, 0.4);
+    --orange-surface: rgba(249, 115, 22, 0.1);
+}
+
+body {
+    background-color: var(--bg-base); color: var(--text-main); font-family: 'Inter', sans-serif;
+    margin: 0; padding: 0; min-height: 100vh;
+    background-image: linear-gradient(var(--border-subtle) 1px, transparent 1px), linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
+    background-size: 30px 30px; display: flex; flex-direction: column; align-items: center;
+}
+
+h1, h2, h3, h4 { color: var(--text-heading); margin-top: 0; font-family: 'JetBrains Mono', monospace;}
+a { text-decoration: none; color: var(--emerald-base); transition: all 0.3s; }
+a:hover { color: var(--emerald-glow); }
+
+.container { width: 100%; max-width: 1100px; padding: 40px 20px; box-sizing: border-box; }
+.btn-back { color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; display: inline-block; margin-bottom: 30px; }
+.btn-back:hover { color: var(--orange-base); }
+
+.tag { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; padding: 4px 10px; border-radius: 4px; font-weight: bold; border: 1px solid transparent; }
+.tag-brand { background: var(--surface-2); color: var(--text-muted); border-color: var(--border-main); }
+.tag-online { background: var(--emerald-surface); color: var(--emerald-base); border-color: var(--emerald-base); }
+.tag-focus { background: var(--orange-surface); color: var(--orange-base); border-color: var(--orange-base); }
+
+/* ==========================================================================
+   SISTEMA DE ESTRUCTURAS Y COMPONENTES (UI KIT RCM-ON)
+   ========================================================================== */
+
+/* --- 1. LAYOUTS Y GRIDS (Estructuras de Arquitectura) --- */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.flex-row { display: flex; align-items: center; gap: 15px; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+
+/* Responsive básico para que no se rompa en móviles */
+@media (max-width: 768px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+
+/* --- 2. TARJETAS Y PANELES (Contenedores Universales) --- */
+.card-base {
+    background: var(--surface-1);
+    border: 1px solid var(--border-main);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+/* Modificadores de estado (Branding) */
+.card-hover-emerald:hover { border-color: var(--emerald-base); transform: translateY(-3px); box-shadow: 0 10px 25px var(--emerald-glow); }
+.card-hover-orange:hover { border-color: var(--orange-base); transform: translateY(-3px); box-shadow: 0 10px 25px var(--orange-glow); }
+
+/* --- 3. INPUTS Y FORMULARIOS (Interacción con el usuario/sistema) --- */
+.input-terminal {
+    width: 100%;
+    background: var(--bg-base);
+    border: 1px solid var(--border-main);
+    color: var(--emerald-base);
+    font-family: 'JetBrains Mono', monospace;
+    padding: 12px 15px;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border 0.3s;
+}
+
+.input-terminal:focus {
+    outline: none;
+    border-color: var(--emerald-base);
+    box-shadow: 0 0 10px var(--emerald-glow);
+}
+
+.input-terminal::placeholder { color: var(--text-dimmed); }
+
+/* --- 4. BOTONES (Llamadas a la acción tácticas) --- */
+.btn-core {
+    display: inline-block;
+    padding: 10px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.btn-emerald {
+    background: var(--emerald-surface);
+    color: var(--emerald-base);
+    border-color: var(--emerald-base);
+}
+.btn-emerald:hover { background: var(--emerald-base); color: #000; box-shadow: 0 0 15px var(--emerald-glow); }
+
+.btn-orange {
+    background: var(--orange-surface);
+    color: var(--orange-base);
+    border-color: var(--orange-base);
+}
+.btn-orange:hover { background: var(--orange-base); color: #000; box-shadow: 0 0 15px var(--orange-glow); }
+
+/* --- 5. ALERTAS Y FEEDBACK DEL SISTEMA --- */
+.alert-box {
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+.alert-info { background: var(--surface-2); border-color: var(--text-muted); color: var(--text-main); }
+.alert-success { background: var(--emerald-surface); border-color: var(--emerald-base); color: var(--emerald-base); }
+.alert-warning { background: var(--orange-surface); border-color: var(--orange-base); color: var(--orange-base); }
