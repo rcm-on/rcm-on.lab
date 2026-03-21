@@ -2,64 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RCM-ON | Manifiesto de Simbiosis y Procesos</title>
+    <title>RCM-ON | Nombre del Módulo</title>
     <link rel="stylesheet" href="../css/rcm-theme.css">
-    <style>
-        /* Layout específico para el panel dividido del Manifiesto */
-        main {
-            width: 100%;
-            max-width: 1100px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        .manifesto-panel {
-            background: var(--surface-1);
-            border: 1px solid var(--border-main);
-            border-radius: 12px;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
-        }
-
-        /* Iluminación por Motor */
-        .panel-rcm { border-color: var(--emerald-base); box-shadow: inset 0 0 60px rgba(16, 185, 129, 0.05); }
-        .panel-on { border-color: var(--orange-base); box-shadow: inset 0 0 60px rgba(249, 115, 22, 0.05); }
-
-        .accent-line-emerald { position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--emerald-base); }
-        .accent-line-orange { position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--orange-base); }
-
-        /* Render del Logotipo Geométrico */
-        .logo-placeholder {
-            width: 100px; height: 100px; background: #000; border-radius: 50%;
-            border: 2px solid; display: flex; justify-content: center; align-items: center;
-            font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; margin-bottom: 20px; position: relative;
-        }
-        .logo-placeholder::before { content: ''; position: absolute; width: 110%; height: 110%; border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; }
-        
-        .logo-rcm { border-color: var(--emerald-base); color: var(--emerald-base); box-shadow: 0 0 20px var(--emerald-glow); }
-        .logo-on { border-color: var(--orange-base); color: var(--orange-base); box-shadow: 0 0 20px var(--orange-glow); }
-
-        .h3-rcm { color: var(--emerald-base); }
-        .h3-on { color: var(--orange-base); }
-
-        /* Citas de Axiomas */
-        .manifesto-block { border-left: 3px solid; padding-left: 20px; margin-top: 10px; }
-        .block-rcm { border-color: var(--emerald-base); }
-        .block-on { border-color: var(--orange-base); }
-        
-        /* Ajuste responsive para móviles */
-        @media (max-width: 768px) {
-            main { grid-template-columns: 1fr; }
-        }
-    </style>
 </head>
 <body>
     <div class="container" style="max-width: 1200px; display: flex; flex-direction: column; align-items: center;">
