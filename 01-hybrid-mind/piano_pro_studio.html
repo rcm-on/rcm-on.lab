@@ -3,168 +3,340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spectral Audio Engine | RCM-ON</title>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>RCM-ON | DSP ENGINE LAB</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #030305; color: #ffffff; overflow-x: hidden; user-select: none; }
-        .mono { font-family: 'JetBrains Mono', monospace; }
-        .glass-panel { background: rgba(20, 20, 25, 0.4); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .piano-scroll::-webkit-scrollbar { height: 8px; }
-        .piano-scroll::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 10px; }
-        .key-active { transform: translateY(8px) scaleY(1.02); z-index: 10; border-bottom: 20px solid #10b981 !important; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4); background: #ecfdf5; }
-        .key-active-black { transform: translateY(4px); box-shadow: 0 0 15px #10b981; background: #10b981 !important; }
+        
+        :root {
+            --bg-color: #030305;
+            --surface: #111116;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --emerald: #10B981;
+            --emerald-glow: rgba(16, 185, 129, 0.4);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-container {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .btn-back {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .btn-back:hover { color: var(--emerald); }
+
+        .synth-container {
+            background: var(--surface);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            max-width: 900px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .display-panel {
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'JetBrains Mono', monospace;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            color: var(--emerald);
+            text-shadow: 0 0 8px var(--emerald-glow);
+            font-size: 0.85rem;
+        }
+
+        .harmonics-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 6px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .harmonic-item {
+            background: rgba(255,255,255,0.03);
+            padding: 4px;
+            border-radius: 4px;
+            text-align: center;
+            border: 1px solid transparent;
+            transition: all 0.1s;
+        }
+
+        .harmonic-item.active {
+            color: var(--emerald);
+            border-color: var(--emerald);
+            background: rgba(16, 185, 129, 0.08);
+        }
+
+        /* Sonic Graphics / Visualizador de Espectro */
+        .spectrum-container {
+            width: 100%;
+            height: 120px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid #222;
+            border-radius: 6px;
+            display: flex;
+            align-items: flex-end;
+            padding: 10px;
+            box-sizing: border-box;
+            gap: 2px;
+        }
+
+        .spectrum-bar {
+            flex: 1;
+            background: var(--emerald);
+            box-shadow: 0 0 8px var(--emerald-glow);
+            transition: height 0.05s ease;
+            height: 0%;
+        }
+
+        .spectrum-waterfall {
+            height: 100px;
+            background: #000;
+            border: 1px solid #222;
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #waterfall-canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Keyboard */
+        .keyboard {
+            display: flex;
+            position: relative;
+            height: 180px;
+            justify-content: center;
+        }
+
+        .key {
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.1s;
+        }
+
+        .key.white {
+            width: 55px;
+            height: 180px;
+            background: linear-gradient(to bottom, #cbd5e1, #94a3b8);
+            border: 1px solid #030305;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            z-index: 1;
+            box-shadow: inset 0 -4px 8px rgba(0,0,0,0.3);
+        }
+
+        .key.white:hover { background: #e2e8f0; }
+        .key.white.active {
+            background: #f8fafc;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 0 12px var(--emerald-glow);
+            border-bottom: 2px solid var(--emerald);
+        }
+
+        .key.black {
+            width: 35px;
+            height: 110px;
+            background: linear-gradient(to bottom, #1e1e24, #000);
+            border: 1px solid #333;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+            position: absolute;
+            z-index: 2;
+            margin-left: -17.5px;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .key.black.active {
+            background: #111;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), 0 0 8px var(--emerald-glow);
+            border-bottom: 2px solid var(--emerald);
+        }
+
+        /* Selector de Motor */
+        .controls-panel {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        select {
+            background: var(--surface);
+            color: var(--text-main);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            cursor: pointer;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
-    <div id="root" class="flex flex-col h-screen"></div>
+<body>
 
-    <script type="text/babel">
-        const { useState, useEffect, useRef, useCallback } = React;
+    <div class="header-container">
+        <a href="../index.html" class="btn-back">&larr; Volver al Hub Central</a>
+        <h2 style="font-family: 'JetBrains Mono'; color: var(--emerald); margin:0;">DSP ENGINE</h2>
+    </div>
 
-        const App = () => {
-            const [volume, setVolume] = useState(0.7);
-            const [keyWidth, setKeyWidth] = useState(60);
-            const [activeNotes, setActiveNotes] = useState({});
-            
-            const audioCtx = useRef(null);
-            const masterGain = useRef(null);
-
-            const initAudio = () => {
-                if (!audioCtx.current) {
-                    audioCtx.current = new (window.AudioContext || window.webkitAudioContext)();
-                    masterGain.current = audioCtx.current.createGain();
-                    masterGain.current.gain.setValueAtTime(volume, audioCtx.current.currentTime);
-                    const compressor = audioCtx.current.createDynamicsCompressor();
-                    compressor.threshold.setValueAtTime(-15, audioCtx.current.currentTime);
-                    masterGain.current.connect(compressor);
-                    compressor.connect(audioCtx.current.destination);
-                }
-                if (audioCtx.current.state === 'suspended') audioCtx.current.resume();
-            };
-
-            const triggerNote = useCallback((note) => {
-                initAudio();
-                const now = audioCtx.current.currentTime;
-                const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-                const oct = parseInt(note.slice(-1));
-                const name = note.slice(0, -1);
-                const f0 = 440 * Math.pow(2, (noteNames.indexOf(name) - 9 + (oct - 4) * 12) / 12);
-                
-                // Síntesis Aditiva
-                for (let n = 1; n <= 12; n++) {
-                    const freq = n * f0 * Math.sqrt(1 + 0.00015 * n * n);
-                    const osc = audioCtx.current.createOscillator();
-                    const g = audioCtx.current.createGain();
-                    osc.type = n === 1 ? 'triangle' : 'sine';
-                    osc.frequency.setValueAtTime(freq, now);
-                    
-                    let amp = (1 / (n * n)) * 0.8;
-                    const decay = 6.0 / (n * 0.3 + 0.7);
-
-                    g.gain.setValueAtTime(0, now);
-                    g.gain.linearRampToValueAtTime(amp * volume * 0.3, now + 0.02);
-                    g.gain.exponentialRampToValueAtTime(0.0001, now + decay);
-
-                    osc.connect(g);
-                    g.connect(masterGain.current);
-                    osc.start(now);
-                    osc.stop(now + decay);
-                }
-
-                setActiveNotes(prev => ({ ...prev, [note]: true }));
-                setTimeout(() => {
-                    setActiveNotes(prev => { const n = {...prev}; delete n[note]; return n; });
-                }, 3000);
-            }, [volume]);
-
-            const pianoKeys = [];
-            const notesRef = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'];
-            let o = 0, i = 0;
-            for (let k = 0; k < 88; k++) {
-                const nName = notesRef[i];
-                pianoKeys.push({ id: k, note: `${nName}${o}`, isBlack: nName.includes('#') });
-                i++; if (i === 12) { i = 0; o++; }
-            }
-
-            const scrollRef = useRef(null);
-            useEffect(() => { 
-                lucide.createIcons();
-                if (scrollRef.current) scrollRef.current.scrollLeft = 400; 
-            }, []);
-
-            return (
-                <div className="flex-1 flex flex-col bg-[radial-gradient(circle_at_50%_0%,_rgba(16,185,129,0.05)_0%,_#030305_100%)]">
-                    {/* NavBar */}
-                    <nav className="p-6 flex justify-between items-center glass-panel border-t-0 border-x-0 z-50">
-                        <div className="flex items-center gap-4">
-                            <a href="../index.html" className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center hover:bg-emerald-500/20 transition-colors text-stone-400 hover:text-emerald-400">
-                                <i data-lucide="arrow-left" className="w-5 h-5"></i>
-                            </a>
-                            <div>
-                                <h1 className="text-xl font-bold italic uppercase tracking-tighter">Spectral <span className="text-emerald-500">Engine</span></h1>
-                                <p className="mono text-[9px] text-stone-500 tracking-[0.3em] uppercase">RCM-ON Audio Module</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-6">
-                            <div className="flex items-center gap-3">
-                                <i data-lucide="search" className="w-4 h-4 text-stone-500"></i>
-                                <input type="range" min="40" max="100" value={keyWidth} onChange={e => setKeyWidth(parseInt(e.target.value))} className="w-24 accent-emerald-500 h-1 bg-white/10 rounded-full appearance-none" />
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <i data-lucide="volume-2" className="w-4 h-4 text-stone-500"></i>
-                                <input type="range" min="0" max="1" step="0.1" value={volume} onChange={e => setVolume(parseFloat(e.target.value))} className="w-24 accent-emerald-500 h-1 bg-white/10 rounded-full appearance-none" />
-                            </div>
-                        </div>
-                    </nav>
-
-                    <div className="flex-1 flex flex-col justify-center items-center px-6">
-                         <div className="text-center mb-12">
-                             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-[0.4em] mb-6">
-                                DSP Activo
-                             </div>
-                             <h2 className="text-4xl font-light text-stone-300">Interactúa con la estructura.</h2>
-                         </div>
-                    </div>
-
-                    {/* Piano */}
-                    <div className="relative flex-none pb-12 overflow-hidden">
-                        <div ref={scrollRef} className="w-full overflow-x-auto piano-scroll px-12 pb-4">
-                            <div className="inline-flex relative h-64 md:h-[400px] items-end px-12">
-                                {pianoKeys.map((key) => {
-                                    const active = activeNotes[key.note];
-                                    const bWidth = keyWidth * 0.7;
-                                    if (key.isBlack) {
-                                        const whiteBefore = pianoKeys.filter((k, idx) => idx < key.id && !k.isBlack).length;
-                                        const left = (whiteBefore * keyWidth) - (bWidth / 2);
-                                        return (
-                                            <div key={key.id} onPointerDown={() => triggerNote(key.note)}
-                                                className={`absolute top-0 z-20 rounded-b-xl border-x border-b border-black cursor-pointer transition-all duration-100 ${active ? 'key-active-black' : 'bg-stone-900'}`}
-                                                style={{ left: `${left}px`, width: `${bWidth}px`, height: '62%' }}>
-                                            </div>
-                                        );
-                                    }
-                                    return (
-                                        <div key={key.id} onPointerDown={() => triggerNote(key.note)}
-                                            className={`relative border-r border-white/5 rounded-b-[2rem] flex flex-col justify-end items-center pb-8 cursor-pointer transition-all duration-200 ${active ? 'key-active' : 'bg-white/5 hover:bg-white/10'}`}
-                                            style={{ minWidth: `${keyWidth}px`, height: '100%' }}>
-                                            <span className={`text-[9px] font-black ${active ? 'text-emerald-600' : 'text-stone-600'}`}>{key.note}</span>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </div>
-                    </div>
+    <div class="synth-container">
+        <div class="display-panel">
+            <div class="status-row">
+                <span id="note-display">FREQ: STANDBY</span>
+                <span>OSC: ADDITIVE | 12 PARCIALES</span>
+            </div>
+            <div class="harmonics-grid" id="harmonics-display">
                 </div>
-            );
+        </div>
+        
+        <div class="spectrum-container" id="spectrum-bars">
+             </div>
+
+        <div class="controls-panel">
+            <select id="motor-select">
+                <option value="piano">Max Richter Piano (Sine decay)</option>
+                <option value="spectral">Spectral Harmonizer (Complex partials)</option>
+                <option value="synthesis">Waveform Synth (Rich H2+H3)</option>
+            </select>
+        </div>
+
+        <div class="keyboard">
+            <div class="key white" data-note="261.63"></div> <div class="key black" data-note="277.18" style="left: 55px;"></div> <div class="key white" data-note="293.66"></div> <div class="key black" data-note="311.13" style="left: 110px;"></div> <div class="key white" data-note="329.63"></div> <div class="key white" data-note="349.23"></div> <div class="key black" data-note="369.99" style="left: 220px;"></div> <div class="key white" data-note="392.00"></div> <div class="key black" data-note="415.30" style="left: 275px;"></div> <div class="key white" data-note="440.00"></div> <div class="key black" data-note="466.16" style="left: 330px;"></div> <div class="key white" data-note="493.88"></div> <div class="key white" data-note="523.25"></div> </div>
+    </div>
+
+    <script>
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let oscillators = {};
+        const masterGain = audioCtx.createGain();
+        masterGain.gain.value = 0.2;
+        masterGain.connect(audioCtx.destination);
+
+        const harmonicsDisplay = document.getElementById('harmonics-display');
+        const spectrumBars = document.getElementById('spectrum-bars');
+        const motorSelect = document.getElementById('motor-select');
+        
+        // Inicializar pantallas
+        for(let i=1; i<=12; i++) {
+            // LCD de frecuencias
+            const divH = document.createElement('div');
+            divH.className = 'harmonic-item';
+            divH.id = `h${i}`;
+            divH.innerText = `H${i}: -- Hz`;
+            harmonicsDisplay.appendChild(divH);
+            
+            // Barras de espectro
+            const bar = document.createElement('div');
+            bar.className = 'spectrum-bar';
+            bar.id = `bar${i}`;
+            spectrumBars.appendChild(bar);
+        }
+
+        // Definición de motores
+        const motors = {
+            piano: { decay: 1.5, multiplier: (i) => 1 / (i * i) },
+            spectral: { decay: 3.0, multiplier: (i) => i % 2 === 0 ? 0.3/i : 0.8/i },
+            synthesis: { decay: 0.8, multiplier: (i) => i === 2 || i === 3 ? 1 : 1/(i*i) }
         };
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        function playTone(freq, keyElement) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            
+            const currentMotor = motors[motorSelect.value];
+            document.getElementById('note-display').innerText = `FREQ: ${freq} Hz | FUNDAMENTAL ACTIVA`;
+            
+            // Actualizar visualizadores
+            for(let i=1; i<=12; i++) {
+                const hFreq = (freq * i).toFixed(1);
+                
+                // Actualizar LCD
+                const hDiv = document.getElementById(`h${i}`);
+                hDiv.innerText = `H${i}: ${hFreq} Hz`;
+                hDiv.classList.add('active');
+                
+                // Actualizar Barras de Espectro
+                const barDiv = document.getElementById(`bar${i}`);
+                const intensity = currentMotor.multiplier(i) * 100;
+                barDiv.style.height = `${intensity}%`;
+            }
+
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            
+            gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + currentMotor.decay);
+            
+            osc.connect(gainNode);
+            gainNode.connect(masterGain);
+            
+            osc.start();
+            oscillators[freq] = osc;
+            
+            keyElement.classList.add('active');
+        }
+
+        function stopTone(freq, keyElement) {
+            if (oscillators[freq]) {
+                oscillators[freq].stop(audioCtx.currentTime + 0.1);
+                delete oscillators[freq];
+            }
+            keyElement.classList.remove('active');
+            
+            // Apagar visualizadores
+            document.getElementById('note-display').innerText = `FREQ: STANDBY`;
+            for(let i=1; i<=12; i++) {
+                document.getElementById(`h${i}`).classList.remove('active');
+                document.getElementById(`bar${i}`).style.height = `0%`;
+            }
+        }
+
+        document.querySelectorAll('.key').forEach(key => {
+            const freq = parseFloat(key.dataset.note);
+            key.addEventListener('mousedown', () => playTone(freq, key));
+            key.addEventListener('mouseup', () => stopTone(freq, key));
+            key.addEventListener('mouseleave', () => stopTone(freq, key));
+            
+            // Soporte táctil
+            key.addEventListener('touchstart', (e) => { e.preventDefault(); playTone(freq, key); });
+            key.addEventListener('touchend', (e) => { e.preventDefault(); stopTone(freq, key); });
+        });
     </script>
 </body>
 </html>

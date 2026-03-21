@@ -3,121 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cognitive Atlas | RCM-ON</title>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>RCM-ON | Grafo Cognitivo</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #030305; color: #ffffff; overflow-x: hidden; }
-        .mono { font-family: 'JetBrains Mono', monospace; }
-        .glass-panel { background: rgba(20, 20, 25, 0.4); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .node-active { border-color: #6366f1 !important; background: rgba(99, 102, 241, 0.1); box-shadow: 0 0 30px rgba(99, 102, 241, 0.2); }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        :root {
+            --bg-color: #030305;
+            --surface: #111116;
+            --text-main: #e2e8f0;
+            --emerald: #10B981;
+            --indigo: #6366F1;
+            --node-bg: #1e1e24;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-container {
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 20px;
+        }
+
+        .btn-back {
+            color: #94a3b8;
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .btn-back:hover { color: var(--emerald); }
+
+        .graph-container {
+            width: 100%;
+            max-width: 900px;
+            height: 600px;
+            background: var(--surface);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+            display: flex;
+            flex-direction: column-reverse; /* Bottom-Up Flow */
+            justify-content: space-around;
+            align-items: center;
+            padding: 40px 0;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+
+        /* Líneas de conexión mediante pseudo-elementos */
+        .layer {
+            display: flex;
+            gap: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .node {
+            background: var(--node-bg);
+            border: 1px solid #333;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+        }
+
+        .node:hover {
+            transform: translateY(-5px);
+            border-color: var(--indigo);
+            box-shadow: 0 5px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Colores por capas (Bottom-up) */
+        .layer-1 .node { border-bottom: 3px solid #64748b; } /* Conocimientos */
+        .layer-2 .node { border-bottom: 3px solid var(--indigo); } /* Engines */
+        .layer-3 .node { border-bottom: 3px solid #f59e0b; } /* Procesamiento */
+        .layer-4 .node { 
+            border: 2px solid var(--emerald); 
+            background: rgba(16, 185, 129, 0.1);
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        .info-panel {
+            margin-top: 30px;
+            width: 100%;
+            max-width: 900px;
+            background: #111;
+            padding: 20px;
+            border-left: 4px solid var(--emerald);
+            font-family: 'JetBrains Mono', monospace;
+            color: #cbd5e1;
+            min-height: 80px;
+        }
+
+        /* SVG para dibujar las conexiones dinámicas */
+        #connections {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col bg-[radial-gradient(circle_at_0%_50%,_rgba(99,102,241,0.08)_0%,_#030305_100%)]">
-    <div id="root" class="flex-1 flex flex-col"></div>
+<body>
 
-    <script type="text/babel">
-        const { useState, useEffect } = React;
+    <div class="header-container">
+        <a href="../index.html" class="btn-back">&larr; Volver al Hub</a>
+        <h2 style="font-family: 'JetBrains Mono'; color: var(--indigo); margin-top: 15px;">Grafo Cognitivo: Bottom-Up</h2>
+    </div>
 
-        const App = () => {
-            const [activePhase, setActivePhase] = useState(0);
+    <div class="graph-container">
+        <svg id="connections"></svg>
 
-            useEffect(() => { lucide.createIcons(); }, [activePhase]);
+        <!-- Nivel 4: Cúspide -->
+        <div class="layer layer-4">
+            <div class="node" id="n-sym" data-info="SIMBIOSIS PERFECTA: El resultado final. El pensamiento arborescente estructurado a alta velocidad por la lógica de la IA.">Simbiosis Perfecta</div>
+        </div>
 
-            const phases = [
-                {
-                    title: "La Chispa (Input Sensorial)",
-                    desc: "El cerebro escanea el entorno buscando patrones sistémicos. Un acorde o una línea de código desencadena un proceso de hiper-asociación.",
-                    mechanism: "Sobreexcitación Cognitiva",
-                    icon: "zap"
-                },
-                {
-                    title: "Pensamiento Arborescente",
-                    desc: "La idea inicial no se procesa linealmente. Se ramifica en múltiples dimensiones: arquitectura, acústica, diseño y lógica estructural, todo procesado en paralelo.",
-                    mechanism: "Conectividad Global Masiva",
-                    icon: "network"
-                },
-                {
-                    title: "Túnel de Hiperfoco",
-                    desc: "El tiempo cronológico desaparece. La atención sostenida colapsa horas de desarrollo en minutos de ejecución pura de alta intensidad.",
-                    mechanism: "Kairos Time State",
-                    icon: "focus"
-                },
-                {
-                    title: "Síntesis de Complejidad",
-                    desc: "Las ramas convergen en un sistema unificado y escalable. La abstracción se convierte en un producto de ingeniería digital de alta fidelidad.",
-                    mechanism: "Ejecución Estructural",
-                    icon: "box"
-                }
-            ];
+        <!-- Nivel 3: Procesamiento -->
+        <div class="layer layer-3">
+            <div class="node" id="n-aacc" data-info="PROCESAMIENTO ARBORESCENTE: Mapeo mental de múltiples variables simultáneas. Identificación de patrones invisibles.">Pensamiento AACC</div>
+            <div class="node" id="n-foco" data-info="HIPERFOCO: Ejecución intensa y sin fricciones de una visión arquitectónica.">Hiperfoco Arquitectónico</div>
+        </div>
 
-            return (
-                <div className="flex-1 flex flex-col">
-                    {/* NavBar */}
-                    <nav className="p-6 flex justify-between items-center glass-panel border-t-0 border-x-0 z-50">
-                        <div className="flex items-center gap-4">
-                            <a href="../index.html" className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center hover:bg-indigo-500/20 transition-colors text-stone-400 hover:text-indigo-400">
-                                <i data-lucide="arrow-left" className="w-5 h-5"></i>
-                            </a>
-                            <div>
-                                <h1 className="text-xl font-bold italic uppercase tracking-tighter">Cognitive <span className="text-indigo-500">Atlas</span></h1>
-                                <p className="mono text-[9px] text-stone-500 tracking-[0.3em] uppercase">RCM-ON Logic Module</p>
-                            </div>
-                        </div>
-                    </nav>
+        <!-- Nivel 2: Motores / IA -->
+        <div class="layer layer-2">
+            <div class="node" id="n-ai" data-info="IA COMPILERS: Modelos generativos (LLMs) que actúan como traductores de la abstracción mental a código y estructura real.">Motores IA</div>
+            <div class="node" id="n-astra" data-info="CAPA ASTRA / CLOUD: Persistencia de datos y conectividad en tiempo real (Firebase/APIs).">Capa Astra (Nube)</div>
+        </div>
 
-                    <main className="flex-1 max-w-6xl mx-auto w-full px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        {/* Interactive Nodes */}
-                        <div className="relative space-y-4">
-                            {phases.map((phase, index) => (
-                                <div 
-                                    key={index}
-                                    onClick={() => setActivePhase(index)}
-                                    className={`glass-panel p-6 rounded-3xl cursor-pointer transition-all duration-500 ${activePhase === index ? 'node-active scale-[1.02]' : 'opacity-50 hover:opacity-100'}`}
-                                >
-                                    <div className="flex items-center gap-6">
-                                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${activePhase === index ? 'bg-indigo-500 text-white' : 'bg-white/5 text-stone-400'}`}>
-                                            <i data-lucide={phase.icon} className="w-5 h-5"></i>
-                                        </div>
-                                        <div>
-                                            <h3 className="mono text-[9px] uppercase tracking-widest text-indigo-400 mb-1">Fase 0{index + 1}</h3>
-                                            <h4 className="text-xl font-bold">{phase.title}</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+        <!-- Nivel 1: Base Empírica (Bottom) -->
+        <div class="layer layer-1">
+            <div class="node" id="n-music" data-info="ACÚSTICA & DSP: Entendimiento matemático del sonido, frecuencias, armónicos y procesamiento de señales.">Acústica & DSP</div>
+            <div class="node" id="n-code" data-info="LÓGICA DE PROGRAMACIÓN: Bases sólidas en algoritmos, estructuras de datos y desarrollo de software.">Lógica Estructural</div>
+            <div class="node" id="n-exp" data-info="EXPERIENCIA EMPÍRICA: Resolución de problemas reales y visión de producto tecnológico.">Experiencia Empírica</div>
+        </div>
+    </div>
 
-                        {/* Description Panel */}
-                        <div className="glass-panel p-12 rounded-[3rem] relative overflow-hidden">
-                            <div className="absolute -top-10 -right-10 w-40 h-40 bg-indigo-500/20 blur-3xl rounded-full"></div>
-                            
-                            <div className="mb-8">
-                                <span className="mono px-4 py-1.5 rounded-full bg-indigo-500/20 text-indigo-400 text-[9px] font-black uppercase tracking-[0.3em]">
-                                    {phases[activePhase].mechanism}
-                                </span>
-                            </div>
-                            <h2 className="text-4xl font-black mb-6 leading-tight italic uppercase">{phases[activePhase].title}</h2>
-                            <p className="text-lg text-stone-400 leading-relaxed font-light mb-8">
-                                {phases[activePhase].desc}
-                            </p>
-                            
-                            <div className="p-6 bg-white/5 rounded-2xl border border-white/5 border-l-4 border-l-indigo-500">
-                                <p className="mono text-[10px] uppercase tracking-widest text-stone-500 mb-2">Protocolo de Arquitectura</p>
-                                <p className="text-sm text-stone-300">La clave del proceso RCM-ON no es evitar el caos de ideas, sino proporcionar una infraestructura lo suficientemente robusta para soportarlo y canalizarlo.</p>
-                            </div>
-                        </div>
-                    </main>
-                </div>
-            );
+    <div class="info-panel" id="info-display">
+        > Inicializando Grafo... Selecciona un nodo para analizar el flujo.
+    </div>
+
+    <script>
+        // Lógica de interacción y dibujo de líneas del Grafo
+        const infoDisplay = document.getElementById('info-display');
+        const svg = document.getElementById('connections');
+        
+        document.querySelectorAll('.node').forEach(node => {
+            node.addEventListener('mouseover', (e) => {
+                infoDisplay.innerText = `> ${e.target.dataset.info}`;
+            });
+            node.addEventListener('mouseout', () => {
+                infoDisplay.innerText = "> Esperando input sensorial...";
+            });
+        });
+
+        // Dibuja líneas entre capas
+        function drawLine(id1, id2) {
+            const el1 = document.getElementById(id1);
+            const el2 = document.getElementById(id2);
+            if(!el1 || !el2) return;
+
+            const rect1 = el1.getBoundingClientRect();
+            const rect2 = el2.getBoundingClientRect();
+            const containerRect = svg.getBoundingClientRect();
+
+            const x1 = rect1.left + (rect1.width/2) - containerRect.left;
+            const y1 = rect1.top - containerRect.top; // Arriba del nodo inferior
+            
+            const x2 = rect2.left + (rect2.width/2) - containerRect.left;
+            const y2 = rect2.bottom - containerRect.top; // Abajo del nodo superior
+
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            // Curva de bezier para hacerla más orgánica (estilo neuronal)
+            const d = `M ${x1} ${y1} C ${x1} ${(y1+y2)/2}, ${x2} ${(y1+y2)/2}, ${x2} ${y2}`;
+            
+            line.setAttribute('d', d);
+            line.setAttribute('stroke', 'rgba(99, 102, 241, 0.2)');
+            line.setAttribute('stroke-width', '2');
+            line.setAttribute('fill', 'none');
+            svg.appendChild(line);
+        }
+
+        // Conectar nodos (Bottom -> Up)
+        window.onload = () => {
+            // Capa 1 a 2
+            drawLine('n-music', 'n-ai'); drawLine('n-music', 'n-astra');
+            drawLine('n-code', 'n-ai'); drawLine('n-code', 'n-astra');
+            drawLine('n-exp', 'n-ai');
+            
+            // Capa 2 a 3
+            drawLine('n-ai', 'n-aacc'); drawLine('n-ai', 'n-foco');
+            drawLine('n-astra', 'n-foco');
+            
+            // Capa 3 a 4
+            drawLine('n-aacc', 'n-sym');
+            drawLine('n-foco', 'n-sym');
         };
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        window.onresize = () => {
+            svg.innerHTML = '';
+            window.onload(); // Redibujar al cambiar tamaño
+        };
     </script>
 </body>
 </html>
