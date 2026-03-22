@@ -7,8 +7,20 @@
     <!-- RUTA CORREGIDA PARA GITHUB PAGES -->
     <link rel="stylesheet" href="./css/rcm-theme.css">
     <link rel="stylesheet" href="./css/kinetic-engine.css">
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"CLOUDFLARE_WEB_ANALYTICS_TOKEN"}'></script>
 </head>
-<body class="hub-index hub-cinematic">
+<body class="hub-index">
+
+    <header class="top-nav" aria-label="Navegación principal">
+        <div class="top-nav-inner">
+            <a href="index.html" class="top-nav-brand">RCM-ON</a>
+            <nav class="top-nav-links">
+                <a href="#menu-procesos">Arquitectura</a>
+                <a href="#labs">Labs</a>
+                <a href="blog/01-procesamiento-paralelo.html">Blog</a>
+            </nav>
+        </div>
+    </header>
 
     <div class="hero-graph">
         <div class="hero-atmosphere" aria-hidden="true"></div>
@@ -22,25 +34,25 @@
             [ MARCA: <span style="color:var(--emerald-base)">ACTIVA</span> ] // ARQUITECTURA DE SOFTWARE
         </div>
         <div class="hero-manifesto">
-            <span>Marca personal: arquitectura de software con criterio de producto y diseño orientado a ejecución.</span>
-            <span>La inteligencia y los agentes aceleran el despliegue: del diseño a servicios, APIs e infraestructura operativa en ciclos rápidos.</span>
+            <span>Arquitectura de software con visión de producto, foco en negocio y estándares de ejecución.</span>
+            <span>IA y agentes como ventaja competitiva: menos fricción, más velocidad y entregas con impacto real.</span>
         </div>
         <div class="hero-cta" aria-label="Acciones principales">
-            <a href="#menu-procesos" class="hero-cta-link">Ver proceso</a>
-            <a href="01-hybrid-mind/piano_pro_studio.html" class="hero-cta-link secondary">Ver demo</a>
+            <a href="#menu-procesos" class="hero-cta-link">Ver arquitectura</a>
+            <a href="#labs" class="hero-cta-link secondary">Explorar Labs</a>
         </div>
-        <div class="hero-phase" id="heroPhase">FASE: INICIALIZANDO COSMOS</div>
-        <div class="hero-process-caption">MARCA Y MÉTODO → AGENTES → DESPLIEGUE RÁPIDO</div>
+        <div class="hero-phase" id="heroPhase">FASE: MARCO ARQUITECTÓNICO</div>
+        <div class="hero-process-caption">IDEAS → COLAPSO AL NÚCLEO IA → BIG BANG DE SERVICIOS Y PRODUCTO</div>
 
         <canvas id="processCanvas" class="process-canvas" aria-label="Textura visual de fondo"></canvas>
     </div>
 
     <div class="container hero-front" aria-label="Presentación de marca">
-        <p class="hero-front-kicker">Symbiosis Perfecta</p>
+        <p class="hero-front-kicker">Simbiosis Estratégica</p>
         <h1 class="hero-front-title">RCM-<span class="hero-front-on">ON</span></h1>
-        <p class="hero-front-subtitle">De ideas a producto con IA</p>
-        <p class="hero-front-description">Arquitectura de software para convertir visión en producto operativo con una simbiosis clara entre criterio humano y aceleración con IA.</p>
-        <p class="hero-front-deploy">Simbiosis aplicada: diseño, desarrollo y despliegue de servicios listos para crecer.</p>
+        <p class="hero-front-subtitle">De ideas estratégicas a resultados reales, impulsado por IA.</p>
+        <p class="hero-front-description">Diseño y ejecución de arquitectura de software para convertir visión en soluciones operativas, escalables y medibles.</p>
+        <p class="hero-front-deploy">Criterio técnico + IA aplicada para acelerar diseño, implementación y salida a producción.</p>
     </div>
 
     <div class="container processes-section" id="menu-procesos">
@@ -64,19 +76,53 @@
         </a>
 
         <a href="blog/01-procesamiento-paralelo.html" class="card-base card-hover-orange process-card" style="border-top: 3px solid var(--orange-base);">
-            <h2 class="process-title">Escalado</h2>
-            <p class="process-description">Evolución continua de la plataforma con métricas, gobernanza y mejora operativa.</p>
+            <h2 class="process-title">Operación</h2>
+            <p class="process-description">Evolución continua con observabilidad, gobernanza técnica y mejora operativa.</p>
         </a>
+        </div>
+    </div>
+
+    <div class="container labs-section" id="labs">
+        <div class="labs-header">
+            <h2>Labs</h2>
+            <p>Marco de validación estructurada para transformar hipótesis en decisiones con fundamento.</p>
+        </div>
+        <div class="labs-subsection card-base">
+            <div class="labs-subsection-head">
+                <h3>Hybrid Mind</h3>
+                <p>Subsección por etapas con objetivos claros, métricas de avance y trazabilidad.</p>
+                <p class="labs-subsection-note">Cada etapa valida evidencia antes del escalado operativo.</p>
+            </div>
+            <div class="labs-grid labs-steps">
+                <a href="01-hybrid-mind/index_marca.html" class="card-base card-hover-emerald labs-card">
+                    <span class="labs-step">Etapa 01</span>
+                    <h3>Marca</h3>
+                    <p>Definición de narrativa y estructura para un posicionamiento claro y diferencial.</p>
+                    <span class="labs-status">Validación activa</span>
+                </a>
+                <a href="01-hybrid-mind/atlas_cognitivo.html" class="card-base card-hover-emerald labs-card">
+                    <span class="labs-step">Etapa 02</span>
+                    <h3>Atlas Cognitivo</h3>
+                    <p>Modelado de relaciones y criterios para priorizar decisiones de arquitectura.</p>
+                    <span class="labs-status">Validación activa</span>
+                </a>
+                <a href="01-hybrid-mind/piano_pro_studio.html" class="card-base card-hover-orange labs-card">
+                    <span class="labs-step">Etapa 03</span>
+                    <h3>Studio</h3>
+                    <p>Prototipo aplicado para validar experiencia, flujo operativo y tiempo de entrega.</p>
+                    <span class="labs-status">Validación activa</span>
+                </a>
+            </div>
         </div>
     </div>
 
     <div class="container log-section">
         <div class="system-log">
             <div style="color: var(--text-muted);">> [ BRAND LOG_ ] // PROPUESTA DE VALOR</div>
-            <div style="color: var(--text-main); margin-top: 10px;">> Núcleo: simbiosis perfecta de ideas a producto.</div>
-            <div style="color: var(--emerald-base); margin-top: 5px;">> Motor: IA aplicada para acelerar decisiones y ejecución.</div>
-            <div style="color: var(--emerald-base); margin-top: 5px;">> Entrega: servicios desplegados con APIs, infraestructura y automatización.</div>
-            <div style="color: var(--orange-base); margin-top: 10px; font-weight: bold;">> Resultado: producto operativo, escalable y listo para evolucionar.</div>
+            <div style="color: var(--text-main); margin-top: 10px;">> Posicionamiento: arquitectura de software orientada a impacto de negocio.</div>
+            <div style="color: var(--emerald-base); margin-top: 5px;">> Método: estrategia técnica + ejecución asistida por IA con ciclos cortos.</div>
+            <div style="color: var(--emerald-base); margin-top: 5px;">> Entrega: productos operativos con servicios, APIs e infraestructura listos para producción.</div>
+            <div style="color: var(--orange-base); margin-top: 10px; font-weight: bold;">> Resultado: mayor velocidad de entrega, mejor calidad de decisión y escalado sostenible.</div>
         </div>
     </div>
 
@@ -90,9 +136,10 @@
             if (!ctx) return;
 
             const phases = [
-                { label: 'FASE 01: MARCA + MÉTODO' },
-                { label: 'FASE 02: AGENTES ORQUESTAN LA EJECUCIÓN' },
-                { label: 'FASE 03: RESULTADOS TANGIBLES' }
+                { label: 'FASE 01: IDEAS EN EXPANSIÓN' },
+                { label: 'FASE 02: COLAPSO AL NÚCLEO IA' },
+                { label: 'FASE 03: NÚCLEO IA / DECISIÓN' },
+                { label: 'FASE 04: BIG BANG DE SERVICIOS Y PRODUCTO' }
             ];
 
             let phaseIndex = 0;
@@ -101,18 +148,20 @@
             let radius = 0;
             let phaseStartAt = performance.now();
             let phaseSweepStart = performance.now();
-            const phaseDuration = 3200;
-            const phaseSweepDuration = 960;
-            const agentNodes = [
-                { label: 'ÓRDENES', icon: '➤' },
-                { label: 'AGENTES', icon: '◌' },
-                { label: 'EJECUCIÓN', icon: '◉' }
+            const phaseDuration = 5600;
+            const phaseSweepDuration = 1400;
+            const ideaNodes = [
+                { label: 'IDEAS', icon: '◉' },
+                { label: 'CONTEXTO', icon: '◌' },
+                { label: 'INSIGHTS', icon: '◆' },
+                { label: 'ESTRATEGIA', icon: '◍' },
+                { label: 'FOCO', icon: '●' }
             ];
             const serviceNodes = [
                 { label: 'SERVICIOS', emblem: 'service', href: '#menu-procesos', tier: 'core' },
                 { label: 'APIs', emblem: 'api', href: '#menu-procesos', tier: 'core' },
                 { label: 'INFRAESTRUCTURA', emblem: 'infra', href: '#menu-procesos', tier: 'high' },
-                { label: 'DEVOPS', emblem: 'devops', href: '#menu-procesos', tier: 'high' },
+                { label: 'PRODUCTO', emblem: 'product', href: '#menu-procesos', tier: 'high' },
                 { label: 'GOBERNANZA', emblem: 'governance', href: '#menu-procesos', tier: 'high' },
                 { label: 'AUTOMATIZACIONES', emblem: 'automation', href: '#menu-procesos', tier: 'high' }
             ];
@@ -128,7 +177,7 @@
             }
 
             function drawOutcomeEmblem(x, y, emblem, emphasis) {
-                const outer = emphasis === 'core' ? 26 : 23;
+                const outer = emphasis === 'core' ? 38 : 34;
                 const inner = outer - 4;
                 const color = emphasis === 'core' ? 'rgba(214,168,112,0.95)' : 'rgba(196,152,98,0.9)';
 
@@ -199,6 +248,20 @@
                     ctx.lineTo(-1, 6);
                     ctx.closePath();
                     ctx.fill();
+                } else if (emblem === 'product') {
+                    ctx.beginPath();
+                    ctx.moveTo(0, -8);
+                    ctx.lineTo(2.2, -2.6);
+                    ctx.lineTo(8, -2.6);
+                    ctx.lineTo(3.4, 0.8);
+                    ctx.lineTo(5.2, 7);
+                    ctx.lineTo(0, 3.4);
+                    ctx.lineTo(-5.2, 7);
+                    ctx.lineTo(-3.4, 0.8);
+                    ctx.lineTo(-8, -2.6);
+                    ctx.lineTo(-2.2, -2.6);
+                    ctx.closePath();
+                    ctx.stroke();
                 } else if (emblem === 'governance') {
                     ctx.beginPath();
                     ctx.moveTo(-8, 5);
@@ -242,9 +305,11 @@
 
                 ctx.clearRect(0, 0, width, height);
 
-                const isFinalPhase = phaseIndex === 2;
-                const isAgentPhase = phaseIndex === 1;
-                const shock = isFinalPhase ? phaseProgress : 0;
+                const isIdeaPhase = phaseIndex === 0;
+                const isCollapsePhase = phaseIndex === 1;
+                const isCorePhase = phaseIndex === 2;
+                const isBigBangPhase = phaseIndex === 3;
+                const shock = isBigBangPhase ? phaseProgress : 0;
 
                 const ringA = radius * (0.8 + Math.sin(t * 1.7) * 0.06);
                 const ringB = radius * (1.2 + Math.sin(t * 1.2 + 1.2) * 0.05);
@@ -281,10 +346,11 @@
                 ctx.fillStyle = `rgba(255,255,255,${0.18 + shock * 0.2})`;
                 ctx.fill();
 
-                ctx.font = "700 11px 'JetBrains Mono', monospace";
+                const coreFontSize = isCorePhase ? 14 : 12;
+                ctx.font = `700 ${coreFontSize}px 'JetBrains Mono', monospace`;
                 ctx.textAlign = 'center';
-                ctx.fillStyle = 'rgba(226, 232, 240, 0.88)';
-                ctx.fillText('IA', centerX, centerY + 4);
+                ctx.fillStyle = isCorePhase ? 'rgba(245, 252, 255, 0.98)' : 'rgba(226, 232, 240, 0.9)';
+                ctx.fillText('IA', centerX, centerY + (isCorePhase ? 5 : 4));
 
                 if (sweepProgress < 1) {
                     const sweepAngle = -Math.PI / 2 + sweepProgress * Math.PI * 2;
@@ -324,41 +390,49 @@
                     ctx.stroke();
                 }
 
-                if (isAgentPhase || isFinalPhase) {
-                    const agentRadius = radius * 2.45;
-                    agentNodes.forEach((agent, index) => {
-                        const angle = (Math.PI * 2 / agentNodes.length) * index - Math.PI / 2 + t * 0.11;
-                        const ax = centerX + Math.cos(angle) * agentRadius;
-                        const ay = centerY + Math.sin(angle) * agentRadius;
+                if (isIdeaPhase || isCollapsePhase || isCorePhase) {
+                    const ideaRadius = isIdeaPhase
+                        ? radius * (2.75 - Math.sin(t * 0.35) * 0.2)
+                        : isCollapsePhase
+                            ? radius * (2.75 - phaseProgress * 2.05)
+                            : radius * 0.72;
+
+                    const ideaAlpha = isCorePhase ? 0.8 : isCollapsePhase ? (0.95 - phaseProgress * 0.2) : 0.95;
+
+                    ideaNodes.forEach((idea, index) => {
+                        const angle = (Math.PI * 2 / ideaNodes.length) * index - Math.PI / 2 + t * 0.12;
+                        const ax = centerX + Math.cos(angle) * ideaRadius;
+                        const ay = centerY + Math.sin(angle) * ideaRadius;
 
                         ctx.beginPath();
                         ctx.moveTo(centerX, centerY);
                         ctx.lineTo(ax, ay);
-                        ctx.strokeStyle = 'rgba(126, 136, 212, 0.24)';
-                        ctx.lineWidth = 1;
+                        ctx.strokeStyle = `rgba(126, 136, 212, ${0.2 + ideaAlpha * 0.32})`;
+                        ctx.lineWidth = isCollapsePhase ? 1.4 : 1.1;
                         ctx.stroke();
 
                         ctx.beginPath();
-                        ctx.arc(ax, ay, 10, 0, Math.PI * 2);
-                        ctx.fillStyle = 'rgba(126, 136, 212, 0.82)';
+                        ctx.arc(ax, ay, isCorePhase ? 12 : 11, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(126, 136, 212, ${0.72 + ideaAlpha * 0.2})`;
                         ctx.fill();
 
                         ctx.font = "700 10px 'JetBrains Mono', monospace";
-                        ctx.fillStyle = 'rgba(246, 248, 255, 0.96)';
-                        ctx.fillText(agent.icon, ax, ay + 3);
+                        ctx.fillStyle = 'rgba(246, 248, 255, 0.98)';
+                        ctx.fillText(idea.icon, ax, ay + 3);
 
                         ctx.font = "600 10px 'JetBrains Mono', monospace";
-                        ctx.fillStyle = 'rgba(226, 232, 240, 0.9)';
-                        ctx.fillText(agent.label, ax, ay - 14);
+                        ctx.fillStyle = `rgba(226, 232, 240, ${0.72 + ideaAlpha * 0.24})`;
+                        ctx.fillText(idea.label, ax, ay - 16);
                     });
                 }
 
-                if (isFinalPhase) {
-                    const burstRadius = radius * (2.9 + phaseProgress * 1.9);
+                if (isBigBangPhase) {
+                    const serviceVisibility = 0.22 + phaseProgress * 0.78;
+                    const burstRadius = radius * (0.22 + phaseProgress * 2.4);
 
                     ctx.beginPath();
                     ctx.arc(centerX, centerY, radius * (1.7 + shock * 2.7), 0, Math.PI * 2);
-                    ctx.strokeStyle = `rgba(196,152,98,${0.18 + shock * 0.32})`;
+                    ctx.strokeStyle = `rgba(196,152,98,${0.26 + serviceVisibility * 0.28})`;
                     ctx.lineWidth = 2;
                     ctx.stroke();
 
@@ -370,15 +444,15 @@
                         ctx.beginPath();
                         ctx.moveTo(centerX, centerY);
                         ctx.lineTo(sx, sy);
-                        ctx.strokeStyle = `rgba(196, 152, 98, ${0.12 + phaseProgress * 0.42})`;
-                        ctx.lineWidth = 1.1;
+                        ctx.strokeStyle = `rgba(196, 152, 98, ${0.18 + serviceVisibility * 0.46})`;
+                        ctx.lineWidth = 1.5;
                         ctx.stroke();
 
                         drawOutcomeEmblem(sx, sy, service.emblem, service.tier);
 
-                        ctx.font = "600 10px 'JetBrains Mono', monospace";
-                        ctx.fillStyle = 'rgba(226, 232, 240, 0.95)';
-                        ctx.fillText(service.label, sx, sy - 34);
+                        ctx.font = "700 11px 'JetBrains Mono', monospace";
+                        ctx.fillStyle = `rgba(226, 232, 240, ${0.3 + serviceVisibility * 0.66})`;
+                        ctx.fillText(service.label, sx, sy - 48);
                     });
                 }
 
@@ -395,7 +469,7 @@
             resizeCanvas();
             window.addEventListener('resize', resizeCanvas);
             phase.textContent = phases[0].label;
-            setInterval(rotatePhase, 3200);
+            setInterval(rotatePhase, 5600);
             requestAnimationFrame(draw);
         })();
     </script>
