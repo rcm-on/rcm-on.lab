@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RCM-ON | DSP Engine</title>
+    <title>RCM-ON | Motor de Sonido</title>
     <link rel="stylesheet" href="../css/rcm-theme.css">
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"4bd4d9a2a4fd41ada302cc0f5b3d4526"}'></script>
     <style>
@@ -58,14 +58,14 @@
     <div class="container">
         <a href="../index.html" class="btn-back">&larr; Volver al Motor Central</a>
         <div class="synth-panel">
-            <h1 style="color: var(--emerald-base); margin-bottom: 20px;">DSP Engine: Síntesis Aditiva</h1>
+            <h1 style="color: var(--emerald-base); margin-bottom: 20px;">Motor de Sonido: Síntesis Aditiva</h1>
             <div class="metaphor-box">
-                <strong>EL SONIDO ES LUZ (COLOR):</strong> En acústica, el <em>Timbre</em> es una mezcla de colores. Al igual que sumas píxeles RGB para crear blanco, en DSP sumamos ondas senoidales puras (Armónicos) para crear texturas.<br>
+                <strong>EL SONIDO ES LUZ (COLOR):</strong> En acústica, el <em>Timbre</em> es una mezcla de colores. Al igual que sumas píxeles RGB para crear blanco, en DSP sumamos ondas senoidales puras (Harmónicos) para crear texturas.<br>
                 Fórmula de Síntesis: f_n = f_0 &times; n <br>
                 Motor de creación Bottom-Up: nace en la nota, toma color y expresión, entra al motor, se organiza en escala/acorde y se despliega como sistema sonoro completo.
             </div>
             <div class="controls-header">
-                <span style="font-family: 'JetBrains Mono'; color: var(--text-muted);">MATRIZ DE ARMÓNICOS [H1 - H12]</span>
+                <span style="font-family: 'JetBrains Mono'; color: var(--text-muted);">MATRIZ DE HARMÓNICOS [H1 - H12]</span>
                 <div class="controls-right">
                     <button id="motorToggleBtn" class="motor-toggle-btn" type="button">Motor activo: Kawaii (Forma Patrón)</button>
                     <button id="playDemoBtn" class="play-demo-btn" type="button">Play acordes (demo)</button>
@@ -106,15 +106,15 @@
                 </div>
                 <div class="osc-panel">
                     <div class="osc-head">
-                        <span>OSCILOSCOPIO / DSP ENGINE</span>
+                        <span>OSCILOSCOPIO / MOTOR DE SONIDO</span>
                         <span id="oscStatus">IDLE</span>
                     </div>
                     <canvas id="oscCanvas" class="osc-canvas" width="1100" height="220" aria-label="Osciloscopio en vivo"></canvas>
                     <div class="osc-legend">
                         <span><i class="dot dot-base"></i> Señal de referencia</span>
-                        <span><i class="dot dot-live"></i> Señal en vivo (motor + armónicos)</span>
+                        <span><i class="dot dot-live"></i> Señal en vivo (motor + harmónicos)</span>
                     </div>
-                    <div class="osc-readout" id="oscReadout">Nota: -- | Motor: Kawaii (Forma Patrón) | Armónicos activos: 12</div>
+                    <div class="osc-readout" id="oscReadout">Nota: -- | Motor: Kawaii (Forma Patrón) | Harmónicos activos: 12</div>
                 </div>
             </div>
 
@@ -206,7 +206,7 @@
         }
 
         function updateReadout() {
-            oscReadout.textContent = `Nota: ${currentNoteLabel} | Motor: ${motorLabels[currentMotorKey]} | Armónicos activos: ${getActiveHarmonicsCount()}`;
+            oscReadout.textContent = `Nota: ${currentNoteLabel} | Motor: ${motorLabels[currentMotorKey]} | Harmónicos activos: ${getActiveHarmonicsCount()}`;
             flowEngine.textContent = motorLabels[currentMotorKey];
             flowScale.textContent = 'C ' + scaleSelect.value.charAt(0).toUpperCase() + scaleSelect.value.slice(1);
             flowChord.textContent = chordSelect.value.charAt(0).toUpperCase() + chordSelect.value.slice(1);
