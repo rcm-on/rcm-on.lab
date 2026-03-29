@@ -13,15 +13,23 @@
         .controls-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .controls-right { display: flex; align-items: center; gap: 10px; }
         select { background: #000; color: var(--emerald-base); border: 1px solid var(--emerald-base); border-radius: 4px; padding: 8px 12px; font-family: 'JetBrains Mono', monospace; cursor: pointer; outline: none; }
-        .motor-toggle-btn { background: rgba(16,185,129,0.1); color: var(--emerald-base); border: 1px solid var(--emerald-base); border-radius: 6px; padding: 8px 12px; font-family: 'JetBrains Mono', monospace; cursor: pointer; min-width: 320px; text-align: left; }
-        .motor-toggle-btn.roland { background: rgba(249,115,22,0.1); color: var(--orange-base); border-color: var(--orange-base); }
+        .vol-control { display: flex; align-items: center; gap: 8px; }
+        .vol-label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
+        .vol-slider { -webkit-appearance: none; appearance: none; width: 120px; height: 4px; border-radius: 999px; background: linear-gradient(to right, var(--emerald-base) var(--pct, 82%), rgba(255,255,255,0.12) var(--pct, 82%)); outline: none; cursor: pointer; }
+        .vol-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--emerald-base); box-shadow: 0 0 6px var(--emerald-glow); }
+        .vol-slider::-moz-range-thumb { width: 14px; height: 14px; border: none; border-radius: 50%; background: var(--emerald-base); box-shadow: 0 0 6px var(--emerald-glow); }
+        .vol-readout { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--emerald-base); min-width: 36px; text-align: right; }
         .play-demo-btn { background: var(--emerald-surface); color: var(--emerald-base); border: 1px solid var(--emerald-base); border-radius: 6px; padding: 8px 12px; font-family: 'JetBrains Mono', monospace; cursor: pointer; }
         .play-demo-btn.active { background: rgba(249,115,22,0.12); color: var(--orange-base); border-color: var(--orange-base); }
-        .toggles-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 30px; }
-        .h-toggle { background: #000; border: 1px solid #333; color: #555; padding: 10px; text-align: center; border-radius: 6px; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; transition: all 0.2s; user-select: none; }
-        .h-toggle.active { background: var(--emerald-surface); border-color: var(--emerald-base); color: var(--emerald-base); box-shadow: 0 0 10px var(--emerald-glow); }
+        .octave-controls { display: flex; align-items: center; gap: 6px; }
+        .octave-btn { background: rgba(95,125,255,0.12); color: #c5d3ff; border: 1px solid rgba(95,125,255,0.52); border-radius: 6px; padding: 7px 10px; font-family: 'JetBrains Mono', monospace; cursor: pointer; min-width: 36px; }
+        .octave-readout { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-muted); min-width: 58px; text-align: center; }
+
         .instrument-stage { margin-top: 20px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px; align-items: start; }
-        .keyboard-zone { border: 1px solid var(--border-main); border-radius: 12px; padding: 18px 14px 16px; background: linear-gradient(160deg, rgba(6, 7, 12, 0.92), rgba(9, 10, 15, 0.72)); min-height: 270px; overflow-x: auto; overflow-y: hidden; }
+        .chord-indicator { min-height: 34px; display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-bottom: 8px; }
+        .chord-note-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; padding: 3px 9px; border-radius: 999px; border: 1px solid rgba(95,125,255,0.55); background: rgba(95,125,255,0.14); color: #b8ccff; }
+        .chord-name-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; padding: 3px 10px; border-radius: 999px; border: 1px solid rgba(255,122,54,0.55); background: rgba(255,122,54,0.14); color: #ffc8a0; margin-left: auto; }
+        .keyboard-zone { border: 1px solid var(--border-main); border-radius: 12px; padding: 14px 14px 14px; background: linear-gradient(160deg, rgba(6, 7, 12, 0.92), rgba(9, 10, 15, 0.72)); overflow-x: auto; overflow-y: hidden; scroll-behavior: smooth; }
         .keyboard-scale { width: max-content; margin: 0; transform: scale(1); transform-origin: top left; }
         .keyboard { display: flex; position: relative; height: 180px; justify-content: flex-start; margin-top: 12px; }
         .key { position: relative; cursor: pointer; user-select: none; transition: background 0.1s; }
@@ -48,32 +56,56 @@
         .compose-row label { color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
         .compose-row select { min-width: 160px; }
         .compose-btn { background: rgba(16,185,129,0.12); color: var(--emerald-base); border: 1px solid var(--emerald-base); border-radius: 6px; padding: 8px 10px; font-family: 'JetBrains Mono', monospace; cursor: pointer; }
+        .play-hint { margin-top: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; }
+        .play-hint strong { color: var(--text-main); }
+        /* ─── Score / Staff zone ─────────────────────────────────────────────── */
+        .score-zone { margin-top: 20px; border: 1px solid var(--border-main); border-radius: 12px; overflow: hidden; background: linear-gradient(160deg, rgba(4,5,10,0.94), rgba(8,9,14,0.78)); }
+        .score-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); font-family: 'JetBrains Mono', monospace; font-size: 0.76rem; color: var(--text-muted); background: rgba(255,255,255,0.02); }
+        .score-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .score-btn { font-family: 'JetBrains Mono', monospace; font-size: 0.71rem; padding: 5px 11px; border-radius: 6px; cursor: pointer; border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.04); color: var(--text-muted); transition: border-color 0.15s, color 0.15s; }
+        .score-btn:not(:disabled):hover { border-color: var(--emerald-base); color: var(--emerald-base); }
+        .score-btn.active { background: rgba(249,115,22,0.12); color: var(--orange-base); border-color: var(--orange-base); }
+        .score-btn:disabled { opacity: 0.3; cursor: default; }
+        #scoreInfo { font-family: 'JetBrains Mono', monospace; font-size: 0.67rem; color: var(--text-muted); }
+        .xml-drop-zone { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 54px; padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); font-family: 'JetBrains Mono', monospace; font-size: 0.76rem; color: rgba(148,163,184,0.5); cursor: pointer; transition: background 0.2s, color 0.2s; text-align: center; }
+        .xml-drop-zone:hover, .xml-drop-zone.drag-over { background: rgba(52,211,153,0.05); color: var(--emerald-base); }
+        .xml-drop-zone.loaded { color: var(--emerald-base); background: rgba(52,211,153,0.04); }
+        #staffCanvas { display: block; width: 100%; height: 210px; background: rgba(2,3,6,0.7); }
         @media (max-width: 1100px) { .instrument-stage { grid-template-columns: 1fr; } .keyboard-zone { min-height: 246px; } .keyboard-scale { transform: scale(0.92); } }
-        @media (max-width: 820px) { .toggles-grid { grid-template-columns: repeat(4, 1fr); } .controls-header { flex-direction: column; align-items: flex-start; gap: 8px; } .controls-right { width: 100%; flex-wrap: wrap; } }
+        @media (max-width: 820px) { .controls-header { flex-direction: column; align-items: flex-start; gap: 8px; } .controls-right { width: 100%; flex-wrap: wrap; } }
         @media (max-width: 920px) { .flow-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-        @media (max-width: 560px) { .toggles-grid { grid-template-columns: repeat(3, 1fr); } .osc-head { flex-direction: column; align-items: flex-start; } .flow-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } .keyboard-zone { min-height: 220px; } .keyboard-scale { transform: scale(0.78); } }
+        @media (max-width: 560px) { .osc-head { flex-direction: column; align-items: flex-start; } .flow-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } .keyboard-zone { min-height: 220px; } .keyboard-scale { transform: scale(0.78); } }
     </style>
 </head>
 <body>
     <div class="container">
         <a href="../index.html" class="btn-back">&larr; Volver al Motor Central</a>
         <div class="synth-panel">
-            <h1 style="color: var(--emerald-base); margin-bottom: 20px;">Motor de Sonido: Síntesis Aditiva</h1>
+            <h1 style="color: var(--emerald-base); margin-bottom: 20px;">Piano de Cola — Motor Acústico</h1>
             <div class="metaphor-box">
-                <strong>EL SONIDO ES LUZ (COLOR):</strong> En acústica, el <em>Timbre</em> es una mezcla de colores. Al igual que sumas píxeles RGB para crear blanco, en DSP sumamos ondas senoidales puras (Harmónicos) para crear texturas.<br>
-                Fórmula de Síntesis: f_n = f_0 &times; n <br>
-                Motor de creación Bottom-Up: nace en la nota, toma color y expresión, entra al motor, se organiza en escala/acorde y se despliega como sistema sonoro completo.
+                <strong>EL SONIDO NACE EN LA FÍSICA:</strong> Un piano de cola convierte energía mecánica en onda acústica: el martillo golpea la cuerda → la cuerda vibra y genera su serie armónica natural → la tabla armónica amplifica y colorea el timbre → el aire lo transporta. Cada muestra es una grabación real de ese proceso en condiciones de concierto.<br>
+                Motor de creación Bottom-Up: nace en la nota, toma expresión y contexto, se organiza en escala/acorde y se despliega como sistema sonoro completo.
             </div>
             <div class="controls-header">
-                <span style="font-family: 'JetBrains Mono'; color: var(--text-muted);">MATRIZ DE HARMÓNICOS [H1 - H12]</span>
+                <span style="font-family: 'JetBrains Mono'; color: var(--text-muted);">GRAND CONCERT — Piano Real Muestreado</span>
                 <div class="controls-right">
-                    <button id="motorToggleBtn" class="motor-toggle-btn" type="button">Motor activo: Kawaii (Forma Patrón)</button>
-                    <button id="playDemoBtn" class="play-demo-btn" type="button">Play acordes (demo)</button>
+                    <div class="vol-control" aria-label="Control de volumen">
+                        <span class="vol-label">Vol</span>
+                        <input type="range" id="volSlider" class="vol-slider" min="0" max="1" step="0.01" value="0.82" style="--pct:82%">
+                        <span id="volReadout" class="vol-readout">82%</span>
+                    </div>
+                    <div class="octave-controls" aria-label="Control de octava">
+                        <button id="octaveDownBtn" class="octave-btn" type="button">-</button>
+                        <span id="octaveReadout" class="octave-readout">Oct 0</span>
+                        <button id="octaveUpBtn" class="octave-btn" type="button">+</button>
+                    </div>
+                    <button id="playDemoBtn" class="play-demo-btn" type="button">&#9654; The End of Nature &mdash; Max Richter</button>
                 </div>
             </div>
-            <div class="toggles-grid" id="harmonic-toggles"></div>
+
             <div class="instrument-stage">
                 <div class="keyboard-zone">
+                    <div id="chordIndicator" class="chord-indicator"></div>
                     <div class="keyboard-scale">
                         <div class="keyboard">
                             <div class="key white" data-note="130.81" data-label="C3"></div>
@@ -112,9 +144,9 @@
                     <canvas id="oscCanvas" class="osc-canvas" width="1100" height="220" aria-label="Osciloscopio en vivo"></canvas>
                     <div class="osc-legend">
                         <span><i class="dot dot-base"></i> Señal de referencia</span>
-                        <span><i class="dot dot-live"></i> Señal en vivo (motor + harmónicos)</span>
+                        <span><i class="dot dot-live"></i> Señal en vivo (muestra acústica)</span>
                     </div>
-                    <div class="osc-readout" id="oscReadout">Nota: -- | Motor: Kawaii (Forma Patrón) | Harmónicos activos: 12</div>
+                    <div class="osc-readout" id="oscReadout">Nota: -- | Motor: Grand Concert (Piano Real)</div>
                 </div>
             </div>
 
@@ -124,7 +156,7 @@
                     <div class="flow-step"><b>NOTA</b><span id="flowNote">--</span></div>
                     <div class="flow-step"><b>COLOR</b><span id="flowColor">Neutro</span></div>
                     <div class="flow-step"><b>EXPRESIÓN</b><span id="flowExpression">Sin ataque</span></div>
-                    <div class="flow-step"><b>MOTOR</b><span id="flowEngine">Kawaii (Forma Patrón)</span></div>
+                    <div class="flow-step"><b>MOTOR</b><span id="flowEngine">Piano Samples (Real)</span></div>
                     <div class="flow-step"><b>ESCALA</b><span id="flowScale">C Minor</span></div>
                     <div class="flow-step"><b>ACORDE</b><span id="flowChord">Triad</span></div>
                 </div>
@@ -135,6 +167,14 @@
                         <option value="major">Major</option>
                         <option value="dorian">Dorian</option>
                         <option value="lydian">Lydian</option>
+                        <option value="mixolydian">Mixolydian</option>
+                        <option value="phrygian">Phrygian</option>
+                        <option value="locrian">Locrian</option>
+                        <option value="harmonic-minor">Harmonic Minor</option>
+                        <option value="melodic-minor">Melodic Minor</option>
+                        <option value="pentatonic-major">Pentatonic Major</option>
+                        <option value="pentatonic-minor">Pentatonic Minor</option>
+                        <option value="blues">Blues</option>
                     </select>
                     <label for="chordSelect">Acorde</label>
                     <select id="chordSelect">
@@ -145,17 +185,57 @@
                     </select>
                     <button id="buildChordBtn" class="compose-btn" type="button">Construir acorde</button>
                 </div>
+                <p class="play-hint"><strong>Tip:</strong> toca acordes con el teclado del PC (A-W-S-E-D-F-T-G-Y-H-U-J-K...) y usa <strong>Espacio</strong> como sustain.</p>
+            </div>
+
+            <!-- PARTITURA ─────────────────────────────────────────── -->
+            <div class="score-zone" id="scoreZone">
+                <div class="score-head">
+                    <span>PENTAGRAMA &mdash; PARTITURA EN VIVO</span>
+                    <div class="score-controls">
+                        <label class="score-btn" for="xmlFileInput" title="Importar MusicXML (.xml / .musicxml)">&#128196;&nbsp;Importar MusicXML</label>
+                        <input type="file" id="xmlFileInput" accept=".xml,.musicxml" style="display:none">
+                        <button id="scorePlayBtn" class="score-btn" disabled>&#9654;&nbsp;Reproducir</button>
+                        <button id="scoreStopBtn" class="score-btn" disabled>&#9632;&nbsp;Stop</button>
+                        <span id="scoreInfo"></span>
+                    </div>
+                </div>
+                <div id="xmlDropZone" class="xml-drop-zone">
+                    Arrastra un archivo <strong>MusicXML</strong> aqu&iacute;, o usa el bot&oacute;n Importar<br>
+                    <small style="opacity:0.45;font-size:0.65rem">.xml&nbsp;&nbsp;/&nbsp;&nbsp;.musicxml &nbsp;&mdash;&nbsp; exporta desde MuseScore, Sibelius, Finale o similares</small>
+                </div>
+                <canvas id="staffCanvas"></canvas>
             </div>
         </div>
     </div>
     <script>
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         const masterGain = audioCtx.createGain();
-        masterGain.gain.value = 0.2;
+        masterGain.gain.value = 0.82;
+        const compressor = audioCtx.createDynamicsCompressor();
+        compressor.threshold.value = -18;
+        compressor.knee.value = 18;
+        compressor.ratio.value = 2.2;
+        compressor.attack.value = 0.002;
+        compressor.release.value = 0.2;
+
+        const convolver = audioCtx.createConvolver();
+        convolver.buffer = createImpulseResponse(audioCtx, 1.35, 2.4);
+        const reverbSend = audioCtx.createGain();
+        reverbSend.gain.value = 0.18;
+        const dryGain = audioCtx.createGain();
+        dryGain.gain.value = 0.92;
+
         const analyser = audioCtx.createAnalyser();
         analyser.fftSize = 2048;
         analyser.smoothingTimeConstant = 0.83;
-        masterGain.connect(analyser);
+
+        masterGain.connect(dryGain);
+        masterGain.connect(reverbSend);
+        reverbSend.connect(convolver);
+        dryGain.connect(compressor);
+        convolver.connect(compressor);
+        compressor.connect(analyser);
         analyser.connect(audioCtx.destination);
 
         const oscCanvas = document.getElementById('oscCanvas');
@@ -163,15 +243,32 @@
         const oscReadout = document.getElementById('oscReadout');
         const oscCtx = oscCanvas.getContext('2d');
         const waveBuffer = new Uint8Array(analyser.fftSize);
+        const noiseBuffer = createNoiseBuffer(audioCtx, 0.2);
+        const pianoWave = createPianoWave(audioCtx);
 
-        let activeNotes = {}; let harmonicState = [true, true, true, true, true, true, true, true, true, true, true, true];
-        const motors = {
-            kawaii: { decay: 1.8, multiplier: (i) => i === 1 ? 1 : (i <= 5 ? 0.95 / Math.pow(i, 1.08) : 0.42 / Math.pow(i, 1.45)) },
-            roland: { decay: 1.1, multiplier: (i) => i === 1 ? 0.95 : (i % 2 === 0 ? 0.55 / Math.pow(i, 0.95) : 0.8 / Math.pow(i, 1.2)) }
+        let activeNotes = {};
+        const motorLabels = { samples: 'Grand Concert (Piano Real)' };
+        let currentMotorKey = 'samples';
+
+        const sampleConfig = {
+            basePath: '../assets/samples/grand-concert',
+            minMidi: 21,
+            maxMidi: 108
         };
-        const motorLabels = { kawaii: 'Kawaii (Forma Patrón)', roland: 'Roland (Construcción Diferente)' };
-        let currentMotorKey = 'kawaii';
-        const motorToggleBtn = document.getElementById('motorToggleBtn'); const togglesContainer = document.getElementById('harmonic-toggles');
+        const sampleBuffers = new Map();
+        const sampleAnchors = buildSampleAnchors(sampleConfig.minMidi, sampleConfig.maxMidi);
+        let samplesReady = false;
+        let sampleLoadPromise = null;
+        const chordIndicator = document.getElementById('chordIndicator');
+        const volSlider = document.getElementById('volSlider');
+        const volReadout = document.getElementById('volReadout');
+        volSlider.addEventListener('input', () => {
+            const val = parseFloat(volSlider.value);
+            masterGain.gain.setTargetAtTime(val, audioCtx.currentTime, 0.01);
+            const pct = Math.round(val * 100);
+            volReadout.textContent = pct + '%';
+            volSlider.style.setProperty('--pct', pct + '%');
+        });
         const playDemoBtn = document.getElementById('playDemoBtn');
         const scaleSelect = document.getElementById('scaleSelect');
         const chordSelect = document.getElementById('chordSelect');
@@ -182,46 +279,276 @@
         const flowEngine = document.getElementById('flowEngine');
         const flowScale = document.getElementById('flowScale');
         const flowChord = document.getElementById('flowChord');
-        const keyElements = Array.from(document.querySelectorAll('.key'));
-        const keyboardFrequencies = keyElements.map(key => parseFloat(key.dataset.note)).filter(freq => !Number.isNaN(freq));
-        const keyboardMinFreq = Math.min(...keyboardFrequencies);
-        const keyboardMaxFreq = Math.max(...keyboardFrequencies);
+        let keyElements = [];
+        let keyboardMinFreq = 130.81;
+        let keyboardMaxFreq = 523.25;
         let currentNoteLabel = '--';
         let currentFreq = 261.63;
+        let octaveShift = 0;
+        let sustainActive = false;
+        const deferredStops = new Set();
+        const pressedCodes = new Set();
         let demoTimers = [];
         let demoPlaying = false;
+        const octaveDownBtn = document.getElementById('octaveDownBtn');
+        const octaveUpBtn = document.getElementById('octaveUpBtn');
+        const octaveReadout = document.getElementById('octaveReadout');
 
-        for(let i=0; i<12; i++) {
-            const btn = document.createElement('div'); btn.className = 'h-toggle active'; btn.innerText = i === 0 ? 'H1 (Fund.)' : `H${i+1}`;
-            btn.onclick = () => {
-                harmonicState[i] = !harmonicState[i];
-                btn.classList.toggle('active');
-                updateReadout();
-            };
-            togglesContainer.appendChild(btn);
-        }
-
-        function getActiveHarmonicsCount() {
-            return harmonicState.filter(Boolean).length;
-        }
+        const scaleIntervals = {
+            major: [0, 2, 4, 5, 7, 9, 11],
+            minor: [0, 2, 3, 5, 7, 8, 10],
+            dorian: [0, 2, 3, 5, 7, 9, 10],
+            lydian: [0, 2, 4, 6, 7, 9, 11],
+            mixolydian: [0, 2, 4, 5, 7, 9, 10],
+            phrygian: [0, 1, 3, 5, 7, 8, 10],
+            locrian: [0, 1, 3, 5, 6, 8, 10],
+            'harmonic-minor': [0, 2, 3, 5, 7, 8, 11],
+            'melodic-minor': [0, 2, 3, 5, 7, 9, 11],
+            'pentatonic-major': [0, 2, 4, 7, 9],
+            'pentatonic-minor': [0, 3, 5, 7, 10],
+            blues: [0, 3, 5, 6, 7, 10]
+        };
 
         function updateReadout() {
-            oscReadout.textContent = `Nota: ${currentNoteLabel} | Motor: ${motorLabels[currentMotorKey]} | Harmónicos activos: ${getActiveHarmonicsCount()}`;
-            flowEngine.textContent = motorLabels[currentMotorKey];
+            const motorName = currentMotorKey === 'samples' && !samplesReady
+                ? `${motorLabels[currentMotorKey]} (cargando)`
+                : motorLabels[currentMotorKey];
+            oscReadout.textContent = `Nota: ${currentNoteLabel} | Motor: ${motorName}`;
+            flowEngine.textContent = motorName;
             flowScale.textContent = 'C ' + scaleSelect.value.charAt(0).toUpperCase() + scaleSelect.value.slice(1);
             flowChord.textContent = chordSelect.value.charAt(0).toUpperCase() + chordSelect.value.slice(1);
         }
 
-        function updateMotorToggleUI() {
-            motorToggleBtn.textContent = `Motor activo: ${motorLabels[currentMotorKey]}`;
-            motorToggleBtn.classList.toggle('roland', currentMotorKey === 'roland');
+        function updateMotorToggleUI() { /* single engine — no toggle needed */ }
+
+        function refreshKeyboardReference() {
+            keyElements = Array.from(document.querySelectorAll('.key'));
+            const freqs = keyElements
+                .map((key) => parseFloat(key.dataset.note))
+                .filter((freq) => !Number.isNaN(freq));
+            keyboardMinFreq = Math.min(...freqs);
+            keyboardMaxFreq = Math.max(...freqs);
         }
 
-        motorToggleBtn.addEventListener('click', () => {
-            currentMotorKey = currentMotorKey === 'kawaii' ? 'roland' : 'kawaii';
-            updateMotorToggleUI();
+        function applyOctaveShift() {
+            const ratio = Math.pow(2, octaveShift);
+            keyElements.forEach((key) => {
+                const base = parseFloat(key.dataset.baseNote || key.dataset.note);
+                if (Number.isNaN(base)) return;
+                key.dataset.note = (base * ratio).toFixed(4);
+            });
+            refreshKeyboardReference();
+            octaveReadout.textContent = `Oct ${octaveShift > 0 ? '+' : ''}${octaveShift}`;
+        }
+
+        function requestStopTone(freq, keyElement) {
+            if (sustainActive) {
+                deferredStops.add(Number(freq));
+                return;
+            }
+            stopTone(freq, keyElement);
+        }
+
+        function flushDeferredStops() {
+            if (!deferredStops.size) return;
+            deferredStops.forEach((freq) => stopTone(Number(freq)));
+            deferredStops.clear();
+        }
+
+        if (octaveDownBtn && octaveUpBtn) {
+            octaveDownBtn.addEventListener('click', () => {
+                octaveShift = Math.max(-2, octaveShift - 1);
+                applyOctaveShift();
+                updateReadout();
+            });
+            octaveUpBtn.addEventListener('click', () => {
+                octaveShift = Math.min(2, octaveShift + 1);
+                applyOctaveShift();
+                updateReadout();
+            });
+        }
+
+
+
+        function createNoiseBuffer(ctx, seconds) {
+            const size = Math.max(1, Math.floor(ctx.sampleRate * seconds));
+            const buffer = ctx.createBuffer(1, size, ctx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < size; i++) {
+                data[i] = (Math.random() * 2 - 1) * 0.8;
+            }
+            return buffer;
+        }
+
+        function createImpulseResponse(ctx, seconds, decay) {
+            const length = Math.max(1, Math.floor(ctx.sampleRate * seconds));
+            const impulse = ctx.createBuffer(2, length, ctx.sampleRate);
+            for (let channel = 0; channel < 2; channel++) {
+                const data = impulse.getChannelData(channel);
+                for (let i = 0; i < length; i++) {
+                    const t = i / length;
+                    const env = Math.pow(1 - t, decay);
+                    data[i] = (Math.random() * 2 - 1) * env * (channel === 0 ? 1 : 0.95);
+                }
+            }
+            return impulse;
+        }
+
+        function createPianoWave(ctx) {
+            const real = new Float32Array(18);
+            const imag = new Float32Array(18);
+            const harmonics = [0, 1, 0.78, 0.52, 0.39, 0.31, 0.24, 0.2, 0.16, 0.13, 0.11, 0.095, 0.08, 0.067, 0.056, 0.049, 0.04, 0.033];
+            for (let i = 1; i < harmonics.length; i++) {
+                imag[i] = harmonics[i];
+            }
+            return ctx.createPeriodicWave(real, imag, { disableNormalization: false });
+        }
+
+        function createPianoResonators(baseFreq) {
+            const bodyLow = audioCtx.createBiquadFilter();
+            bodyLow.type = 'lowpass';
+            bodyLow.frequency.value = Math.min(9200, 3200 + baseFreq * 7.5);
+            bodyLow.Q.value = 0.64;
+
+            const bodyPeakA = audioCtx.createBiquadFilter();
+            bodyPeakA.type = 'peaking';
+            bodyPeakA.frequency.value = 280 + (baseFreq * 0.85);
+            bodyPeakA.Q.value = 1.4;
+            bodyPeakA.gain.value = 3.8;
+
+            const bodyPeakB = audioCtx.createBiquadFilter();
+            bodyPeakB.type = 'peaking';
+            bodyPeakB.frequency.value = Math.min(3100, 1450 + (baseFreq * 0.8));
+            bodyPeakB.Q.value = 1.1;
+            bodyPeakB.gain.value = 2.9;
+
+            bodyLow.connect(bodyPeakA);
+            bodyPeakA.connect(bodyPeakB);
+            return { input: bodyLow, output: bodyPeakB };
+        }
+
+        function createPianoVoices(freq, motor, now, noteGain) {
+            const oscillators = [];
+            for (let idx = 0; idx < motor.stringDetune.length; idx++) {
+                const osc = audioCtx.createOscillator();
+                const oscGain = audioCtx.createGain();
+                const stretch = 1 + (motor.stretch * (idx + 1) * 0.6);
+                osc.setPeriodicWave(pianoWave);
+                osc.frequency.setValueAtTime(freq * stretch, now);
+                osc.detune.setValueAtTime(motor.stringDetune[idx], now);
+                oscGain.gain.value = motor.stringLevel[idx] || 0.12;
+                osc.connect(oscGain);
+                oscGain.connect(noteGain);
+                osc.start(now);
+                oscillators.push({ osc, gainNode: oscGain });
+            }
+            return oscillators;
+        }
+
+        function midiToNoteName(midi) {
+            const names = ['C', 'Cs', 'D', 'Ds', 'E', 'F', 'Fs', 'G', 'Gs', 'A', 'As', 'B'];
+            const octave = Math.floor(midi / 12) - 1;
+            return `${names[midi % 12]}${octave}`;
+        }
+
+        function buildSampleAnchors(minMidi, maxMidi) {
+            const anchors = [];
+            for (let midi = minMidi; midi <= maxMidi; midi++) {
+                anchors.push({
+                    midi,
+                    note: midiToNoteName(midi),
+                    frequency: 440 * Math.pow(2, (midi - 69) / 12)
+                });
+            }
+            return anchors;
+        }
+
+        function getNearestSampleAnchor(targetFreq) {
+            let nearest = sampleAnchors[0];
+            for (let i = 1; i < sampleAnchors.length; i++) {
+                const current = sampleAnchors[i];
+                if (Math.abs(current.frequency - targetFreq) < Math.abs(nearest.frequency - targetFreq)) {
+                    nearest = current;
+                }
+            }
+            return nearest;
+        }
+
+        async function loadSampleBuffer(note) {
+            if (sampleBuffers.has(note)) return sampleBuffers.get(note);
+            const response = await fetch(`${sampleConfig.basePath}/${note}.mp3`);
+            if (!response.ok) throw new Error(`Sample no encontrado: ${note}`);
+            const bytes = await response.arrayBuffer();
+            const buffer = await audioCtx.decodeAudioData(bytes);
+            sampleBuffers.set(note, buffer);
+            return buffer;
+        }
+
+        async function preloadPianoSamples() {
+            if (sampleLoadPromise) return sampleLoadPromise;
+            sampleLoadPromise = Promise.all(sampleAnchors.map((anchor) => loadSampleBuffer(anchor.note)))
+                .then(() => {
+                    samplesReady = true;
+                })
+                .catch((error) => {
+                    console.warn('No se pudieron cargar todas las muestras de piano:', error);
+                    samplesReady = false;
+                });
+            return sampleLoadPromise;
+        }
+
+        function polyGain() {
+            // Scale peak down to avoid clipping when chords are active
+            const active = Object.keys(activeNotes).length;
+            return Math.min(0.92, 0.92 / Math.max(1, active * 0.55 + 0.45));
+        }
+
+        function playSampleTone(freq, keyElement) {
+            const now = audioCtx.currentTime;
+            const anchor = getNearestSampleAnchor(freq);
+            const buffer = sampleBuffers.get(anchor.note);
+            if (!buffer) return false;
+
+            const source = audioCtx.createBufferSource();
+            source.buffer = buffer;
+            source.playbackRate.value = Math.max(0.35, Math.min(3.4, freq / anchor.frequency));
+
+            const peak = polyGain();
+            const noteGain = audioCtx.createGain();
+            noteGain.gain.setValueAtTime(0.0001, now);
+            noteGain.gain.exponentialRampToValueAtTime(peak, now + 0.004);
+            noteGain.gain.exponentialRampToValueAtTime(0.0012, now + 3.2);
+
+            const tonalFilter = audioCtx.createBiquadFilter();
+            tonalFilter.type = 'lowpass';
+            tonalFilter.frequency.value = Math.min(12000, 5200 + freq * 5.1);
+            tonalFilter.Q.value = 0.55;
+
+            source.connect(noteGain);
+            noteGain.connect(tonalFilter);
+            tonalFilter.connect(masterGain);
+            source.start(now);
+
+            const resolvedKeyElement = keyElement || resolveKeyElement(freq);
+            activeNotes[freq] = {
+                sampleSource: source,
+                keyElement: resolvedKeyElement,
+                noteGain,
+                filterNode: tonalFilter,
+                release: 0.24
+            };
+
+            if (resolvedKeyElement) resolvedKeyElement.classList.add('active');
+            currentNoteLabel = resolvedKeyElement?.dataset.label || freq.toFixed(2) + 'Hz';
+            currentFreq = freq;
+            oscStatus.textContent = 'LIVE';
+            flowNote.textContent = currentNoteLabel;
+            flowColor.textContent = 'Concert Grand';
+            flowExpression.textContent = 'Muestra real / respuesta acústica';
+            updateChordIndicator();
             updateReadout();
-        });
+            return true;
+        }
 
         function normalizeFrequencyForKeyboard(freq) {
             let value = freq;
@@ -244,36 +571,44 @@
 
         function playTone(freq, keyElement) {
             if (audioCtx.state === 'suspended') audioCtx.resume();
-            const currentMotor = motors[currentMotorKey];
-            if(activeNotes[freq]) stopTone(freq, keyElement);
-            let noteOscillators = [];
-            for(let i=0; i<12; i++) {
-                if(harmonicState[i]) {
-                    const partialFreq = freq * (i + 1); const osc = audioCtx.createOscillator(); const gainNode = audioCtx.createGain();
-                    osc.type = 'sine'; osc.frequency.setValueAtTime(partialFreq, audioCtx.currentTime);
-                    const intensity = currentMotor.multiplier(i + 1);
-                    gainNode.gain.setValueAtTime(intensity, audioCtx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + currentMotor.decay);
-                    osc.connect(gainNode); gainNode.connect(masterGain); osc.start(); noteOscillators.push({osc, gainNode});
+
+            if (currentMotorKey === 'samples') {
+                if (!samplesReady) {
+                    if (!sampleLoadPromise) preloadPianoSamples();
+                    if (playSampleTone(freq, keyElement)) {
+                        return;
+                    }
+                } else if (playSampleTone(freq, keyElement)) {
+                    return;
                 }
             }
-            const resolvedKeyElement = keyElement || resolveKeyElement(freq);
-            activeNotes[freq] = { oscillators: noteOscillators, keyElement: resolvedKeyElement };
-            if (resolvedKeyElement) resolvedKeyElement.classList.add('active');
-            currentNoteLabel = resolvedKeyElement?.dataset.label || freq.toFixed(2) + 'Hz';
-            currentFreq = freq;
-            oscStatus.textContent = 'LIVE';
-            flowNote.textContent = currentNoteLabel;
-            flowColor.textContent = getActiveHarmonicsCount() > 8 ? 'Brillante' : getActiveHarmonicsCount() > 4 ? 'Denso' : 'Suave';
-            flowExpression.textContent = motors[currentMotorKey].decay > 1.4 ? 'Largo / Atmosférico' : 'Corto / Percusivo';
-            updateReadout();
+
+            // No synth fallback — samples only
         }
         function stopTone(freq, keyElement) {
             if (activeNotes[freq]) {
-                activeNotes[freq].oscillators.forEach(node => { node.gainNode.gain.cancelScheduledValues(audioCtx.currentTime); node.gainNode.gain.setValueAtTime(node.gainNode.gain.value, audioCtx.currentTime); node.gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1); node.osc.stop(audioCtx.currentTime + 0.15); });
+                const note = activeNotes[freq];
+                const now = audioCtx.currentTime;
+                const releaseTime = note.release || 0.12;
+
+                note.noteGain.gain.cancelScheduledValues(now);
+                note.noteGain.gain.setValueAtTime(Math.max(0.0001, note.noteGain.gain.value), now);
+                note.noteGain.gain.exponentialRampToValueAtTime(0.0001, now + releaseTime);
+
+                if (note.oscillators) {
+                    note.oscillators.forEach(node => {
+                        node.osc.stop(now + releaseTime + 0.08);
+                    });
+                }
+                if (note.sampleSource) {
+                    note.sampleSource.stop(now + releaseTime + 0.02);
+                }
+
                 const playedKey = keyElement || activeNotes[freq].keyElement;
                 if (playedKey) playedKey.classList.remove('active');
                 delete activeNotes[freq];
             }
+            updateChordIndicator();
             if (Object.keys(activeNotes).length === 0) {
                 currentNoteLabel = '--';
                 oscStatus.textContent = 'IDLE';
@@ -281,10 +616,57 @@
                 updateReadout();
             }
         }
-        document.querySelectorAll('.key').forEach(key => {
-            const freq = parseFloat(key.dataset.note);
-            key.addEventListener('mousedown', () => playTone(freq, key)); key.addEventListener('mouseup', () => stopTone(freq, key)); key.addEventListener('mouseleave', () => stopTone(freq, key));
-            key.addEventListener('touchstart', (e) => { e.preventDefault(); playTone(freq, key); }); key.addEventListener('touchend', (e) => { e.preventDefault(); stopTone(freq, key); });
+        refreshKeyboardReference();
+        keyElements.forEach((key) => {
+            key.dataset.baseNote = key.dataset.note;
+        });
+
+        keyElements.forEach(key => {
+            key.addEventListener('mousedown', () => playTone(parseFloat(key.dataset.note), key));
+            key.addEventListener('mouseup', () => requestStopTone(parseFloat(key.dataset.note), key));
+            key.addEventListener('mouseleave', () => requestStopTone(parseFloat(key.dataset.note), key));
+            key.addEventListener('touchstart', (e) => { e.preventDefault(); playTone(parseFloat(key.dataset.note), key); });
+            key.addEventListener('touchend', (e) => { e.preventDefault(); requestStopTone(parseFloat(key.dataset.note), key); });
+        });
+
+        const keyboardCodes = [
+            'KeyA','KeyW','KeyS','KeyE','KeyD','KeyF','KeyT','KeyG','KeyY','KeyH','KeyU','KeyJ',
+            'KeyK','KeyO','KeyL','KeyP','Semicolon','Quote','BracketRight','Backslash',
+            'Digit1','Digit2','Digit3','Digit4','Digit5'
+        ];
+        const keyCodeToElement = new Map();
+        keyElements.forEach((key, index) => {
+            if (keyboardCodes[index]) keyCodeToElement.set(keyboardCodes[index], key);
+        });
+
+        window.addEventListener('keydown', (event) => {
+            if (event.code === 'Space') {
+                if (!sustainActive) {
+                    sustainActive = true;
+                    flowExpression.textContent = 'Sustain activo';
+                }
+                event.preventDefault();
+                return;
+            }
+
+            const keyEl = keyCodeToElement.get(event.code);
+            if (!keyEl || event.repeat || pressedCodes.has(event.code)) return;
+            pressedCodes.add(event.code);
+            playTone(parseFloat(keyEl.dataset.note), keyEl);
+        });
+
+        window.addEventListener('keyup', (event) => {
+            if (event.code === 'Space') {
+                sustainActive = false;
+                flushDeferredStops();
+                flowExpression.textContent = 'Muestra real / respuesta acústica';
+                return;
+            }
+
+            const keyEl = keyCodeToElement.get(event.code);
+            if (!keyEl) return;
+            pressedCodes.delete(event.code);
+            requestStopTone(parseFloat(keyEl.dataset.note), keyEl);
         });
 
         function clearDemoTimers() {
@@ -301,7 +683,7 @@
             clearDemoTimers();
             stopAllNotes();
             playDemoBtn.classList.remove('active');
-            playDemoBtn.textContent = 'Play acordes (demo)';
+            playDemoBtn.textContent = '\u25b6 The End of Nature \u2014 Max Richter';
         }
 
         function playChordDemo() {
@@ -311,20 +693,26 @@
             }
 
             demoPlaying = true;
-            currentMotorKey = 'roland';
-            updateMotorToggleUI();
+            currentMotorKey = 'samples';
             updateReadout();
             playDemoBtn.classList.add('active');
             playDemoBtn.textContent = 'Stop demo';
 
+            // The End of Nature — Max Richter
+            // Progression: Am → F → C → G  (×2)
+            // Voicings within C3–C5 keyboard range, slow meditative tempo
             const progression = [
-                [293.66, 369.99, 440.0],
-                [261.63, 349.23, 415.3],
-                [220.0, 329.63, 392.0],
-                [246.94, 329.63, 392.0]
+                [220.00, 261.63, 329.63],   // Am  — A3 · C4 · E4
+                [174.61, 220.00, 261.63],   // F   — F3 · A3 · C4
+                [261.63, 329.63, 392.00],   // C   — C4 · E4 · G4
+                [196.00, 246.94, 293.66],   // G   — G3 · B3 · D4
+                [220.00, 261.63, 329.63],   // Am  (repeat)
+                [174.61, 220.00, 261.63],   // F
+                [261.63, 329.63, 392.00],   // C
+                [196.00, 246.94, 293.66]    // G
             ];
 
-            const stepMs = 1400;
+            const stepMs = 2200;
             progression.forEach((chord, index) => {
                 demoTimers.push(setTimeout(() => {
                     if (!demoPlaying) return;
@@ -335,7 +723,7 @@
                 demoTimers.push(setTimeout(() => {
                     if (!demoPlaying) return;
                     chord.forEach(freq => stopTone(freq));
-                }, index * stepMs + 1100));
+                }, index * stepMs + 1900));
             });
 
             demoTimers.push(setTimeout(() => stopChordDemo(), progression.length * stepMs + 120));
@@ -343,21 +731,29 @@
 
         playDemoBtn.addEventListener('click', playChordDemo);
 
-        function chordOffsets(type) {
-            if (type === 'sus2') return [0, 2, 7];
-            if (type === 'sus4') return [0, 5, 7];
-            if (type === 'seventh') return [0, 4, 7, 10];
-            return [0, 4, 7];
+        function chordDegrees(type) {
+            if (type === 'sus2') return [0, 1, 4];
+            if (type === 'sus4') return [0, 3, 4];
+            if (type === 'seventh') return [0, 2, 4, 6];
+            return [0, 2, 4];
         }
 
         function semitoneToRatio(semitone) {
             return Math.pow(2, semitone / 12);
         }
 
+        function degreeToSemitone(degree, intervals) {
+            const length = intervals.length;
+            const wraps = Math.floor(degree / length);
+            return intervals[degree % length] + (wraps * 12);
+        }
+
         function playBuiltChord() {
             stopAllNotes();
-            const offsets = chordOffsets(chordSelect.value);
-            offsets.forEach((semi, idx) => {
+            const degrees = chordDegrees(chordSelect.value);
+            const intervals = scaleIntervals[scaleSelect.value] || scaleIntervals.minor;
+            degrees.forEach((degree, idx) => {
+                const semi = degreeToSemitone(degree, intervals);
                 const freq = currentFreq * semitoneToRatio(semi);
                 setTimeout(() => playTone(freq), idx * 25);
                 setTimeout(() => stopTone(freq), 980 + idx * 20);
@@ -427,9 +823,131 @@
 
         window.addEventListener('resize', resizeOscCanvas);
         resizeOscCanvas();
+        preloadPianoSamples();
         updateMotorToggleUI();
         updateReadout();
         requestAnimationFrame(drawOscilloscope);
+
+        // ─── Piano Engine Bridge — expone el motor a los módulos ES ───────────
+        window.pianoEngine = {
+            playMidi(midi)  { playTone(440 * Math.pow(2, (midi - 69) / 12)); },
+            stopMidi(midi)  { stopTone(440 * Math.pow(2, (midi - 69) / 12)); },
+            getActiveNotes(){ return activeNotes; },
+            get ready()     { return samplesReady; },
+        };
+    </script>
+
+    <script type="module">
+        import { parseMusicXML } from './js/musicxml-parser.js';
+        import { StaffCanvas }   from './js/staff-canvas.js';
+        import { ScorePlayer }   from './js/score-player.js';
+
+        // ─── Init ───────────────────────────────────────────────────────
+        const staffEl   = document.getElementById('staffCanvas');
+        const dropZone  = document.getElementById('xmlDropZone');
+        const fileInput = document.getElementById('xmlFileInput');
+        const playBtn   = document.getElementById('scorePlayBtn');
+        const stopBtn   = document.getElementById('scoreStopBtn');
+        const infoEl    = document.getElementById('scoreInfo');
+
+        const staff  = new StaffCanvas(staffEl);
+        let   player = null;
+        let   playerStartMs = 0;
+
+        // freq → nearest MIDI note number
+        function freqToMidi(freq) { return Math.round(Math.log2(freq / 440) * 12 + 69); }
+
+        // ─── Main rAF loop ──────────────────────────────────────────────
+        (function loop() {
+            // Sync active MIDI notes from the existing engine
+            const eng = window.pianoEngine;
+            if (eng) {
+                const freqs  = Object.keys(eng.getActiveNotes());
+                const midis  = new Set(freqs.map(f => freqToMidi(parseFloat(f))));
+                staff.setActiveNotes(midis);
+            }
+            // Advance playhead if score is playing
+            if (player?.playing) {
+                staff.setPlayTime(performance.now() - playerStartMs);
+            }
+            staff.draw();
+            requestAnimationFrame(loop);
+        })();
+
+        // ─── Score loading ────────────────────────────────────────────
+        function loadScore(events) {
+            player?.stop();
+            player = new ScorePlayer({
+                playMidi: midi => window.pianoEngine?.playMidi(midi),
+                stopMidi: midi => window.pianoEngine?.stopMidi(midi),
+            });
+            player.load(events);
+            staff.loadScore(events);
+            playBtn.disabled = false;
+            stopBtn.disabled = true;
+            playBtn.textContent = '\u25b6\u00a0Reproducir';
+            playBtn.classList.remove('active');
+        }
+
+        async function handleFile(file) {
+            if (!file) return;
+            try {
+                const text   = await file.text();
+                const events = parseMusicXML(text);
+                if (!events.length) { infoEl.textContent = '\u26a0 Sin notas detectadas'; return; }
+                const durSec = (player?.totalMs || 0) / 1000;
+                loadScore(events);
+                const totalSec = (player.totalMs / 1000).toFixed(1);
+                infoEl.textContent = `${events.length} notas \u00b7 ${totalSec}s`;
+                dropZone.classList.add('loaded');
+                dropZone.innerHTML = `<strong>${file.name}</strong> &mdash; ${events.length}&nbsp;notas&nbsp;&nbsp;${totalSec}s`;
+            } catch (err) {
+                infoEl.textContent = '\u26a0 ' + err.message;
+                console.error(err);
+            }
+        }
+
+        // ─── Controls ────────────────────────────────────────────────
+        playBtn.addEventListener('click', () => {
+            if (!player) return;
+            playerStartMs = performance.now();
+            player.play();
+            playBtn.classList.add('active');
+            playBtn.textContent = '\u23f8\u00a0Reproduciendo…';
+            playBtn.disabled  = true;
+            stopBtn.disabled  = false;
+            // Poll for end
+            const tid = setInterval(() => {
+                if (!player.playing) {
+                    clearInterval(tid);
+                    playBtn.classList.remove('active');
+                    playBtn.textContent = '\u25b6\u00a0Reproducir';
+                    playBtn.disabled  = false;
+                    stopBtn.disabled  = true;
+                    staff.clearScore();
+                }
+            }, 300);
+        });
+
+        stopBtn.addEventListener('click', () => {
+            player?.stop();
+            playBtn.classList.remove('active');
+            playBtn.textContent = '\u25b6\u00a0Reproducir';
+            playBtn.disabled  = false;
+            stopBtn.disabled  = true;
+            staff.clearScore();
+        });
+
+        fileInput.addEventListener('change', () => handleFile(fileInput.files[0]));
+
+        dropZone.addEventListener('dragover',  e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+        dropZone.addEventListener('drop', e => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+            handleFile(e.dataTransfer.files[0]);
+        });
+        dropZone.addEventListener('click', () => fileInput.click());
     </script>
 </body>
 </html>

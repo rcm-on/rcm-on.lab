@@ -3,475 +3,436 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RCM-ON | Marca Personal de Arquitectura de Software</title>
-    <!-- RUTA CORREGIDA PARA GITHUB PAGES -->
+    <title>Ramon Campos Martin | Ideas en Laboratorio</title>
     <link rel="stylesheet" href="./css/rcm-theme.css">
     <link rel="stylesheet" href="./css/kinetic-engine.css">
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"4bd4d9a2a4fd41ada302cc0f5b3d4526"}'></script>
 </head>
 <body class="hub-index">
 
-    <header class="top-nav" aria-label="Navegación principal">
+    <div class="ambient-stage" aria-hidden="true">
+        <canvas id="ambientCanvas"></canvas>
+        <div class="ambient-veil"></div>
+        <div class="ambient-noise"></div>
+    </div>
+
+    <header class="top-nav" aria-label="Navegacion principal">
         <div class="top-nav-inner">
-            <a href="index.html" class="top-nav-brand">RCM-ON</a>
+            <a href="index.html" class="top-nav-brand" aria-label="RCM ON">
+                <span class="brand-mark">RCM/ON</span>
+                <span class="brand-name">Ramon Campos Martin</span>
+            </a>
             <nav class="top-nav-links">
-                <a href="#menu-procesos">Arquitectura</a>
-                <a href="#labs">Labs</a>
-                <a href="blog/01-procesamiento-paralelo.html">Blog</a>
+                <a href="#objetivo">Objetivo</a>
+                <a href="#metodo">Metodo</a>
+                <a href="#labs">Laboratorios</a>
+                <a href="#aprendizajes">Aprendizajes</a>
+                <a href="blog/01-procesamiento-paralelo.html">Bitacora</a>
             </nav>
         </div>
     </header>
 
-    <div class="hero-graph">
-        <div class="hero-atmosphere" aria-hidden="true"></div>
-        <div class="hero-glow hero-glow-orange" aria-hidden="true"></div>
-        <div class="hero-glow hero-glow-emerald" aria-hidden="true"></div>
-        <div class="hero-stars" aria-hidden="true"></div>
-        <div class="hero-comet" aria-hidden="true"></div>
-        <div class="hero-symbiosis-core" aria-hidden="true"></div>
-        <div class="hero-noise" aria-hidden="true"></div>
-        <div class="hero-status">
-            [ MARCA: <span style="color:var(--emerald-base)">ACTIVA</span> ] // ARQUITECTURA DE SOFTWARE
+    <section class="hero-graph hero-impact" aria-label="Fondo de portada">
+        <div class="impact-mesh" aria-hidden="true"></div>
+        <div class="impact-grid" aria-hidden="true"></div>
+        <div class="impact-orb impact-orb-a" aria-hidden="true"></div>
+        <div class="impact-orb impact-orb-b" aria-hidden="true"></div>
+        <div class="impact-orb impact-orb-c" aria-hidden="true"></div>
+        <div class="impact-rings" aria-hidden="true"></div>
+    </section>
+
+    <section class="container hero-front scene-section" data-depth="0.08" data-tone="cobalt" id="objetivo" aria-label="Objetivo del sitio">
+        <div class="hero-editorial">
+            <div class="hero-copy">
+                <p class="hero-front-kicker">SYMBIOSIS SYSTEM · HYBRID MIND · MOTOR DE SONIDO</p>
+                <h1 class="hero-front-title hero-front-title-main">Ideas que se ven, se prueban y suenan</h1>
+                <p class="hero-front-subtitle">Diseno de laboratorios donde estrategia, software y aplicacion de IA convergen en prototipos reales.</p>
+                <p class="hero-front-description">
+                    RCM/ON no es una vitrina estatica. Es un entorno de experimentacion abierto: cada idea se convierte en interfaz,
+                    cada hipotesis pasa por pruebas, y cada hallazgo se traduce en decisiones aplicables para producto y equipos.
+                </p>
+                <div class="hero-signals" aria-label="Indicadores de enfoque">
+                    <div class="signal-pill"><strong>03</strong><span>Labs en evolucion</span></div>
+                    <div class="signal-pill"><strong>01</strong><span>Motor sonoro activo</span></div>
+                    <div class="signal-pill"><strong>∞</strong><span>Aprendizajes iterativos</span></div>
+                </div>
+                <div class="hero-cta" aria-label="Acciones principales">
+                    <a href="#labs" class="hero-cta-link">Explorar laboratorios</a>
+                    <a href="blog/01-procesamiento-paralelo.html" class="hero-cta-link secondary">Leer bitacora</a>
+                </div>
+            </div>
+
+            <aside class="hero-preview card-base" aria-label="Preview del laboratorio principal">
+                <p class="hero-preview-kicker">LAB PREVIEW · LIVE</p>
+                <h3>Hybrid Mind / Motor de Sonido</h3>
+                <p>Sintesis harmonica, flujo de decisiones y experimentacion en tiempo real conectados en un solo sistema.</p>
+                <div class="preview-wave" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <div class="preview-metrics">
+                    <div><strong>Latencia objetivo</strong><span>&lt; 12 ms</span></div>
+                    <div><strong>Estado</strong><span>Activo</span></div>
+                    <div><strong>Motor</strong><span>Piano RCM</span></div>
+                </div>
+                <a href="01-hybrid-mind/piano_pro_studio.html" class="hero-preview-link">Abrir laboratorio</a>
+            </aside>
         </div>
-        <div class="hero-manifesto">
-            <span>Laboratorio personal de Ramón Campos Martin: arquitectura aplicada, criterio técnico y aprendizaje continuo.</span>
-            <span>El foco está en mostrar cómo una idea se transforma en validación, decisión y conversión operativa con IA.</span>
-        </div>
-        <div class="hero-cta" aria-label="Acciones principales">
-            <a href="#menu-procesos" class="hero-cta-link">Ver arquitectura</a>
-            <a href="#labs" class="hero-cta-link secondary">Explorar Labs</a>
-        </div>
-        <div class="hero-phase" id="heroPhase">FASE: MARCO ARQUITECTÓNICO</div>
-        <div class="hero-process-caption">IDEAS → COLAPSO AL NÚCLEO IA → BIG BANG DE SERVICIOS Y PRODUCTO</div>
+    </section>
 
-        <canvas id="processCanvas" class="process-canvas" aria-label="Textura visual de fondo"></canvas>
-    </div>
-
-    <div class="container hero-front" aria-label="Presentación de marca">
-        <p class="hero-front-kicker">Laboratorio Personal · Ramón Campos Martin</p>
-        <h1 class="hero-front-title">RCM-<span class="hero-front-on">ON</span></h1>
-        <p class="hero-front-subtitle">Del flujo de ideas a la conversión: proceso real, visible y medible.</p>
-        <p class="hero-front-description">Este espacio documenta cómo se construye una solución desde una hipótesis inicial hasta su implementación operativa.</p>
-        <p class="hero-front-deploy">IA como acelerador del proceso, no como fin: idea, validación, ejecución y evolución.</p>
-    </div>
-
-    <div class="container processes-section" id="menu-procesos">
-        <div class="process-flow">
-        <a href="01-hybrid-mind/index_marca.html" class="card-base card-hover-orange process-card" style="border-top: 3px solid var(--orange-base);">
-            <h2 class="process-title">Ideación</h2>
-            <p class="process-description">Formulación de la idea, contexto y propósito para definir una hipótesis inicial.</p>
-            <span class="process-arrow" aria-hidden="true">→</span>
-        </a>
-
-        <a href="01-hybrid-mind/atlas_cognitivo.html" class="card-base card-hover-emerald process-card" style="border-top: 3px solid var(--emerald-base);">
-            <h2 class="process-title">Hiperfoco</h2>
-            <p class="process-description">Convergencia de variables y conocimientos para sintetizar una dirección clara.</p>
-            <span class="process-arrow" aria-hidden="true">→</span>
-        </a>
-
-        <a href="01-hybrid-mind/piano_pro_studio.html" class="card-base card-hover-emerald process-card" style="border-top: 3px solid var(--emerald-base);">
-            <h2 class="process-title">Motor de Sonido</h2>
-            <p class="process-description">Prototipo DSP para convertir la idea en prueba funcional y validable en tiempo real.</p>
-            <span class="process-arrow" aria-hidden="true">→</span>
-        </a>
-
-        <a href="blog/01-procesamiento-paralelo.html" class="card-base card-hover-orange process-card" style="border-top: 3px solid var(--orange-base);">
-            <h2 class="process-title">IA y Conversión</h2>
-            <p class="process-description">Aceleración de implementación para convertir la idea en una solución operativa.</p>
-        </a>
-        </div>
-    </div>
-
-    <div class="container labs-section" id="labs">
+    <section class="container processes-section scene-section" data-depth="0.18" data-tone="slate" id="metodo">
         <div class="labs-header">
-            <h2>Labs</h2>
-            <p>Laboratorios y pruebas de concepto de un laboratorio personal orientadas al flujo idea → conversión.</p>
+            <h2>Metodo de trabajo</h2>
+            <p>Una estructura simple para iterar sin perder foco: plantear, probar, extraer valor y compartir.</p>
         </div>
+        <div class="process-flow">
+            <article class="card-base process-card process-card-orange">
+                <h3 class="process-title">1. Pregunta</h3>
+                <p class="process-description">Defino una idea concreta: problema, contexto y criterio de exito antes de escribir una linea.</p>
+            </article>
+
+            <article class="card-base process-card process-card-cobalt">
+                <h3 class="process-title">2. Experimento</h3>
+                <p class="process-description">Construyo un laboratorio minimo para validar decisiones de arquitectura, UX y factibilidad tecnica.</p>
+            </article>
+
+            <article class="card-base process-card process-card-orange">
+                <h3 class="process-title">3. Aprendizaje</h3>
+                <p class="process-description">Documento hallazgos: lo que funciono, lo que no y que cambia en la siguiente iteracion.</p>
+            </article>
+
+            <article class="card-base process-card process-card-cobalt">
+                <h3 class="process-title">4. Aplicacion</h3>
+                <p class="process-description">Convierto los resultados en una base util para producto, equipo y decisiones futuras.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="container labs-section scene-section" data-depth="0.28" data-tone="orange" id="labs">
+        <div class="labs-header">
+            <h2>Laboratorios activos</h2>
+            <p>Cada laboratorio representa una idea en evolucion con evidencia tecnica y decisiones explicadas.</p>
+        </div>
+
         <div class="labs-subsection card-base">
             <div class="labs-subsection-head">
                 <h3>Hybrid Mind</h3>
-                <p>Subsección por etapas para mostrar cómo se ha llevado a cabo cada evolución del proceso.</p>
-                <p class="labs-subsection-note">De una idea inicial a una conversión operativa basada en evidencia. Tiempo de ideación a despliegue: 2 horas, no semanas.</p>
+                <p>Laboratorio principal para estructurar ideas, priorizar criterio y construir sistemas aplicables.</p>
+                <p class="labs-subsection-note">Cada etapa es una capa del mismo objetivo: pensar mejor para construir mejor.</p>
             </div>
+
             <div class="labs-grid labs-steps">
                 <a href="01-hybrid-mind/index_marca.html" class="card-base card-hover-emerald labs-card">
                     <span class="labs-step">Etapa 01</span>
-                    <h3>Marca</h3>
-                    <p>Definición de narrativa y estructura para un posicionamiento claro y diferencial.</p>
-                    <span class="labs-status">Validación activa</span>
+                    <h3>Base conceptual</h3>
+                    <p>Marco inicial del problema, definicion de enfoque y criterios de decision.</p>
+                    <span class="labs-status">Activo</span>
                 </a>
+
                 <a href="01-hybrid-mind/atlas_cognitivo.html" class="card-base card-hover-emerald labs-card">
                     <span class="labs-step">Etapa 02</span>
                     <h3>Atlas Cognitivo</h3>
-                    <p>Modelado de relaciones y criterios para priorizar decisiones de arquitectura.</p>
-                    <span class="labs-status">Validación activa</span>
+                    <p>Mapa de relaciones y prioridades para pasar de intuicion a decisiones consistentes.</p>
+                    <span class="labs-status">Activo</span>
                 </a>
+
                 <a href="01-hybrid-mind/piano_pro_studio.html" class="card-base card-hover-orange labs-card">
                     <span class="labs-step">Etapa 03</span>
-                    <h3>Studio</h3>
-                    <p>Prototipo aplicado para validar experiencia, flujo operativo y tiempo de entrega.</p>
-                    <span class="labs-status">Validación activa</span>
+                    <h3>Motor de Sonido</h3>
+                    <p>Sintesis por armonicos, flujo visual y experimentacion timbrica para un piano digital con identidad.</p>
+                    <span class="labs-status">Activo</span>
                 </a>
+
+                <article class="card-base labs-card labs-card-open">
+                    <span class="labs-step">Siguiente</span>
+                    <h3>Nuevo laboratorio</h3>
+                    <p>Plantilla abierta para nuevas ideas: define pregunta, prueba y aprendizaje esperado.</p>
+                    <span class="labs-status">Abierto</span>
+                </article>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="container log-section">
-        <div class="system-log">
-            <div style="color: var(--text-muted);">> [ BRAND LOG_ ] // BITÁCORA DE LABORATORIO</div>
-            <div style="color: var(--text-main); margin-top: 10px;">> Contexto: exploración de laboratorio personal y arquitectura aplicada.</div>
-            <div style="color: var(--emerald-base); margin-top: 5px;">> Método: idea inicial, hipótesis, validación y decisión técnica.</div>
-            <div style="color: var(--emerald-base); margin-top: 5px;">> Ejecución: iteraciones asistidas por IA con trazabilidad del proceso.</div>
-            <div style="color: var(--orange-base); margin-top: 10px; font-weight: bold;">> Resultado: conversión progresiva de ideas en soluciones operativas.</div>
+    <section class="container log-section scene-section" data-depth="0.36" data-tone="emerald" id="aprendizajes">
+        <div class="labs-header">
+            <h2>Aprendizajes recientes</h2>
+            <p>Conclusiones que se convierten en criterio para el siguiente sprint.</p>
         </div>
-    </div>
+
+        <div class="learning-grid">
+            <article class="card-base learning-card">
+                <h3>La claridad reduce retrabajo</h3>
+                <p>Cuando el objetivo esta definido antes del prototipo, las iteraciones son mas cortas y utiles.</p>
+            </article>
+            <article class="card-base learning-card">
+                <h3>Documentar acelera equipos</h3>
+                <p>Las decisiones explicadas evitan depender de memoria y facilitan colaboracion tecnica.</p>
+            </article>
+            <article class="card-base learning-card">
+                <h3>Probar pequeno evita errores grandes</h3>
+                <p>Los experimentos minimos exponen riesgos de arquitectura antes de escalar complejidad.</p>
+            </article>
+        </div>
+
+        <div class="system-log">
+            <div class="system-log-line log-muted">> [ RESUMEN DEL SITIO ]</div>
+            <div class="system-log-line">> Objetivo: mostrar ideas en accion, no solo discursos.</div>
+            <div class="system-log-line log-cobalt">> Metodo: pregunta clara, experimento corto, aprendizaje documentado.</div>
+            <div class="system-log-line log-cobalt">> Valor: cada laboratorio deja una base util para proyectos reales.</div>
+            <div class="system-log-line log-orange">> Estado: sistema abierto para anadir nuevos labs y aprendizajes.</div>
+        </div>
+    </section>
 
     <script>
-        (function runSymbiosisCanvas() {
-            const canvas = document.getElementById('processCanvas');
-            const phase = document.getElementById('heroPhase');
-            if (!canvas || !phase) return;
+        (function () {
+            document.body.classList.add('fx-ready');
+            const canvas = document.getElementById('ambientCanvas');
+            if (!canvas) return;
 
-            const ctx = canvas.getContext('2d');
+            const ctx = canvas.getContext('2d', { alpha: true });
             if (!ctx) return;
 
-            const phases = [
-                { label: 'FASE 01: IDEAS EN EXPANSIÓN' },
-                { label: 'FASE 02: COLAPSO AL NÚCLEO IA' },
-                { label: 'FASE 03: NÚCLEO IA / DECISIÓN' },
-                { label: 'FASE 04: BIG BANG DE SERVICIOS Y PRODUCTO' }
-            ];
+            const pointer = { x: 0.5, y: 0.35, tx: 0.5, ty: 0.35 };
+            const particles = [];
+            const particleCount = window.innerWidth < 760 ? 14 : 26;
+            let width = 0;
+            let height = 0;
+            let rafId = null;
+            let frameTick = 0;
+            const root = document.documentElement;
+            const parallaxLayers = {
+                mesh: document.querySelector('.impact-mesh'),
+                grid: document.querySelector('.impact-grid'),
+                rings: document.querySelector('.impact-rings')
+            };
+            const sceneSections = Array.from(document.querySelectorAll('.scene-section'));
+            const topNavAnchors = Array.from(document.querySelectorAll('.top-nav-links a[href^="#"]'));
+            const scrollState = {
+                current: window.scrollY || window.pageYOffset || 0,
+                target: window.scrollY || window.pageYOffset || 0
+            };
 
-            let phaseIndex = 0;
-            let centerX = 0;
-            let centerY = 0;
-            let radius = 0;
-            let phaseStartAt = performance.now();
-            let phaseSweepStart = performance.now();
-            const phaseDuration = 5600;
-            const phaseSweepDuration = 1400;
-            const ideaNodes = [
-                { label: 'IDEAS', icon: '◉' },
-                { label: 'CONTEXTO', icon: '◌' },
-                { label: 'INSIGHTS', icon: '◆' },
-                { label: 'ESTRATEGIA', icon: '◍' },
-                { label: 'FOCO', icon: '●' }
-            ];
-            const serviceNodes = [
-                { label: 'SERVICIOS', emblem: 'service', href: '#menu-procesos', tier: 'core' },
-                { label: 'APIs', emblem: 'api', href: '#menu-procesos', tier: 'core' },
-                { label: 'INFRAESTRUCTURA', emblem: 'infra', href: '#menu-procesos', tier: 'high' },
-                { label: 'PRODUCTO', emblem: 'product', href: '#menu-procesos', tier: 'high' },
-                { label: 'GOBERNANZA', emblem: 'governance', href: '#menu-procesos', tier: 'high' },
-                { label: 'AUTOMATIZACIONES', emblem: 'automation', href: '#menu-procesos', tier: 'high' }
-            ];
-            function resizeCanvas() {
+            function resize() {
                 const ratio = Math.max(window.devicePixelRatio || 1, 1);
-                const rect = canvas.getBoundingClientRect();
-                canvas.width = Math.floor(rect.width * ratio);
-                canvas.height = Math.floor(rect.height * ratio);
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = Math.floor(width * ratio);
+                canvas.height = Math.floor(height * ratio);
+                canvas.style.width = width + 'px';
+                canvas.style.height = height + 'px';
                 ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-                centerX = rect.width / 2;
-                centerY = rect.height / 2;
-                radius = Math.min(rect.width, rect.height) * 0.23;
             }
 
-            function drawOutcomeEmblem(x, y, emblem, emphasis) {
-                const outer = emphasis === 'core' ? 38 : 34;
-                const inner = outer - 4;
-                const color = emphasis === 'core' ? 'rgba(214,168,112,0.95)' : 'rgba(196,152,98,0.9)';
+            function makeParticle() {
+                return {
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    r: 1 + Math.random() * 2.8,
+                    vx: (Math.random() - 0.5) * 0.28,
+                    vy: (Math.random() - 0.5) * 0.24,
+                    hue: Math.random() > 0.5 ? 22 : 225,
+                    alpha: 0.14 + Math.random() * 0.26
+                };
+            }
 
-                ctx.save();
-                ctx.translate(x, y);
+            function initParticles() {
+                particles.length = 0;
+                for (let i = 0; i < particleCount; i++) particles.push(makeParticle());
+            }
 
-                ctx.beginPath();
-                ctx.arc(0, 0, outer, 0, Math.PI * 2);
-                ctx.fillStyle = color;
-                ctx.fill();
+            function updatePointer(x, y) {
+                pointer.tx = Math.max(0, Math.min(1, x / width));
+                pointer.ty = Math.max(0, Math.min(1, y / height));
+            }
 
-                ctx.beginPath();
-                ctx.arc(0, 0, inner, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(20, 14, 8, 0.7)';
-                ctx.fill();
+            function draw() {
+                pointer.x += (pointer.tx - pointer.x) * 0.06;
+                pointer.y += (pointer.ty - pointer.y) * 0.06;
 
-                ctx.strokeStyle = 'rgba(255, 240, 220, 0.26)';
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.arc(0, 0, outer, 0, Math.PI * 2);
-                ctx.stroke();
-
-                ctx.strokeStyle = 'rgba(255, 245, 235, 0.95)';
-                ctx.fillStyle = 'rgba(255, 245, 235, 0.95)';
-                ctx.lineWidth = 1.7;
-
-                if (emblem === 'service') {
-                    ctx.beginPath();
-                    ctx.moveTo(-8, -5);
-                    ctx.lineTo(8, -5);
-                    ctx.lineTo(8, 5);
-                    ctx.lineTo(-8, 5);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.beginPath();
-                    ctx.moveTo(-6, -1);
-                    ctx.lineTo(6, -1);
-                    ctx.moveTo(-6, 2);
-                    ctx.lineTo(6, 2);
-                    ctx.stroke();
-                } else if (emblem === 'api') {
-                    ctx.beginPath();
-                    ctx.moveTo(-8, 0);
-                    ctx.lineTo(-2, -6);
-                    ctx.lineTo(4, -6);
-                    ctx.lineTo(8, 0);
-                    ctx.lineTo(4, 6);
-                    ctx.lineTo(-2, 6);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.beginPath();
-                    ctx.moveTo(-3, 0);
-                    ctx.lineTo(3, 0);
-                    ctx.stroke();
-                } else if (emblem === 'infra') {
-                    ctx.strokeRect(-8, -8, 16, 5);
-                    ctx.strokeRect(-8, -1, 16, 5);
-                    ctx.strokeRect(-8, 6, 16, 5);
-                } else if (emblem === 'devops') {
-                    ctx.beginPath();
-                    ctx.arc(-4, 0, 3, 0, Math.PI * 2);
-                    ctx.arc(4, 0, 3, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.beginPath();
-                    ctx.moveTo(-1, -6);
-                    ctx.lineTo(1, -6);
-                    ctx.lineTo(1, 6);
-                    ctx.lineTo(-1, 6);
-                    ctx.closePath();
-                    ctx.fill();
-                } else if (emblem === 'product') {
-                    ctx.beginPath();
-                    ctx.moveTo(0, -8);
-                    ctx.lineTo(2.2, -2.6);
-                    ctx.lineTo(8, -2.6);
-                    ctx.lineTo(3.4, 0.8);
-                    ctx.lineTo(5.2, 7);
-                    ctx.lineTo(0, 3.4);
-                    ctx.lineTo(-5.2, 7);
-                    ctx.lineTo(-3.4, 0.8);
-                    ctx.lineTo(-8, -2.6);
-                    ctx.lineTo(-2.2, -2.6);
-                    ctx.closePath();
-                    ctx.stroke();
-                } else if (emblem === 'governance') {
-                    ctx.beginPath();
-                    ctx.moveTo(-8, 5);
-                    ctx.lineTo(8, 5);
-                    ctx.moveTo(0, -7);
-                    ctx.lineTo(0, 5);
-                    ctx.moveTo(-6, -2);
-                    ctx.lineTo(6, -2);
-                    ctx.stroke();
-                    ctx.beginPath();
-                    ctx.arc(-5, 0, 2, 0, Math.PI * 2);
-                    ctx.arc(5, 0, 2, 0, Math.PI * 2);
-                    ctx.fill();
+                const scrollDelta = scrollState.target - scrollState.current;
+                if (Math.abs(scrollDelta) > 0.08) {
+                    scrollState.current += scrollDelta * 0.09;
                 } else {
-                    ctx.beginPath();
-                    ctx.moveTo(-8, 0);
-                    ctx.lineTo(-2, 0);
-                    ctx.lineTo(0, -4);
-                    ctx.lineTo(4, 4);
-                    ctx.lineTo(8, -4);
-                    ctx.stroke();
-                    ctx.beginPath();
-                    ctx.arc(-8, 0, 1.8, 0, Math.PI * 2);
-                    ctx.arc(0, -4, 1.8, 0, Math.PI * 2);
-                    ctx.arc(4, 4, 1.8, 0, Math.PI * 2);
-                    ctx.arc(8, -4, 1.8, 0, Math.PI * 2);
-                    ctx.fill();
+                    scrollState.current = scrollState.target;
                 }
 
-                ctx.restore();
-            }
-
-            function draw(time) {
-                const width = canvas.clientWidth;
-                const height = canvas.clientHeight;
-                const t = time * 0.001;
-                const phaseElapsed = (time - phaseStartAt) / phaseDuration;
-                const phaseProgress = Math.max(0, Math.min(1, phaseElapsed));
-                const sweepElapsed = (time - phaseSweepStart) / phaseSweepDuration;
-                const sweepProgress = Math.max(0, Math.min(1, sweepElapsed));
+                updateParallax(scrollState.current);
 
                 ctx.clearRect(0, 0, width, height);
 
-                const isIdeaPhase = phaseIndex === 0;
-                const isCollapsePhase = phaseIndex === 1;
-                const isCorePhase = phaseIndex === 2;
-                const isBigBangPhase = phaseIndex === 3;
-                const shock = isBigBangPhase ? phaseProgress : 0;
+                const grad = ctx.createRadialGradient(
+                    width * pointer.x,
+                    height * pointer.y,
+                    60,
+                    width * pointer.x,
+                    height * pointer.y,
+                    Math.max(width, height) * 0.65
+                );
+                grad.addColorStop(0, 'rgba(95,125,255,0.18)');
+                grad.addColorStop(0.45, 'rgba(255,122,54,0.1)');
+                grad.addColorStop(1, 'rgba(0,0,0,0)');
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, 0, width, height);
 
-                const ringA = radius * (0.8 + Math.sin(t * 1.7) * 0.06);
-                const ringB = radius * (1.2 + Math.sin(t * 1.2 + 1.2) * 0.05);
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    p.x += p.vx + (pointer.x - 0.5) * 0.32;
+                    p.y += p.vy + (pointer.y - 0.5) * 0.2;
 
-                ctx.beginPath();
-                ctx.arc(centerX, centerY, ringA, 0, Math.PI * 2);
-                ctx.strokeStyle = 'rgba(16,185,129,0.22)';
-                ctx.lineWidth = 1.4;
-                ctx.stroke();
-
-                ctx.beginPath();
-                ctx.arc(centerX, centerY, ringB, 0, Math.PI * 2);
-                ctx.strokeStyle = 'rgba(126,136,212,0.2)';
-                ctx.lineWidth = 1.2;
-                ctx.stroke();
-
-                for (let i = 0; i < 10; i++) {
-                    const arcStart = t * 0.55 + i * 0.62;
-                    const arcEnd = arcStart + 0.26;
-                    ctx.beginPath();
-                    ctx.arc(centerX, centerY, radius * (1.45 + i * 0.04), arcStart, arcEnd);
-                    ctx.strokeStyle = i % 2 === 0 ? 'rgba(249,115,22,0.18)' : 'rgba(16,185,129,0.15)';
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
-                }
-
-                ctx.beginPath();
-                ctx.arc(centerX, centerY, radius * (0.5 + shock * 0.14), 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(110, 186, 169, ${0.2 + shock * 0.14})`;
-                ctx.fill();
-
-                ctx.beginPath();
-                ctx.arc(centerX, centerY, radius * 0.26, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255,255,255,${0.18 + shock * 0.2})`;
-                ctx.fill();
-
-                const coreFontSize = isCorePhase ? 14 : 12;
-                ctx.font = `700 ${coreFontSize}px 'JetBrains Mono', monospace`;
-                ctx.textAlign = 'center';
-                ctx.fillStyle = isCorePhase ? 'rgba(245, 252, 255, 0.98)' : 'rgba(226, 232, 240, 0.9)';
-                ctx.fillText('IA', centerX, centerY + (isCorePhase ? 5 : 4));
-
-                if (sweepProgress < 1) {
-                    const sweepAngle = -Math.PI / 2 + sweepProgress * Math.PI * 2;
-                    const sweepRadius = radius * 4.8;
-
-                    ctx.save();
-                    ctx.translate(centerX, centerY);
-                    ctx.rotate(sweepAngle);
-
-                    const beamGradient = ctx.createLinearGradient(0, 0, sweepRadius, 0);
-                    beamGradient.addColorStop(0, 'rgba(126,136,212,0.01)');
-                    beamGradient.addColorStop(0.34, 'rgba(16,185,129,0.12)');
-                    beamGradient.addColorStop(1, 'rgba(249,115,22,0)');
+                    if (p.x < -20) p.x = width + 20;
+                    if (p.x > width + 20) p.x = -20;
+                    if (p.y < -20) p.y = height + 20;
+                    if (p.y > height + 20) p.y = -20;
 
                     ctx.beginPath();
-                    ctx.moveTo(0, 0);
-                    ctx.lineTo(sweepRadius, -radius * 0.18);
-                    ctx.lineTo(sweepRadius, radius * 0.18);
-                    ctx.closePath();
-                    ctx.fillStyle = beamGradient;
+                    ctx.fillStyle = `hsla(${p.hue}, 96%, 66%, ${p.alpha})`;
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
                     ctx.fill();
-
-                    ctx.beginPath();
-                    ctx.moveTo(0, 0);
-                    ctx.lineTo(sweepRadius, 0);
-                    ctx.strokeStyle = 'rgba(16,185,129,0.34)';
-                    ctx.lineWidth = 1.2;
-                    ctx.stroke();
-
-                    ctx.restore();
-
-                    const pulseRadius = radius * (1 + sweepProgress * 3.2);
-                    ctx.beginPath();
-                    ctx.arc(centerX, centerY, pulseRadius, 0, Math.PI * 2);
-                    ctx.strokeStyle = `rgba(110,186,169,${0.28 * (1 - sweepProgress)})`;
-                    ctx.lineWidth = 1.4;
-                    ctx.stroke();
                 }
 
-                if (isIdeaPhase || isCollapsePhase || isCorePhase) {
-                    const ideaRadius = isIdeaPhase
-                        ? radius * (2.75 - Math.sin(t * 0.35) * 0.2)
-                        : isCollapsePhase
-                            ? radius * (2.75 - phaseProgress * 2.05)
-                            : radius * 0.72;
-
-                    const ideaAlpha = isCorePhase ? 0.8 : isCollapsePhase ? (0.95 - phaseProgress * 0.2) : 0.95;
-
-                    ideaNodes.forEach((idea, index) => {
-                        const angle = (Math.PI * 2 / ideaNodes.length) * index - Math.PI / 2 + t * 0.12;
-                        const ax = centerX + Math.cos(angle) * ideaRadius;
-                        const ay = centerY + Math.sin(angle) * ideaRadius;
-
-                        ctx.beginPath();
-                        ctx.moveTo(centerX, centerY);
-                        ctx.lineTo(ax, ay);
-                        ctx.strokeStyle = `rgba(126, 136, 212, ${0.2 + ideaAlpha * 0.32})`;
-                        ctx.lineWidth = isCollapsePhase ? 1.4 : 1.1;
-                        ctx.stroke();
-
-                        ctx.beginPath();
-                        ctx.arc(ax, ay, isCorePhase ? 12 : 11, 0, Math.PI * 2);
-                        ctx.fillStyle = `rgba(126, 136, 212, ${0.72 + ideaAlpha * 0.2})`;
-                        ctx.fill();
-
-                        ctx.font = "700 10px 'JetBrains Mono', monospace";
-                        ctx.fillStyle = 'rgba(246, 248, 255, 0.98)';
-                        ctx.fillText(idea.icon, ax, ay + 3);
-
-                        ctx.font = "600 10px 'JetBrains Mono', monospace";
-                        ctx.fillStyle = `rgba(226, 232, 240, ${0.72 + ideaAlpha * 0.24})`;
-                        ctx.fillText(idea.label, ax, ay - 16);
-                    });
+                frameTick += 1;
+                if (frameTick % 2 === 0) {
+                    const maxDist = 110;
+                    const maxDistSq = maxDist * maxDist;
+                    ctx.lineWidth = 1;
+                    for (let i = 0; i < particles.length; i++) {
+                        const a = particles[i];
+                        for (let j = i + 1; j < particles.length; j++) {
+                            const b = particles[j];
+                            const dx = a.x - b.x;
+                            const dy = a.y - b.y;
+                            const distSq = dx * dx + dy * dy;
+                            if (distSq < maxDistSq) {
+                                const dist = Math.sqrt(distSq);
+                                const alpha = (1 - dist / maxDist) * 0.11;
+                                ctx.strokeStyle = `rgba(170, 188, 255, ${alpha})`;
+                                ctx.beginPath();
+                                ctx.moveTo(a.x, a.y);
+                                ctx.lineTo(b.x, b.y);
+                                ctx.stroke();
+                            }
+                        }
+                    }
                 }
 
-                if (isBigBangPhase) {
-                    const serviceVisibility = 0.22 + phaseProgress * 0.78;
-                    const burstRadius = radius * (0.22 + phaseProgress * 2.4);
-
-                    ctx.beginPath();
-                    ctx.arc(centerX, centerY, radius * (1.7 + shock * 2.7), 0, Math.PI * 2);
-                    ctx.strokeStyle = `rgba(196,152,98,${0.26 + serviceVisibility * 0.28})`;
-                    ctx.lineWidth = 2;
-                    ctx.stroke();
-
-                    serviceNodes.forEach((service, index) => {
-                        const angle = (Math.PI * 2 / serviceNodes.length) * index - Math.PI / 2 - t * 0.07;
-                        const sx = centerX + Math.cos(angle) * burstRadius;
-                        const sy = centerY + Math.sin(angle) * burstRadius;
-
-                        ctx.beginPath();
-                        ctx.moveTo(centerX, centerY);
-                        ctx.lineTo(sx, sy);
-                        ctx.strokeStyle = `rgba(196, 152, 98, ${0.18 + serviceVisibility * 0.46})`;
-                        ctx.lineWidth = 1.5;
-                        ctx.stroke();
-
-                        drawOutcomeEmblem(sx, sy, service.emblem, service.tier);
-
-                        ctx.font = "700 11px 'JetBrains Mono', monospace";
-                        ctx.fillStyle = `rgba(226, 232, 240, ${0.3 + serviceVisibility * 0.66})`;
-                        ctx.fillText(service.label, sx, sy - 48);
-                    });
-                }
-
-                requestAnimationFrame(draw);
+                rafId = requestAnimationFrame(draw);
             }
 
-            function rotatePhase() {
-                phaseIndex = (phaseIndex + 1) % phases.length;
-                phase.textContent = phases[phaseIndex].label;
-                phaseStartAt = performance.now();
-                phaseSweepStart = performance.now();
+            function updateParallax(scrollValue) {
+                const scrollY = typeof scrollValue === 'number' ? scrollValue : (window.scrollY || window.pageYOffset || 0);
+                const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
+                const progress = Math.min(1, scrollY / maxScroll);
+                const drift = Math.min(460, scrollY * 0.34);
+                const glow = Math.max(0.52, 0.98 - progress * 0.34);
+
+                root.style.setProperty('--scene-shift', `${drift.toFixed(2)}px`);
+                root.style.setProperty('--scene-glow', glow.toFixed(3));
+                root.style.setProperty('--scroll-progress', progress.toFixed(4));
+                root.style.setProperty('--section-drift', `${(drift * 0.34).toFixed(2)}px`);
+
+                if (parallaxLayers.mesh) parallaxLayers.mesh.style.transform = `translate3d(0, ${drift * 0.52}px, 0)`;
+                if (parallaxLayers.grid) parallaxLayers.grid.style.transform = `translate3d(0, ${drift * 0.37}px, 0)`;
+                if (parallaxLayers.rings) parallaxLayers.rings.style.transform = `translate(-50%, calc(-50% + ${drift * 0.27}px)) scale(${(1 - progress * 0.08).toFixed(3)})`;
+
+                sceneSections.forEach((section) => {
+                    const depth = parseFloat(section.dataset.depth || '0.2');
+                    const rect = section.getBoundingClientRect();
+                    const viewportCenter = window.innerHeight * 0.5;
+                    const sectionCenter = rect.top + rect.height * 0.5;
+                    const centerDelta = (sectionCenter - viewportCenter) / Math.max(window.innerHeight, 1);
+                    const localShift = -(centerDelta * 130 * depth);
+                    const localMix = Math.max(0.26, Math.min(1, 1 - Math.abs(centerDelta) * 1.06));
+                    const localTilt = Math.max(-5, Math.min(5, centerDelta * 5.8));
+
+                    section.style.setProperty('--local-shift', `${localShift.toFixed(2)}px`);
+                    section.style.setProperty('--local-mix', localMix.toFixed(4));
+                    section.style.setProperty('--local-tilt', `${localTilt.toFixed(2)}deg`);
+                });
+
+                let activeSection = null;
+                let nearest = Number.POSITIVE_INFINITY;
+                sceneSections.forEach((section) => {
+                    const rect = section.getBoundingClientRect();
+                    const distance = Math.abs((rect.top + rect.height * 0.5) - (window.innerHeight * 0.45));
+                    if (distance < nearest) {
+                        nearest = distance;
+                        activeSection = section;
+                    }
+                });
+
+                if (activeSection) {
+                    const activeId = activeSection.id;
+                    const activeTone = activeSection.dataset.tone || 'cobalt';
+                    document.body.dataset.tone = activeTone;
+
+                    topNavAnchors.forEach((anchor) => {
+                        const href = anchor.getAttribute('href') || '';
+                        anchor.classList.toggle('is-active', href === `#${activeId}`);
+                    });
+                }
             }
 
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-            phase.textContent = phases[0].label;
-            setInterval(rotatePhase, 5600);
-            requestAnimationFrame(draw);
+            function initReveal() {
+                const targets = document.querySelectorAll('.hero-copy, .hero-preview, .labs-header, .process-card, .labs-card, .learning-card, .system-log');
+                if (!targets.length) return;
+
+                // Keep hero content visible from first paint to avoid an empty first viewport.
+                const heroImmediate = document.querySelectorAll('.hero-copy, .hero-preview');
+                heroImmediate.forEach((el) => el.classList.add('inview'));
+
+                targets.forEach((el, index) => {
+                    el.classList.add('reveal-up');
+                    el.style.transitionDelay = `${Math.min(index * 45, 300)}ms`;
+                });
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('inview');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+
+                targets.forEach((el) => observer.observe(el));
+            }
+
+            function syncScrollTarget() {
+                scrollState.target = window.scrollY || window.pageYOffset || 0;
+            }
+
+            resize();
+            initParticles();
+            syncScrollTarget();
+            scrollState.current = scrollState.target;
+            draw();
+            initReveal();
+
+            window.addEventListener('resize', () => {
+                resize();
+                initParticles();
+                syncScrollTarget();
+                scrollState.current = scrollState.target;
+                updateParallax(scrollState.current);
+            });
+
+            window.addEventListener('scroll', syncScrollTarget, { passive: true });
+
+            window.addEventListener('pointermove', (event) => updatePointer(event.clientX, event.clientY), { passive: true });
+            window.addEventListener('touchmove', (event) => {
+                const touch = event.touches && event.touches[0];
+                if (touch) updatePointer(touch.clientX, touch.clientY);
+            }, { passive: true });
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden && rafId) {
+                    cancelAnimationFrame(rafId);
+                    rafId = null;
+                } else if (!document.hidden && !rafId) {
+                    draw();
+                }
+            });
         })();
     </script>
+
 </body>
 </html>
