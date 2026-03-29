@@ -3,40 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog | De la Ideación a la Conversión Operativa</title>
-    <!-- RUTA CORREGIDA -->
+    <title>Bitacora | Ideacion a conversion</title>
     <link rel="stylesheet" href="../css/rcm-theme.css">
+    <link rel="stylesheet" href="../css/kinetic-engine.css">
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"4bd4d9a2a4fd41ada302cc0f5b3d4526"}'></script>
 </head>
-<body>
-    <div class="container">
-        <a href="../index.html" class="btn-back">&larr; Volver al Motor Central</a>
-        <article class="card-base" style="border-top: 4px solid var(--orange-base); margin-top: 20px;">
-            <header style="margin-bottom: 30px; border-bottom: 1px solid var(--border-main); padding-bottom: 20px;">
-                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                    <span class="tag tag-focus">PROCESO KINETIC</span><span class="tag tag-brand">CORE SYSTEM</span>
-                </div>
-                <h1 style="color: var(--orange-base); font-size: 2.5rem; margin-bottom: 10px; line-height: 1.1;">Del Proceso de Ideación a la Conversión Operativa</h1>
-                <p style="margin: 0; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;">> BITÁCORA DE LABORATORIO // Ideación, Hiperfoco, Diseño Estratégico e IA</p>
-            </header>
-            <section style="color: var(--text-main); line-height: 1.7;">
-                <p>Este laboratorio no busca vender una fórmula cerrada, sino mostrar el proceso real: cómo una idea inicial evoluciona hasta convertirse en una solución operativa. La clave es la trazabilidad entre pensamiento, diseño, estrategia y ejecución.</p>
-                <h2 style="color: var(--text-heading); margin-top: 30px;">1. Ideación: Punto de partida</h2>
-                <p>Todo comienza con una hipótesis clara: contexto, problema y objetivo. Esta fase organiza conocimiento de producto, diseño y arquitectura antes de tomar decisiones técnicas.</p>
-                <h2 style="color: var(--text-heading); margin-top: 30px;">2. Hiperfoco: Colapso hacia una dirección</h2>
-                <p>El hiperfoco permite converger alternativas y convertir complejidad en un diseño estructural coherente. Es el momento en el que la exploración se transforma en ruta de ejecución.</p>
-                <h2 style="color: var(--text-heading); margin-top: 30px;">3. Diseño y Estrategia: Marco de decisión</h2>
-                <p>Con la síntesis definida, se priorizan componentes, secuencia de implementación y criterios de calidad. Aquí se decide qué construir, en qué orden y con qué impacto esperado.</p>
-                <h2 style="color: var(--text-heading); margin-top: 30px;">4. IA Aplicada: Aceleración de la conversión</h2>
-                <p>La IA no sustituye el criterio, lo acelera. Los agentes reducen fricción en implementación y validación, permitiendo pasar de idea a conversión operativa en ciclos más cortos.</p>
-                <div style="background: #000; border: 1px solid var(--emerald-base); border-radius: 8px; padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; margin-top: 40px;">
-                    <div style="color: var(--text-muted);">> [ EVIDENCIA DEL PROCESO ] // LOG DE LABORATORIO</div>
-                    <div style="color: var(--text-main); margin-top: 10px;">> Flujo aplicado: Ideación → Hiperfoco → Diseño/Estrategia → IA → Conversión operativa.</div>
-                    <div style="color: var(--emerald-base); margin-top: 5px;">> Cada iteración deja decisiones trazables y aprendizajes reutilizables.</div>
-                    <div style="color: var(--orange-base); margin-top: 10px; font-weight: bold;">> Resultado: de concepto a implementación en ciclos cortos.</div>
-                </div>
-            </section>
-        </article>
+<body class="hub-index hub-fused-page">
+    <div class="ambient-stage" aria-hidden="true">
+        <canvas id="ambientCanvas"></canvas>
+        <div class="ambient-veil"></div>
+        <div class="ambient-noise"></div>
     </div>
+
+    <header class="top-nav" aria-label="Navegacion principal">
+        <div class="top-nav-inner">
+            <a href="../index.html" class="top-nav-brand" aria-label="Volver al hub">
+                <span class="brand-mark">RCM/ON</span>
+                <span class="brand-name">Bitacora de laboratorio</span>
+            </a>
+            <nav class="top-nav-links">
+                <a href="#bitacora-contexto">Contexto</a>
+                <a href="#bitacora-flujo">Flujo</a>
+                <a href="#bitacora-cierre">Cierre</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-graph hero-impact" aria-hidden="true">
+        <div class="impact-mesh"></div>
+        <div class="impact-grid"></div>
+        <div class="impact-orb impact-orb-a"></div>
+        <div class="impact-orb impact-orb-b"></div>
+        <div class="impact-orb impact-orb-c"></div>
+        <div class="impact-rings"></div>
+    </section>
+
+    <section class="container hero-front scene-section" id="bitacora-contexto" data-tone="orange" data-depth="0.1">
+        <div class="hero-copy">
+            <p class="hero-front-kicker">BITACORA · PROCESO REAL</p>
+            <h1 class="hero-front-title hero-front-title-main">De ideacion a conversion</h1>
+            <p class="hero-front-subtitle">Registro de como una idea pasa por foco, validacion y salida operativa.</p>
+            <div class="home-node-index" aria-label="Indice nodal de bitacora">
+                <a class="home-node home-node-core" href="#bitacora-contexto">Nucleo</a>
+                <a class="home-node" href="#bitacora-flujo">Flujo</a>
+                <a class="home-node" href="#bitacora-cierre">Cierre</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="container processes-section scene-section" id="bitacora-flujo" data-tone="slate" data-depth="0.22">
+        <div class="labs-header">
+            <h2>Flujo aplicado</h2>
+            <p>Secuencia corta, trazable y reutilizable en nuevos laboratorios.</p>
+        </div>
+        <div class="process-flow">
+            <article class="process-card process-card-orange reveal-up inview">
+                <h3 class="process-title">Ideacion</h3>
+                <p class="process-description">Definicion de objetivo, hipotesis y contexto.</p>
+            </article>
+            <article class="process-card process-card-cobalt reveal-up inview">
+                <h3 class="process-title">Hiperfoco</h3>
+                <p class="process-description">Sintesis de alternativas hacia una sola ruta.</p>
+            </article>
+            <article class="process-card process-card-orange reveal-up inview">
+                <h3 class="process-title">Diseño</h3>
+                <p class="process-description">Prioridades tecnicas y de experiencia de uso.</p>
+            </article>
+            <article class="process-card process-card-cobalt reveal-up inview">
+                <h3 class="process-title">Conversion</h3>
+                <p class="process-description">Paso a solucion operativa con aprendizaje activo.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="container log-section scene-section" id="bitacora-cierre" data-tone="emerald" data-depth="0.34">
+        <div class="labs-header">
+            <h2>Cierre de iteracion</h2>
+            <p>Lecciones publicas para el siguiente ciclo.</p>
+        </div>
+        <div class="system-log">
+            <div class="system-log-line log-muted">> [ BITACORA ]</div>
+            <div class="system-log-line">> Idea clara, experimento corto.</div>
+            <div class="system-log-line log-cobalt">> Decisiones con trazabilidad.</div>
+            <div class="system-log-line log-orange">> Resultado operativo incremental.</div>
+        </div>
+    </section>
+
+    <script defer src="../01-hybrid-mind/js/page-fusion.js"></script>
 </body>
 </html>

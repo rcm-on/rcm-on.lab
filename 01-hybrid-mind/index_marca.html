@@ -2,69 +2,93 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>RCM-ON | Hybrid Mind · Marca</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RCM-ON | Hybrid Mind Marca</title>
     <link rel="stylesheet" href="../css/rcm-theme.css">
+    <link rel="stylesheet" href="../css/kinetic-engine.css">
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"4bd4d9a2a4fd41ada302cc0f5b3d4526"}'></script>
 </head>
-<body>
-    <div class="container" style="max-width: 1200px; display: flex; flex-direction: column; align-items: center;">
-        
-        <div style="width: 100%; max-width: 1100px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <a href="../index.html" class="btn-back">&larr; Volver al Hub de Arquitectura</a>
-            <span style="font-family: 'JetBrains Mono'; color: var(--text-dimmed); font-size: 0.8rem;">
-                RCM-ON // Hybrid Mind // Ideación → Hiperfoco → Diseño → IA
-            </span>
-        </div>
-
-        <main>
-            <div class="manifesto-panel panel-rcm">
-                <div class="accent-line-emerald"></div>
-                <div class="logo-placeholder logo-rcm">RCM<span style="color:#64748b">/ON</span></div>
-                <div>
-                    <h2 style="font-size: 2.5rem; letter-spacing: -1px; margin-bottom: 5px;">Fase 01 · Ideación Estratégica</h2>
-                    <h3 class="h3-rcm" style="font-size: 0.9rem; letter-spacing: 2px;">Contexto, Hipótesis y Criterio de Diseño</h3>
-                </div>
-                <p style="color: var(--text-muted); line-height: 1.7;">
-                    El proceso comienza con la ideación: entender contexto, formular hipótesis y ordenar conocimientos de diseño y estrategia. Antes de construir, se define qué problema resolver y con qué criterios.
-                </p>
-                <div class="manifesto-block block-rcm">
-                    <p style="font-size: 0.95rem; color: var(--text-main);">
-                        <strong>Axioma RCM:</strong> Ideación con base empírica y pensamiento sistémico. La claridad estratégica reduce ruido y prepara el terreno para el <em>hiperfoco</em> de ejecución.
-                    </p>
-                </div>
-            </div>
-
-            <div class="manifesto-panel panel-on">
-                <div class="accent-line-orange"></div>
-                <div class="logo-placeholder logo-on">RCM<span style="color:var(--orange-base)">/ON</span></div>
-                <div>
-                    <h2 style="font-size: 2.5rem; letter-spacing: -1px; margin-bottom: 5px;">Fase 02 · Hiperfoco y Síntesis</h2>
-                    <h3 class="h3-on" style="font-size: 0.9rem; letter-spacing: 2px;">Diseño Estratégico + Arquitectura Asistida por IA</h3>
-                </div>
-                <p style="color: var(--text-muted); line-height: 1.7;">
-                    El hiperfoco transforma múltiples ideas en una dirección de diseño coherente. En esta etapa, la IA actúa como acelerador para convertir esa síntesis en decisiones técnicas y entregables.
-                </p>
-                <div class="manifesto-block block-on">
-                    <p style="font-size: 0.95rem; color: var(--text-main);">
-                        <strong>Axioma ON:</strong> Simbiosis aplicada: diseño y estrategia marcan el rumbo; la IA acelera implementación, validación y evolución sin perder criterio.
-                    </p>
-                </div>
-            </div>
-        </main>
-
-        <div style="width: 100%; max-width: 1100px; margin-top: 30px; background: var(--surface-2); border: 1px solid var(--border-main); border-radius: 12px; padding: 30px; text-align: center;">
-            <h3 style="color: var(--text-heading); font-size: 1.2rem; margin-bottom: 10px;">[ SÍNTESIS Y RESULTADO ]</h3>
-            <p style="color: var(--emerald-base); font-family: 'JetBrains Mono', monospace; font-size: 1rem; margin: 0 0 15px 0;">
-                Ideación + Hiperfoco + Diseño Estratégico + IA Aplicada
-            </p>
-            <div style="display: inline-block; background: #000; border: 1px solid var(--orange-base); padding: 15px 25px; border-radius: 8px; text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;">
-                <span style="color: var(--text-muted);">> CASO DE APLICACIÓN:</span><br>
-                <span style="color: var(--text-main);">Desde una idea inicial, se consolida una ruta de diseño y estrategia hasta lograr una solución operativa.</span><br>
-                <span style="color: var(--orange-base);">> La IA reduce fricción en ejecución y acelera el paso de hipótesis a validación.</span><br>
-                <span style="color: var(--emerald-base);">> Estado: laboratorio activo con trazabilidad de decisiones.</span>
-            </div>
-        </div>
-
+<body class="hub-index hub-fused-page">
+    <div class="ambient-stage" aria-hidden="true">
+        <canvas id="ambientCanvas"></canvas>
+        <div class="ambient-veil"></div>
+        <div class="ambient-noise"></div>
     </div>
+
+    <header class="top-nav" aria-label="Navegacion principal">
+        <div class="top-nav-inner">
+            <a href="../index.html" class="top-nav-brand" aria-label="Volver al hub">
+                <span class="brand-mark">RCM/ON</span>
+                <span class="brand-name">Hybrid Mind Marca</span>
+            </a>
+            <nav class="top-nav-links">
+                <a href="#marca-objetivo">Objetivo</a>
+                <a href="#marca-fases">Fases</a>
+                <a href="#marca-resultado">Resultado</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-graph hero-impact" aria-hidden="true">
+        <div class="impact-mesh"></div>
+        <div class="impact-grid"></div>
+        <div class="impact-orb impact-orb-a"></div>
+        <div class="impact-orb impact-orb-b"></div>
+        <div class="impact-orb impact-orb-c"></div>
+        <div class="impact-rings"></div>
+    </section>
+
+    <section class="container hero-front scene-section" id="marca-objetivo" data-tone="cobalt" data-depth="0.08">
+        <div class="hero-copy">
+            <p class="hero-front-kicker">HYBRID MIND · MARCA Y CRITERIO</p>
+            <h1 class="hero-front-title hero-front-title-main">Idea, foco y direccion</h1>
+            <p class="hero-front-subtitle">La marca no es decoracion: es una estructura para decidir y construir con coherencia.</p>
+            <div class="home-node-index" aria-label="Indice nodal de marca">
+                <a class="home-node home-node-core" href="#marca-objetivo">Nucleo</a>
+                <a class="home-node" href="#marca-fases">Fases</a>
+                <a class="home-node" href="#marca-resultado">Resultado</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="container processes-section scene-section" id="marca-fases" data-tone="slate" data-depth="0.2">
+        <div class="labs-header">
+            <h2>Fases de construccion</h2>
+            <p>El flujo integra ideacion, hiperfoco y estrategia aplicada.</p>
+        </div>
+        <div class="process-flow">
+            <article class="process-card process-card-orange reveal-up inview">
+                <h3 class="process-title">Ideacion</h3>
+                <p class="process-description">Contexto y problema con hipotesis inicial medible.</p>
+            </article>
+            <article class="process-card process-card-cobalt reveal-up inview">
+                <h3 class="process-title">Hiperfoco</h3>
+                <p class="process-description">Colapso de opciones hacia una ruta de alta claridad.</p>
+            </article>
+            <article class="process-card process-card-orange reveal-up inview">
+                <h3 class="process-title">Diseno estrategico</h3>
+                <p class="process-description">Secuencia de decisiones segun valor y riesgo.</p>
+            </article>
+            <article class="process-card process-card-cobalt reveal-up inview">
+                <h3 class="process-title">IA aplicada</h3>
+                <p class="process-description">Aceleracion de ejecucion sin perder criterio humano.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="container log-section scene-section" id="marca-resultado" data-tone="emerald" data-depth="0.32">
+        <div class="labs-header">
+            <h2>Resultado</h2>
+            <p>Sintesis util para producto, equipo y decisiones siguientes.</p>
+        </div>
+        <div class="system-log">
+            <div class="system-log-line log-muted">> [ MARCA OPERATIVA ]</div>
+            <div class="system-log-line">> Ideacion + foco + estrategia + IA.</div>
+            <div class="system-log-line log-cobalt">> Del concepto a la ruta ejecutable.</div>
+            <div class="system-log-line log-orange">> Enfoque continuo de laboratorio.</div>
+        </div>
+    </section>
+
+    <script defer src="./js/page-fusion.js"></script>
 </body>
 </html>
