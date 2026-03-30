@@ -1,0 +1,6 @@
+# Ignorar los JS originales, solo subir los ofuscados
+01-hybrid-mind/js/audio-engine.js
+01-hybrid-mind/js/musicxml-parser.js
+01-hybrid-mind/js/score-player.js
+01-hybrid-mind/js/staff-canvas.js
+01-hybrid-mind/js/page-fusion.js
