@@ -19,6 +19,11 @@
         .vol-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--emerald-base); box-shadow: 0 0 6px var(--emerald-glow); }
         .vol-slider::-moz-range-thumb { width: 14px; height: 14px; border: none; border-radius: 50%; background: var(--emerald-base); box-shadow: 0 0 6px var(--emerald-glow); }
         .vol-readout { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--emerald-base); min-width: 36px; text-align: right; }
+        .zoom-control { display: flex; align-items: center; gap: 8px; }
+        .zoom-slider { -webkit-appearance: none; appearance: none; width: 96px; height: 4px; border-radius: 999px; background: linear-gradient(to right, #8ea2ff var(--pct, 40%), rgba(255,255,255,0.12) var(--pct, 40%)); outline: none; cursor: pointer; }
+        .zoom-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: #8ea2ff; box-shadow: 0 0 5px rgba(142,162,255,0.5); }
+        .zoom-slider::-moz-range-thumb { width: 12px; height: 12px; border: none; border-radius: 50%; background: #8ea2ff; box-shadow: 0 0 5px rgba(142,162,255,0.5); }
+        .zoom-readout { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: #c7d2fe; min-width: 34px; text-align: right; }
         .play-demo-btn { background: var(--emerald-surface); color: var(--emerald-base); border: 1px solid var(--emerald-base); border-radius: 6px; padding: 8px 12px; font-family: 'JetBrains Mono', monospace; cursor: pointer; }
         .play-demo-btn.active { background: rgba(249,115,22,0.12); color: var(--orange-base); border-color: var(--orange-base); }
         .octave-controls { display: flex; align-items: center; gap: 6px; }
@@ -30,14 +35,14 @@
         .chord-note-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; padding: 3px 9px; border-radius: 999px; border: 1px solid rgba(95,125,255,0.55); background: rgba(95,125,255,0.14); color: #b8ccff; }
         .chord-name-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; padding: 3px 10px; border-radius: 999px; border: 1px solid rgba(255,122,54,0.55); background: rgba(255,122,54,0.14); color: #ffc8a0; margin-left: auto; }
         .keyboard-zone { border: 1px solid var(--border-main); border-radius: 12px; padding: 14px 14px 14px; background: linear-gradient(160deg, rgba(6, 7, 12, 0.92), rgba(9, 10, 15, 0.72)); overflow-x: auto; overflow-y: hidden; scroll-behavior: smooth; }
-        .keyboard-scale { width: max-content; margin: 0; transform: scale(1); transform-origin: top left; }
+        .keyboard-scale { width: max-content; margin: 0; transform: scale(var(--kb-scale, 1)); transform-origin: top left; transition: transform 0.18s ease; }
         .keyboard { display: flex; position: relative; height: 180px; justify-content: flex-start; margin-top: 12px; }
         .key { position: relative; cursor: pointer; user-select: none; transition: background 0.1s; }
-        .key.white { width: 55px; height: 180px; background: linear-gradient(to bottom, #cbd5e1, #94a3b8); border: 1px solid #030305; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; z-index: 1; box-shadow: inset 0 -4px 8px rgba(0,0,0,0.3); }
+        .key.white { width: 42px; height: 180px; background: linear-gradient(to bottom, #dbe4ef, #9aa9be); border: 1px solid #030305; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; z-index: 1; box-shadow: inset 0 -4px 8px rgba(0,0,0,0.3); }
         .key.white:hover { background: #e2e8f0; }
-        .key.white.active { background: #f8fafc; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 0 12px var(--emerald-glow); border-bottom: 2px solid var(--emerald-base); }
-        .key.black { width: 35px; height: 110px; background: linear-gradient(to bottom, #1e1e24, #000); border: 1px solid #333; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; position: absolute; z-index: 2; margin-left: -17.5px; box-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-        .key.black.active { background: #111; box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), 0 0 8px var(--emerald-glow); border-bottom: 2px solid var(--emerald-base); }
+        .key.white.active { background: #f8fafc; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 0 10px rgba(16,185,129,0.35); border-bottom: 2px solid var(--emerald-base); }
+        .key.black { width: 26px; height: 112px; background: linear-gradient(to bottom, #222634, #040507); border: 1px solid #181c26; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; position: absolute; z-index: 3; margin-left: -13px; box-shadow: 2px 2px 4px rgba(0,0,0,0.55); }
+        .key.black.active { background: linear-gradient(to bottom, #2e3547, #0b0f15); transform: translateY(1px); box-shadow: inset 0 1px 2px rgba(255,255,255,0.08), inset 0 -2px 6px rgba(0,0,0,0.6), 0 0 14px rgba(16,185,129,0.3); border-color: #0f172a; }
         .osc-panel { margin-top: 0; border: 1px solid var(--border-main); border-radius: 12px; padding: 18px; background: linear-gradient(160deg, rgba(5, 6, 10, 0.92), rgba(10, 12, 18, 0.7)); }
         .osc-head { display: flex; justify-content: space-between; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px; }
         .osc-canvas { width: 100%; height: 220px; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; background: rgba(2,3,6,0.8); box-shadow: inset 0 0 24px rgba(0,0,0,0.45); }
@@ -58,6 +63,22 @@
         .compose-btn { background: rgba(16,185,129,0.12); color: var(--emerald-base); border: 1px solid var(--emerald-base); border-radius: 6px; padding: 8px 10px; font-family: 'JetBrains Mono', monospace; cursor: pointer; }
         .play-hint { margin-top: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; }
         .play-hint strong { color: var(--text-main); }
+        .synth-panel { position: relative; overflow: hidden; }
+        .synth-panel::after {
+            content: 'AI LAB';
+            position: absolute;
+            right: -12px;
+            bottom: -12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(2.2rem, 8vw, 6.6rem);
+            line-height: 1;
+            letter-spacing: 0.08em;
+            color: rgba(16, 185, 129, 0.07);
+            font-weight: 800;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .synth-panel > * { position: relative; z-index: 1; }
         /* ─── Score / Staff zone ─────────────────────────────────────────────── */
         .score-zone { margin-top: 20px; border: 1px solid var(--border-main); border-radius: 12px; overflow: hidden; background: linear-gradient(160deg, rgba(4,5,10,0.94), rgba(8,9,14,0.78)); }
         .score-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); font-family: 'JetBrains Mono', monospace; font-size: 0.76rem; color: var(--text-muted); background: rgba(255,255,255,0.02); }
@@ -81,18 +102,23 @@
     <div class="container">
         <a href="../index.html" class="btn-back">&larr; Volver al Motor Central</a>
         <div class="synth-panel">
-            <h1 style="color: var(--emerald-base); margin-bottom: 20px;">Piano de Cola — Motor Acústico</h1>
+            <h1 style="color: var(--emerald-base); margin-bottom: 20px;">Piano Lab AI — Sonido & Automatización</h1>
             <div class="metaphor-box">
-                <strong>EL SONIDO NACE EN LA FÍSICA:</strong> Un piano de cola convierte energía mecánica en onda acústica: el martillo golpea la cuerda → la cuerda vibra y genera su serie armónica natural → la tabla armónica amplifica y colorea el timbre → el aire lo transporta. Cada muestra es una grabación real de ese proceso en condiciones de concierto.<br>
-                Motor de creación Bottom-Up: nace en la nota, toma expresión y contexto, se organiza en escala/acorde y se despliega como sistema sonoro completo.
+                <strong>DE IDEA A PRODUCTO EN HORAS, NO SEMANAS:</strong> Este laboratorio ejemplifica cómo la IA acelera el ciclo completo: ideación, modelado y despliegue. El motor de sonido es prueba tangible: de una hipótesis musical a un prototipo funcional en tiempo real, con IA orquestando automatización, análisis y validación. <br>
+                Enfoque: idear → modelar → automatizar → validar, todo en un mismo flujo técnico y creativo.
             </div>
             <div class="controls-header">
-                <span style="font-family: 'JetBrains Mono'; color: var(--text-muted);">GRAND CONCERT — Piano Real Muestreado</span>
+                <span style="font-family: 'JetBrains Mono'; color: var(--text-muted);">RCM-ON LAB / GRAND CONCERT / IA COMO ORQUESTADOR DE PRODUCCIÓN</span>
                 <div class="controls-right">
                     <div class="vol-control" aria-label="Control de volumen">
                         <span class="vol-label">Vol</span>
                         <input type="range" id="volSlider" class="vol-slider" min="0" max="1" step="0.01" value="0.82" style="--pct:82%">
                         <span id="volReadout" class="vol-readout">82%</span>
+                    </div>
+                    <div class="zoom-control" aria-label="Zoom del teclado">
+                        <span class="vol-label">Zoom</span>
+                        <input type="range" id="zoomSlider" class="zoom-slider" min="0.65" max="1.25" step="0.01" value="1" style="--pct:58%">
+                        <span id="zoomReadout" class="zoom-readout">100%</span>
                     </div>
                     <div class="octave-controls" aria-label="Control de octava">
                         <button id="octaveDownBtn" class="octave-btn" type="button">-</button>
@@ -107,33 +133,7 @@
                 <div class="keyboard-zone">
                     <div id="chordIndicator" class="chord-indicator"></div>
                     <div class="keyboard-scale">
-                        <div class="keyboard">
-                            <div class="key white" data-note="130.81" data-label="C3"></div>
-                            <div class="key black" data-note="138.59" data-label="C#3" style="left: 55px;"></div>
-                            <div class="key white" data-note="146.83" data-label="D3"></div>
-                            <div class="key black" data-note="155.56" data-label="D#3" style="left: 110px;"></div>
-                            <div class="key white" data-note="164.81" data-label="E3"></div>
-                            <div class="key white" data-note="174.61" data-label="F3"></div>
-                            <div class="key black" data-note="185.00" data-label="F#3" style="left: 220px;"></div>
-                            <div class="key white" data-note="196.00" data-label="G3"></div>
-                            <div class="key black" data-note="207.65" data-label="G#3" style="left: 275px;"></div>
-                            <div class="key white" data-note="220.00" data-label="A3"></div>
-                            <div class="key black" data-note="233.08" data-label="A#3" style="left: 330px;"></div>
-                            <div class="key white" data-note="246.94" data-label="B3"></div>
-                            <div class="key white" data-note="261.63" data-label="C4"></div>
-                            <div class="key black" data-note="277.18" data-label="C#4" style="left: 440px;"></div>
-                            <div class="key white" data-note="293.66" data-label="D4"></div>
-                            <div class="key black" data-note="311.13" data-label="D#4" style="left: 495px;"></div>
-                            <div class="key white" data-note="329.63" data-label="E4"></div>
-                            <div class="key white" data-note="349.23" data-label="F4"></div>
-                            <div class="key black" data-note="369.99" data-label="F#4" style="left: 605px;"></div>
-                            <div class="key white" data-note="392.00" data-label="G4"></div>
-                            <div class="key black" data-note="415.30" data-label="G#4" style="left: 660px;"></div>
-                            <div class="key white" data-note="440.00" data-label="A4"></div>
-                            <div class="key black" data-note="466.16" data-label="A#4" style="left: 715px;"></div>
-                            <div class="key white" data-note="493.88" data-label="B4"></div>
-                            <div class="key white" data-note="523.25" data-label="C5"></div>
-                        </div>
+                        <div id="keyboard88" class="keyboard"></div>
                     </div>
                 </div>
                 <div class="osc-panel">
@@ -161,6 +161,21 @@
                     <div class="flow-step"><b>ACORDE</b><span id="flowChord">Triad</span></div>
                 </div>
                 <div class="compose-row">
+                    <label for="rootSelect">Tónica</label>
+                    <select id="rootSelect">
+                        <option value="C" selected>C</option>
+                        <option value="C#">C#</option>
+                        <option value="D">D</option>
+                        <option value="D#">D#</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="F#">F#</option>
+                        <option value="G">G</option>
+                        <option value="G#">G#</option>
+                        <option value="A">A</option>
+                        <option value="A#">A#</option>
+                        <option value="B">B</option>
+                    </select>
                     <label for="scaleSelect">Escala</label>
                     <select id="scaleSelect">
                         <option value="minor" selected>Minor</option>
@@ -185,7 +200,7 @@
                     </select>
                     <button id="buildChordBtn" class="compose-btn" type="button">Construir acorde</button>
                 </div>
-                <p class="play-hint"><strong>Tip:</strong> toca acordes con el teclado del PC (A-W-S-E-D-F-T-G-Y-H-U-J-K...) y usa <strong>Espacio</strong> como sustain.</p>
+                <p class="play-hint"><strong>Lab:</strong> combina teclado físico/PC, tónica, escala y voicing para testear decisiones armónicas antes de producir. <strong>Espacio</strong> activa sustain.</p>
             </div>
 
             <!-- PARTITURA ─────────────────────────────────────────── -->
@@ -196,7 +211,8 @@
                         <label class="score-btn" for="xmlFileInput" title="Importar MusicXML (.xml / .musicxml)">&#128196;&nbsp;Importar MusicXML</label>
                         <input type="file" id="xmlFileInput" accept=".xml,.musicxml" style="display:none">
                         <button id="scorePlayBtn" class="score-btn" disabled>&#9654;&nbsp;Reproducir</button>
-                        <button id="scoreStopBtn" class="score-btn" disabled>&#9632;&nbsp;Stop</button>
+                        <button id="scoreStopBtn" class="score-btn" disabled>&#9632;&nbsp;Parar</button>
+                        <button id="loadAiStudyBtn" class="score-btn" type="button">Cargar estudio IA</button>
                         <span id="scoreInfo"></span>
                     </div>
                 </div>
@@ -220,11 +236,11 @@
         compressor.release.value = 0.2;
 
         const convolver = audioCtx.createConvolver();
-        convolver.buffer = createImpulseResponse(audioCtx, 1.35, 2.4);
+        convolver.buffer = createImpulseResponse(audioCtx, 2.4, 2.1);
         const reverbSend = audioCtx.createGain();
-        reverbSend.gain.value = 0.18;
+        reverbSend.gain.value = 0.31;
         const dryGain = audioCtx.createGain();
-        dryGain.gain.value = 0.92;
+        dryGain.gain.value = 0.88;
 
         const analyser = audioCtx.createAnalyser();
         analyser.fftSize = 2048;
@@ -270,6 +286,10 @@
             volSlider.style.setProperty('--pct', pct + '%');
         });
         const playDemoBtn = document.getElementById('playDemoBtn');
+        const zoomSlider = document.getElementById('zoomSlider');
+        const zoomReadout = document.getElementById('zoomReadout');
+        const keyboardScale = document.querySelector('.keyboard-scale');
+        const rootSelect = document.getElementById('rootSelect');
         const scaleSelect = document.getElementById('scaleSelect');
         const chordSelect = document.getElementById('chordSelect');
         const buildChordBtn = document.getElementById('buildChordBtn');
@@ -293,6 +313,13 @@
         const octaveDownBtn = document.getElementById('octaveDownBtn');
         const octaveUpBtn = document.getElementById('octaveUpBtn');
         const octaveReadout = document.getElementById('octaveReadout');
+        const keyboardEl = document.getElementById('keyboard88');
+        const rootSemitone = {
+            C: 0, 'C#': 1, D: 2, 'D#': 3, E: 4, F: 5,
+            'F#': 6, G: 7, 'G#': 8, A: 9, 'A#': 10, B: 11
+        };
+        const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+        const blackClasses = new Set([1, 3, 6, 8, 10]);
 
         const scaleIntervals = {
             major: [0, 2, 4, 5, 7, 9, 11],
@@ -315,11 +342,55 @@
                 : motorLabels[currentMotorKey];
             oscReadout.textContent = `Nota: ${currentNoteLabel} | Motor: ${motorName}`;
             flowEngine.textContent = motorName;
-            flowScale.textContent = 'C ' + scaleSelect.value.charAt(0).toUpperCase() + scaleSelect.value.slice(1);
+            flowScale.textContent = `${rootSelect.value} ` + scaleSelect.value.charAt(0).toUpperCase() + scaleSelect.value.slice(1);
             flowChord.textContent = chordSelect.value.charAt(0).toUpperCase() + chordSelect.value.slice(1);
         }
 
+        function applyKeyboardZoom(value) {
+            if (!keyboardScale) return;
+            const zoom = Math.max(0.65, Math.min(1.25, value));
+            keyboardScale.style.setProperty('--kb-scale', zoom.toFixed(2));
+            const pct = Math.round(((zoom - 0.65) / (1.25 - 0.65)) * 100);
+            zoomSlider.style.setProperty('--pct', `${pct}%`);
+            zoomReadout.textContent = `${Math.round(zoom * 100)}%`;
+        }
+
         function updateMotorToggleUI() { /* single engine — no toggle needed */ }
+
+        function midiToFrequency(midi) {
+            return 440 * Math.pow(2, (midi - 69) / 12);
+        }
+
+        function midiToLabel(midi) {
+            const pc = ((midi % 12) + 12) % 12;
+            const octave = Math.floor(midi / 12) - 1;
+            return `${noteNames[pc]}${octave}`;
+        }
+
+        function buildFullKeyboard() {
+            if (!keyboardEl) return;
+            keyboardEl.innerHTML = '';
+            let whiteIndex = 0;
+            const whiteWidth = 42;
+
+            for (let midi = 21; midi <= 108; midi++) {
+                const pc = ((midi % 12) + 12) % 12;
+                const isBlack = blackClasses.has(pc);
+                const key = document.createElement('div');
+                key.className = `key ${isBlack ? 'black' : 'white'}`;
+                key.dataset.note = midiToFrequency(midi).toFixed(4);
+                key.dataset.label = midiToLabel(midi);
+                key.dataset.midi = String(midi);
+
+                if (isBlack) {
+                    key.style.left = `${whiteIndex * whiteWidth}px`;
+                } else {
+                    whiteIndex += 1;
+                }
+
+                keyboardEl.appendChild(key);
+            }
+        }
 
         function refreshKeyboardReference() {
             keyElements = Array.from(document.querySelectorAll('.key'));
@@ -503,6 +574,57 @@
             return Math.min(0.92, 0.92 / Math.max(1, active * 0.55 + 0.45));
         }
 
+        function midiFromFrequency(freq) {
+            return Math.round(69 + 12 * Math.log2(freq / 440));
+        }
+
+        function pitchClassFromFrequency(freq) {
+            return ((midiFromFrequency(freq) % 12) + 12) % 12;
+        }
+
+        function detectChordName(activeFreqs) {
+            if (activeFreqs.length < 2) return '--';
+            const pcs = [...new Set(activeFreqs.map((freq) => pitchClassFromFrequency(freq)))].sort((a, b) => a - b);
+            const shapes = [
+                { suffix: 'maj', intervals: [0, 4, 7] },
+                { suffix: 'min', intervals: [0, 3, 7] },
+                { suffix: 'sus2', intervals: [0, 2, 7] },
+                { suffix: 'sus4', intervals: [0, 5, 7] },
+                { suffix: '7', intervals: [0, 4, 7, 10] },
+                { suffix: 'maj7', intervals: [0, 4, 7, 11] },
+                { suffix: 'min7', intervals: [0, 3, 7, 10] }
+            ];
+
+            for (let i = 0; i < pcs.length; i++) {
+                const root = pcs[i];
+                const normalized = pcs.map((pc) => (pc - root + 12) % 12).sort((a, b) => a - b);
+                for (const shape of shapes) {
+                    if (shape.intervals.length !== normalized.length) continue;
+                    if (shape.intervals.every((intv, idx) => intv === normalized[idx])) {
+                        return `${noteNames[root]}${shape.suffix === 'maj' ? '' : shape.suffix}`;
+                    }
+                }
+            }
+            return `${noteNames[pcs[0]]} cluster`;
+        }
+
+        function updateChordIndicator() {
+            if (!chordIndicator) return;
+            const freqs = Object.keys(activeNotes).map(Number).sort((a, b) => a - b);
+            if (!freqs.length) {
+                chordIndicator.innerHTML = '';
+                return;
+            }
+            const tags = freqs.map((freq) => {
+                const midi = midiFromFrequency(freq);
+                const pc = ((midi % 12) + 12) % 12;
+                const oct = Math.floor(midi / 12) - 1;
+                return `<span class="chord-note-tag">${noteNames[pc]}${oct}</span>`;
+            }).join('');
+            const chordName = detectChordName(freqs);
+            chordIndicator.innerHTML = `${tags}<span class="chord-name-tag">${chordName}</span>`;
+        }
+
         function playSampleTone(freq, keyElement) {
             const now = audioCtx.currentTime;
             const anchor = getNearestSampleAnchor(freq);
@@ -521,12 +643,15 @@
 
             const tonalFilter = audioCtx.createBiquadFilter();
             tonalFilter.type = 'lowpass';
-            tonalFilter.frequency.value = Math.min(12000, 5200 + freq * 5.1);
-            tonalFilter.Q.value = 0.55;
+            tonalFilter.frequency.value = Math.min(12000, 6200 + freq * 6.1);
+            tonalFilter.Q.value = 0.62;
+
+            const resonators = createPianoResonators(freq);
 
             source.connect(noteGain);
             noteGain.connect(tonalFilter);
-            tonalFilter.connect(masterGain);
+            tonalFilter.connect(resonators.input);
+            resonators.output.connect(masterGain);
             source.start(now);
 
             const resolvedKeyElement = keyElement || resolveKeyElement(freq);
@@ -535,7 +660,8 @@
                 keyElement: resolvedKeyElement,
                 noteGain,
                 filterNode: tonalFilter,
-                release: 0.24
+                resonatorOutput: resonators.output,
+                release: 0.44
             };
 
             if (resolvedKeyElement) resolvedKeyElement.classList.add('active');
@@ -603,6 +729,10 @@
                 if (note.sampleSource) {
                     note.sampleSource.stop(now + releaseTime + 0.02);
                 }
+                setTimeout(() => {
+                    note.filterNode?.disconnect();
+                    note.resonatorOutput?.disconnect();
+                }, Math.ceil((releaseTime + 0.08) * 1000));
 
                 const playedKey = keyElement || activeNotes[freq].keyElement;
                 if (playedKey) playedKey.classList.remove('active');
@@ -616,6 +746,7 @@
                 updateReadout();
             }
         }
+        buildFullKeyboard();
         refreshKeyboardReference();
         keyElements.forEach((key) => {
             key.dataset.baseNote = key.dataset.note;
@@ -635,8 +766,11 @@
             'Digit1','Digit2','Digit3','Digit4','Digit5'
         ];
         const keyCodeToElement = new Map();
-        keyElements.forEach((key, index) => {
-            if (keyboardCodes[index]) keyCodeToElement.set(keyboardCodes[index], key);
+        const startMidiForTyping = 48; // C3
+        keyboardCodes.forEach((code, index) => {
+            const midi = startMidiForTyping + index;
+            const key = keyElements.find((el) => parseInt(el.dataset.midi, 10) === midi);
+            if (key) keyCodeToElement.set(code, key);
         });
 
         window.addEventListener('keydown', (event) => {
@@ -750,21 +884,43 @@
 
         function playBuiltChord() {
             stopAllNotes();
-            const degrees = chordDegrees(chordSelect.value);
-            const intervals = scaleIntervals[scaleSelect.value] || scaleIntervals.minor;
-            degrees.forEach((degree, idx) => {
-                const semi = degreeToSemitone(degree, intervals);
-                const freq = currentFreq * semitoneToRatio(semi);
-                setTimeout(() => playTone(freq), idx * 25);
-                setTimeout(() => stopTone(freq), 980 + idx * 20);
-            });
+            const rootPc = rootSemitone[rootSelect.value] ?? 0;
+            const rootMidi = 60 + rootPc;
+            const formulas = {
+                triad: [0, 4, 7],
+                sus2: [0, 2, 7],
+                sus4: [0, 5, 7],
+                seventh: [0, 4, 7, 10]
+            };
+
+            let intervals = formulas[chordSelect.value] || formulas.triad;
+            // If the selected scale is minor-like, use minor color for triad/seventh.
+            const isMinorContext = ['minor', 'dorian', 'phrygian', 'aeolian', 'locrian', 'harmonic-minor', 'melodic-minor', 'pentatonic-minor', 'blues'].includes(scaleSelect.value);
+            if (isMinorContext && chordSelect.value === 'triad') intervals = [0, 3, 7];
+            if (isMinorContext && chordSelect.value === 'seventh') intervals = [0, 3, 7, 10];
+
+            const frequencies = intervals.map((intv) => 440 * Math.pow(2, ((rootMidi + intv) - 69) / 12));
+            frequencies.forEach((freq) => playTone(freq));
+            setTimeout(() => {
+                frequencies.forEach((freq) => stopTone(freq));
+            }, 2550);
             flowChord.textContent = chordSelect.value.charAt(0).toUpperCase() + chordSelect.value.slice(1);
-            flowScale.textContent = 'C ' + scaleSelect.value.charAt(0).toUpperCase() + scaleSelect.value.slice(1);
+            flowScale.textContent = `${rootSelect.value} ` + scaleSelect.value.charAt(0).toUpperCase() + scaleSelect.value.slice(1);
         }
 
         buildChordBtn.addEventListener('click', playBuiltChord);
+        rootSelect.addEventListener('change', updateReadout);
         scaleSelect.addEventListener('change', updateReadout);
         chordSelect.addEventListener('change', updateReadout);
+
+        if (zoomSlider && zoomReadout) {
+            zoomSlider.addEventListener('input', () => {
+                applyKeyboardZoom(parseFloat(zoomSlider.value));
+            });
+            const initialZoom = window.innerWidth <= 560 ? 0.80 : (window.innerWidth <= 1100 ? 0.92 : 1.0);
+            zoomSlider.value = initialZoom.toFixed(2);
+            applyKeyboardZoom(parseFloat(zoomSlider.value));
+        }
 
         function resizeOscCanvas() {
             if (!oscCtx) return;
@@ -849,6 +1005,7 @@
         const playBtn   = document.getElementById('scorePlayBtn');
         const stopBtn   = document.getElementById('scoreStopBtn');
         const infoEl    = document.getElementById('scoreInfo');
+        const loadAiStudyBtn = document.getElementById('loadAiStudyBtn');
 
         const staff  = new StaffCanvas(staffEl);
         let   player = null;
@@ -856,6 +1013,31 @@
 
         // freq → nearest MIDI note number
         function freqToMidi(freq) { return Math.round(Math.log2(freq / 440) * 12 + 69); }
+
+        function buildAiStudyEvents() {
+            // Original laboratorio: progresion modal lenta para test de simbiosis IA + ejecucion.
+            const progression = [
+                [57, 60, 64], // A3 C4 E4
+                [53, 57, 60], // F3 A3 C4
+                [60, 64, 67], // C4 E4 G4
+                [55, 59, 62], // G3 B3 D4
+                [57, 60, 64],
+                [53, 57, 60],
+                [60, 64, 67],
+                [55, 59, 62]
+            ];
+            const beatMs = 980;
+            const chordDur = Math.round(beatMs * 2.55);
+            const events = [];
+
+            progression.forEach((chord, i) => {
+                const t = i * beatMs * 2;
+                chord.forEach((midi) => {
+                    events.push({ time: t, midi, duration: chordDur });
+                });
+            });
+            return events;
+        }
 
         // ─── Main rAF loop ──────────────────────────────────────────────
         (function loop() {
@@ -887,6 +1069,15 @@
             stopBtn.disabled = true;
             playBtn.textContent = '\u25b6\u00a0Reproducir';
             playBtn.classList.remove('active');
+        }
+
+        function loadAiStudy() {
+            const events = buildAiStudyEvents();
+            loadScore(events);
+            const totalSec = (player.totalMs / 1000).toFixed(1);
+            infoEl.textContent = `${events.length} notas · ${totalSec}s · estudio IA cargado`;
+            dropZone.classList.add('loaded');
+            dropZone.innerHTML = `<strong>AI-Lab Study</strong> &mdash; ${events.length}&nbsp;notas&nbsp;&nbsp;${totalSec}s`;
         }
 
         async function handleFile(file) {
@@ -939,6 +1130,7 @@
         });
 
         fileInput.addEventListener('change', () => handleFile(fileInput.files[0]));
+        loadAiStudyBtn?.addEventListener('click', loadAiStudy);
 
         dropZone.addEventListener('dragover',  e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
         dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
